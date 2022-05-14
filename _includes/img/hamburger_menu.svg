@@ -1,0 +1,78 @@
+<svg
+   viewBox="0 0 64.0 64.0"
+   version="1.1"
+   aria-label="{{ alt_text }}"
+   id="hamburger_menu_root"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <style>
+#hamburger_menu_root {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+
+    transition: transform 0.4s ease;
+}
+
+#hamburger_menu_root .rect {
+    opacity:1;
+    fill: var(--primary-text-color);
+    cursor: pointer;
+
+    transform: translate(0, 0);
+    transition: transform 0.5s ease;
+}
+
+#hamburger_menu_root #top_rect {
+    transform-origin: 10px 10px;
+    --final-transform: translate(10px, 0px) rotate(45deg) scale(1.2, 0.6);
+}
+
+#hamburger_menu_root #mid_rect {
+    transform-origin: 5px 32px;
+    --final-transform: translate(7px, 24px) rotate(-45deg) scale(1.2, 0.6);
+}
+
+#hamburger_menu_root #bot_rect {
+    transform-origin: 55px 56px;
+
+    --final-transform: translate(-5px, 0px) rotate(48deg) scale(0, 0);
+}
+
+#hamburger_menu_root.close_icon .rect {
+    transform: var(--final-transform);
+}
+
+#hamburger_menu_root:hover,
+        *:focus-visible > #hamburger_menu_root {
+    transform: scale(1.1);
+}
+  </style>
+  <g
+     id="layer1">
+    <rect
+       id="top_rect"
+       width="43"
+       height="9"
+       x="10"
+       y="10"
+       ry="4.5"
+       class="rect" />
+    <rect
+       id="mid_rect"
+       width="43"
+       height="9"
+       x="10"
+       y="26.391266"
+       ry="4.5"
+       class="rect" />
+    <rect
+       id="bot_rect"
+       width="43"
+       height="9"
+       x="10"
+       y="44"
+       ry="4.5"
+       class="rect " />
+  </g>
+</svg>

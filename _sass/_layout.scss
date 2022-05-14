@@ -78,7 +78,7 @@ body {
     transition: opacity 0.2s ease;
 }
 
-.linkToHeaderContainer:hover {
+.linkToHeaderContainer:hover, .linkToHeaderContainer:focus-within {
     opacity: 1;
 }
 

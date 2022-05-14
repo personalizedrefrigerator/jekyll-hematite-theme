@@ -1,6 +1,10 @@
 @charset "utf-8";
 
 nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+
     background-color: var(--primary-background-color);
     font-size: var(--nav-font-size);
     color: var(--primary-text-color);
@@ -18,12 +22,13 @@ nav {
     }
 
     #toggle_sidebar_btn {
-        background-color: var(--secondary-background-color);
-        border-radius: 10px;
-        border: none;
-        box-shadow: 0 0 1px var(--shadow-color-light);
         margin-right: 10px;
-
-        color: var(--primary-text-color);
     }
+}
+
+// To make space for the navigation bar, add padding to
+// hash links. See
+// https://gomakethings.com/how-to-prevent-anchor-links-from-scrolling-behind-a-sticky-header-with-one-line-of-css/
+h1, h2, h3, h4, h5, h6 {
+    scroll-margin-top: 2em;
 }

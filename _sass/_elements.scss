@@ -7,6 +7,21 @@ main a:visited {
     color: var(--visited-link-color);
 }
 
+button {
+    background-color: var(--secondary-background-color);
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 1px var(--shadow-color-light);
+
+    color: var(--primary-text-color);
+
+    transition: box-shadow 0.5s ease;
+}
+
+button:hover {
+    box-shadow: 0px 0px 3px var(--shadow-color-light);
+}
+
 main code, main pre {
     background-color: var(--code-background-color);
     padding: 4px;
