@@ -27,7 +27,7 @@ main {
 // Add additional padding — notifictions that appear at the bottom of the
 // screen should be ignorable.
 body {
-    padding-bottom: 200px;
+    padding-bottom: 140px;
 }
 
 .pageAlert {
@@ -92,6 +92,10 @@ body {
         padding: 0;
 
         background-color: var(--primary-background-color);
+    }
+
+    body {
+        padding-bottom: 140px;
     }
 
     // Move the header links to the margin
