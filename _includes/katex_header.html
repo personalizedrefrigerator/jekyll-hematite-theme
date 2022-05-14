@@ -1,28 +1,25 @@
+
 <!--
     Include KaTeX resources/scripts
     KaTeX can be enabled with page.katex.
 -->
+
 {% if page.katex %}
 
-<!-- See https://katex.org/docs/browser.html#starter-template -->
+<!-- See the releases tab on https://github.com/KaTeX/KaTeX  -->
 <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"
-        integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB"
-        crossorigin="anonymous"/>
+        href="{{ "assets/plugin/katex/katex.min.css" | relative_url }}"
+        />
 
 <script
         defer
-        src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
-        integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p"
-        crossorigin="anonymous">
+        src="{{ "assets/plugin/katex/katex.min.js" | relative_url }}">
 </script>
 
 <script
         defer
-        src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"
-        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
-        crossorigin="anonymous"
+        src="{{ "assets/plugin/katex/contrib/auto-render.min.js" | relative_url }}"
         onload="renderMathInElement(document.body);">
 </script>
 
