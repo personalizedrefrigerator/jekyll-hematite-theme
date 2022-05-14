@@ -1,0 +1,16 @@
+// Definitions of animation keyframes
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes grow-in {
+    0% { transform: scale(1, 0); transform-origin: bottom center; }
+    100% { transform: scale(1, 1); transform-origin: bottom center; }
+}
+
+@keyframes shrink-out {
+    0% { transform: scale(1, 1); transform-origin: bottom center; }
+    100% { transform: scale(1, 0); transform-origin: bottom center; }
+}

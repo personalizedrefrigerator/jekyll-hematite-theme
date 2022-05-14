@@ -1,0 +1,101 @@
+@charset "utf-8";
+
+$serif-font: 'FoulisGreek', 'EB Garamond', 'TeX Gyre Bonum', serif;
+
+main {
+    box-shadow: 1px 1px 3px var(--shadow-color-light);
+    color: var(--primary-text-color);
+    background-color: var(--primary-background-color);
+    font-size: $font-size-main;
+    font-family: $serif-font;
+
+    max-width: $site-content-preferred-width;
+    padding-left: $content-main-padding;
+    padding-right: $content-main-padding;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    // Center
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+:root {
+    background-color: var(--secondary-background-color);
+}
+
+.pageAlert {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    box-shadow: 0px -1px 1px var(--shadow-color-light);
+    background-color: var(--color-alert-background);
+    color: var(--color-alert-foreground);
+
+    font-family: $serif-font; 
+    font-size: 14pt;
+
+    padding: 20px;
+    animation: grow-in 0.7s ease 1;
+}
+
+.pageAlert > :first-child:before {
+    content: "❕";
+    text-shadow: 0px 0px 1px var(--shadow-color-light);
+
+    padding: 7px;
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+
+    border-radius: 100%;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+.pageAlert.closing {
+    animation: shrink-out 0.5s ease 1;
+}
+
+main a {
+    color: var(--link-color);
+}
+
+main a:visited {
+    color: var(--visited-link-color);
+}
+
+.linkToHeaderContainer {
+    float: right;
+    opacity: 0.1;
+    cursor: pointer;
+
+    transition: opacity 0.2s ease;
+}
+
+.linkToHeaderContainer:hover {
+    opacity: 1;
+}
+
+// On mobile devices,
+@media screen and (max-width: $site-content-preferred-width) {
+    main {
+        box-shadow: none;
+        margin: 0;
+    }
+
+    body, :root {
+        margin: 0;
+        padding: 0;
+    }
+
+    // Move the header links to the margin
+    .linkToHeaderContainer {
+        margin-right: -$content-main-padding;
+    }
+}
