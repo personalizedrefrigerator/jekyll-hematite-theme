@@ -1,5 +1,9 @@
 @charset "utf-8";
-@import "colors";
-@import "sizes";
-@import "animations";
-@import "layout";
+
+$serif-font: 'FoulisGreek', 'EB Garamond', 'TeX Gyre Bonum', serif;
+
+@import "_colors";
+@import "_sizes";
+@import "_animations";
+@import "_layout";
+@import "_elements";

@@ -5,6 +5,7 @@
 
     --primary-background-color: white;
     --secondary-background-color: #eee;
+    --code-background-color: #ddd;
 
     --color-alert-background: #ffb998;
     --color-alert-foreground: black;
@@ -12,12 +13,13 @@
     --shadow-color-light: rgba(0, 0, 0, 0.6);
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
     :root {
         --primary-text-color: white;
 
         --primary-background-color: black;
         --secondary-background-color: #111;
+        --code-background-color: #222;
 
         --color-alert-background: #300;
         --color-alert-foreground: white;

@@ -1,0 +1,14 @@
+
+main a {
+    color: var(--link-color);
+}
+
+main a:visited {
+    color: var(--visited-link-color);
+}
+
+main code {
+    background-color: var(--code-background-color);
+    padding: 4px;
+    border-radius: 4px;
+}
