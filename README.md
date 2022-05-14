@@ -1,15 +1,11 @@
 # Hematite
 
-Welcome to your new Jekyll theme! In this directory, you'll find the files you need to be able to package up your theme into a gem. Put your layouts in `_layouts`, your includes in `_includes`, your sass files in `_sass` and any other assets in `assets`.
-
-To experiment with this code, add some sample content and run `bundle exec jekyll serve` – this directory is setup just like a Jekyll site!
-
-TODO: Delete this and the text above, and describe your gem
-
+A work-in-progress theme intended to be used for course websites.
 
 ## Installation
 
-Add this line to your Jekyll site's `Gemfile`:
+This theme is not ready for release and is thus not published on rubygems.org.
+<!-- Add this line to your Jekyll site's `Gemfile`:
 
 ```ruby
 gem "Hematite"
@@ -21,6 +17,7 @@ And add this line to your Jekyll site's `_config.yml`:
 theme: Hematite
 ```
 
+
 And then execute:
 
     $ bundle
@@ -29,15 +26,21 @@ Or install it yourself as:
 
     $ gem install Hematite
 
+-->
+
 ## Usage
 
 TODO: Write usage instructions here. Describe your available layouts, includes, sass and/or assets.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hello. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on [GitHub](https://github.com/personalizedrefrigerator/jekyll-hematite-theme). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Development
+
+```md
+TODO: Update this. This is still the default set of instructions.
+```
 
 To set up your environment to develop this theme, run `bundle install`.
 
@@ -45,6 +48,8 @@ Your theme is setup just like a normal Jekyll site! To test your theme, run `bun
 
 When your theme is released, only the files in `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
 To add a custom directory to your theme-gem, please edit the regexp in `Hematite.gemspec` accordingly.
+
+**Note:** All user-facing strings in JavaScript should go in `assets/js/string_data.mjs` to permit future localization.
 
 ## License
 
