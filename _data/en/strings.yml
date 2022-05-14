@@ -1,0 +1,5 @@
+# See also assets/js/string_data.mjs
+
+toggle_sidebar_btn_alt: 'Toggle Sidebar'
+copy_link_to_header: 'Copy link to section: “{0}”'
+link_to_header_copied_alert: 'Link to “{0}” copied!'

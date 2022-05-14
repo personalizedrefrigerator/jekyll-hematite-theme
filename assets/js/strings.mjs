@@ -1,12 +1,12 @@
 
 import { assertEq } from "./assertions.mjs";
-import { LOCALIZED_STRINGS, STRING_TABLE } from "./string_data.mjs";
+import { STRING_TABLE } from "./string_data.mjs";
 
 
 
 /// Returns a possibly-localized string corresponding to [key].
 function stringLookup(key, ...formatting) {
-    let sourceText = LOCALIZED_STRINGS[key] ?? STRING_TABLE[key];
+    let sourceText = STRING_TABLE[key];
 
     if (sourceText) {
         return formatText(sourceText, ...formatting);

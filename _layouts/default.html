@@ -6,11 +6,12 @@
         <link rel="stylesheet" href="{{ "assets/style.css" | relative_url }}"/>
         <script type="module" src="{{ "assets/js/main.mjs" | relative_url }}"></script>
 
-        {% include katex_header.html %}
+        {% include katex_includes.html %}
 
         <title>{{ page.title }} — {{ site.title }}</title>
     </head>
     <body>
+        {% include page_navigation.html %}
 
         <main>
         {{ content }}

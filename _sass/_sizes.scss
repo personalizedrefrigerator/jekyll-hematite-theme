@@ -1,4 +1,10 @@
 
+// Macro-like variables
 $site-content-preferred-width: 700px;
 $font-size-main: 12pt;
 $content-main-padding: 30px;
+
+// CSS variables
+:root {
+    --nav-font-size: 22pt;
+}

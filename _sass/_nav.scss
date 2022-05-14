@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+nav {
+    background-color: var(--primary-background-color);
+    font-size: var(--nav-font-size);
+    color: var(--primary-text-color);
+    display: flex;
+    flex-direction: row;
+    padding-right: 10px;
+
+    box-shadow: 0 0 2px var(--shadow-color-light);
+
+    margin: 0;
+
+    a {
+        text-decoration: none;
+        color: var(--primary-text-color);
+    }
+
+    #toggle_sidebar_btn {
+        background-color: var(--secondary-background-color);
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 0 1px var(--shadow-color-light);
+        margin-right: 10px;
+
+        color: var(--primary-text-color);
+    }
+}

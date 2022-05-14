@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@import "_nav";
 
 main {
     box-shadow: 1px 1px 3px var(--shadow-color-light);
@@ -28,6 +29,7 @@ main {
 // screen should be ignorable.
 body {
     padding-bottom: 140px;
+    margin: 0;
 }
 
 .pageAlert {
@@ -80,6 +82,10 @@ body {
     opacity: 1;
 }
 
+.spacer {
+    flex-grow: 1;
+}
+
 // On mobile devices,
 @media screen and (max-width: $site-content-preferred-width) {
     main {
@@ -122,6 +128,10 @@ body {
     }
 
     .pageAlert {
+        display: none;
+    }
+
+    nav {
         display: none;
     }
 }

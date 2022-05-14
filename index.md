@@ -2,6 +2,7 @@
 title: Hematite Theme
 layout: default
 katex: true
+lang: en
 ---
 
 # The Hematite Theme
@@ -75,7 +76,7 @@ public class Foo {
 
 
 ## Calendar Layout
-Select the `calendar` layout to display a visual calendar. [Calendar layout example](example/calendar.html).
+Select the `calendar` layout to display a visual calendar. [Calendar layout example](example/calendar).
 
 ## Math
 By including `katex: true` in a site's header, $$\KaTeX$$ can be loaded.
