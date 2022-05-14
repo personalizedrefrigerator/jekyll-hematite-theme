@@ -39,7 +39,8 @@
     --final-transform: translate(-5px, 0px) rotate(48deg) scale(0, 0);
 }
 
-#hamburger_menu_root.close_icon .rect {
+#hamburger_menu_root.close_btn .rect,
+        .close_btn > #hamburger_menu_root .rect {
     transform: var(--final-transform);
 }
 

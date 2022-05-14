@@ -1,4 +1,4 @@
-<nav>
+<header>
     <button
             title="{{ site.data.strings.toggle_sidebar_btn_alt }}"
             class="toggle_sidebar" id="toggle_sidebar_btn">
@@ -7,4 +7,6 @@
     </button>
     <a href="{{ "/" | absolute_url }}">{{ site.title | default "Untitled Site" }}</a>
     <div class="spacer"></div>
-</nav>
+</header>
+
+{% include sidebar.html %}
