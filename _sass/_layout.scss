@@ -18,11 +18,16 @@ main {
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
-    margin-bottom: 100px;
 }
 
 :root {
     background-color: var(--secondary-background-color);
+}
+
+// Add additional padding — notifictions that appear at the bottom of the
+// screen should be ignorable.
+body {
+    padding-bottom: 200px;
 }
 
 .pageAlert {
