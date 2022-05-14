@@ -1,30 +1,62 @@
 :root {
     --primary-text-color: black;
-    --link-color: red;
-    --visited-link-color: #ee3000;
+    --link-color: #940;
+    --visited-link-color: #904;
 
     --primary-background-color: white;
     --secondary-background-color: #eee;
-    --code-background-color: #ddd;
 
     --color-alert-background: #ffb998;
     --color-alert-foreground: black;
 
     --shadow-color-light: rgba(0, 0, 0, 0.6);
+    --line-color-light: #eee;
+    --code-background-color: #efefef;
+}
+
+// Don't do syntax highlighting when printing.
+@media screen {
+    :root {
+        --code-background-color: #f9f5f5;
+
+        // Syntax highlighting
+        --syntax-keyword-fg: #d00;
+        --syntax-string-fg: #c07;
+        --syntax-number-fg: #036;
+        --syntax-bracket-fg: #052;
+        --syntax-operator-fg: #046;
+        --syntax-comment-fg: #338;
+        --syntax-name-fg: #331;
+        --syntax-normal-fg: black;
+    }
 }
 
 @media screen and (prefers-color-scheme: dark) {
     :root {
         --primary-text-color: white;
+        --link-color: #fa0;
+        --visited-link-color: #f0a;
 
         --primary-background-color: black;
         --secondary-background-color: #111;
         --code-background-color: #222;
+        --line-color-light: #222;
 
         --color-alert-background: #300;
         --color-alert-foreground: white;
 
         --shadow-color-light: rgba(200, 200, 200, 0.5);
+
+
+        // Syntax highlighting
+        --syntax-keyword-fg: pink;
+        --syntax-string-fg: #cfc;
+        --syntax-number-fg: #eef;
+        --syntax-bracket-fg: #faf;
+        --syntax-operator-fg: #aff;
+        --syntax-comment-fg: #aef;
+        --syntax-name-fg: #edf;
+        --syntax-normal-fg: white;
     }
 }
 

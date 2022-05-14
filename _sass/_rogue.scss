@@ -1,0 +1,50 @@
+
+// Created while referencing rouge-github.scss as published
+// at https://github.com/pages-themes/cayman/blob/master/_sass/rouge-github.scss
+
+.highlight {
+    color: var(--syntax-normal-fg);
+    display: block;
+    white-space: pre-wrap;
+
+    // Keywords
+    .k, .kn, .kc, .kd, .kt {
+        color: var(--syntax-keyword-fg);
+    }
+
+    // Strings
+    .s, .s1, .s2, .s3 {
+        color: var(--syntax-string-fg);
+    }
+
+    // Numbers
+    .mi, .mn, .mf {
+        color: var(--syntax-number-fg);
+    }
+
+    // Operators
+    .o {
+        font-weight: bold;
+        color: var(--syntax-operator-fg);
+    }
+
+    // Brackets and parentheticals
+    .p {
+        color: var(--syntax-bracket-fg);
+    }
+
+    // Comments
+    .c, .c1, .c2, .cm {
+        color: var(--syntax-comment-fg);
+        font-style: italic;
+    }
+
+    .cp {
+        font-style: italic;
+    }
+
+    // Variables/names
+    .n, .nv, .nf, .nt, .na, .nx, .nd {
+        color: var(--syntax-name-fg);
+    }
+}

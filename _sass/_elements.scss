@@ -7,8 +7,40 @@ main a:visited {
     color: var(--visited-link-color);
 }
 
-main code {
+main code, main pre {
     background-color: var(--code-background-color);
     padding: 4px;
     border-radius: 4px;
+}
+
+main details {
+    summary {
+        cursor: pointer;
+    }
+
+    transition: border 0.25s ease, padding 0.5s ease;
+}
+
+main details[open] {
+    border: 1px solid var(--line-color-light);
+    border-radius: 10px;
+    padding: 10px;
+
+    > :not(summary) {
+        animation: fade-in 0.5s ease 1;
+    }
+}
+
+main {
+    h1, h2, h3 {
+        break-before: auto;
+        break-after: avoid;
+    }
+}
+
+// Markdown parsers may put `code` elements inside of `pre`
+// elements. We don't want the background color of the `code` element
+// to make parts of lines invisible.
+pre code {
+    background-color: transparent;
 }
