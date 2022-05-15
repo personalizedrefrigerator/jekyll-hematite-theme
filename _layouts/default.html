@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
         <meta charset="utf-8"/>
         <link rel="stylesheet" href="{{ "assets/style.css" | relative_url }}"/>
+        <link rel="icon" href="{{ page.favicon_path | default: site.favicon_path | default: "assets/img/favicon.svg" | absolute_url }}"/>
         <script type="module" src="{{ "assets/js/main.mjs" | relative_url }}"></script>
 
         {% include katex_includes.html %}
