@@ -3,13 +3,15 @@ import { generateHeaderLinks } from "./linkButtonGenerator.mjs";
 import handleSidebar from "./sidebar.mjs";
 import autoExpandDropdowns from "./dropdownExpander.mjs";
 
+// After loading elements, images, css, etc.
 addEventListener("load", () => {
     generateHeaderLinks(document.querySelector("main"));
-
-    // Expand/collapse the sidebar
-    handleSidebar();
 
     // Expand dropdowns on print, etc.
     autoExpandDropdowns();
 });
 
+// After loading elements, but before loading elements like images.
+addEventListener("DOMContentLoaded", () => {
+    handleSidebar();
+});
