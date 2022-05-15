@@ -1,8 +1,6 @@
 <header>
-    <!-- title is set by JS -->
-    <button
-            class="toggle_sidebar" id="toggle_sidebar_btn">
-        {% assign alt_text = site.data.strings.toggle_sidebar_btn_alt %}
+    <!-- button title/alt text is set by JS -->
+    <button class="toggle_sidebar" id="toggle_sidebar_btn">
         {% include img/hamburger_menu.svg %}
     </button>
     <a href="{{ "/" | absolute_url }}">{{ site.title | default "Untitled Site" }}</a>

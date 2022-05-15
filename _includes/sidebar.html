@@ -1,10 +1,16 @@
 <nav class="sidebar" id="sidebar">
-    This is the sidebar!<br/>
-    It will be a sidebar, eventually...
-    <br/><br/>
-    Perhaps with a <input placeholder="search"/> input...
+    <div class="search-container">
+        <!-- input placeholder and alt text should be set with JS -->
+        <input placeholder="TO-DO" id="search_input" type="search"/>
+        <button class="search_btn">
+            {% include img/search_icon.svg %}
+        </button>
+    </div>
 
-    <ul>
-        <li>With links!</li>
+    <ul class="search_results">
+        <li>Search results</li>
+        <li>And site links</li>
+        <li>Will go</li>
+        <li>Here</li>
     </ul>
 </nav>

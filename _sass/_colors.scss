@@ -1,5 +1,6 @@
 :root {
     --primary-text-color: black;
+    --secondary-text-color: black;
     --link-color: #940;
     --visited-link-color: #904;
 
@@ -35,6 +36,7 @@
 @media screen and (prefers-color-scheme: dark) {
     :root {
         --primary-text-color: white;
+        --secondary-text-color: white;
         --link-color: #fa0;
         --visited-link-color: #f0a;
 

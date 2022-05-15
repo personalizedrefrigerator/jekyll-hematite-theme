@@ -1,0 +1,99 @@
+<!-- Should be embedded directly into an HTML file -->
+<svg
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="search_icon_svg">
+  <style>
+#search_icon_svg {
+    width: 32px;
+    height: 32px;
+}
+
+#search_icon_svg .handle {
+    fill: var(--primary-text-color);
+    stroke: var(--primary-text-color);
+    stroke-width: 1;
+    transform-origin: top left;
+
+    transform: rotate(40deg);
+    transition: transform 0.3s ease;
+}
+
+#search_icon_svg.close_search .handle,
+        .close_search > #search_icon_svg .handle{
+    transform: rotate(0) scale(1.5, 1);
+}
+
+#search_icon_svg #handle_container {
+    transform: translate(38px, 33px);
+    transition: transform 0.4s ease;
+}
+
+#search_icon_svg.close_search #handle_container,
+        .close_search > #search_icon_svg #handle_container {
+    transform: translate(5px, 28px);
+}
+
+#search_icon_svg .glass {
+    fill: rgba(255, 255, 255, 0);
+    transition: fill 0.2s ease;
+}
+
+#search_icon_svg:hover .glass,
+        :focus-visible > #search_icon_svg .glass {
+    fill: rgba(124, 125, 125, 0.1);
+}
+
+#search_icon_svg.close_search .glass,
+        .close_search > #search_icon_svg .glass {
+    fill: rgba(0, 0, 0, 0);
+}
+
+#search_icon_svg .rim {
+    fill: none;
+    stroke: var(--primary-text-color);
+    stroke-width: 7;
+
+    transform-origin: center;
+    transition: transform 0.5s ease;
+}
+
+#search_icon_svg.close_search .rim,
+        .close_search > #search_icon_svg .rim {
+    transform: scale(1, 0);
+}
+
+#search_icon_svg {
+    transform: scale(0.9);
+    transition: transform 0.2s ease;
+}
+
+:focus-visible > #search_icon_svg,
+        #search_icon_svg:hover {
+    transform: scale(1);
+}
+</style>
+  <g id="layer0">
+    <circle
+       class="glass"
+       cx="25"
+       cy="25"
+       r="18" />
+  </g>
+  <g id="layer1">
+    <circle
+       class="rim"
+       cx="25"
+       cy="25"
+       r="18" />
+    <g id="handle_container">
+      <rect
+        class="handle"
+        width="34"
+        height="7"
+        x="0"
+        y="0"
+        ry="3.5" />
+   </g>
+  </g>
+</svg>

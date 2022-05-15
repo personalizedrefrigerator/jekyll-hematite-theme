@@ -8,13 +8,17 @@ function handleSidebar() {
     // True if sidebar toggled by user
     let sidebarToggled = false;
 
+    const setBtnLabel = (text) => {
+        toggleBtn.setAttribute(`title`, text);
+    };
+
     const updateBtn = () => {
         if (sidebar.classList.contains(`open`)) {
             toggleBtn.classList.add(`close_btn`);
-            toggleBtn.setAttribute(`title`, stringLookup(`close_sidebar`));
+            setBtnLabel(stringLookup(`close_sidebar`));
         } else {
             toggleBtn.classList.remove(`close_btn`);
-            toggleBtn.setAttribute(`title`, stringLookup(`open_sidebar`));
+            setBtnLabel(stringLookup(`open_sidebar`));
         }
     };
 
