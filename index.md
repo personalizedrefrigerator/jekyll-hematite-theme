@@ -9,6 +9,15 @@ lang: en
 
 This [Jekyll](https://jekyllrb.com/docs/) theme is very much a work in progress.
 
+<aside class="warning" markdown=1>
+### Warning!
+This theme is currently
+[under development on GitHub](https://github.com/personalizedrefrigerator/jekyll-hematite-theme) and
+not production-ready.
+
+The `calendar` layout below, for example, is not yet implemented.
+</aside>
+
 # Features
 ## Syntax Highlighting
 
@@ -77,11 +86,6 @@ public class Foo {
 
 ## Calendar Layout
 Select the `calendar` layout to display a visual calendar. [Calendar layout example](example/calendar).
-
-<aside class="warning" markdown=1>
-### Warning!
-Calendar layout still needs to be implemented, but it is planned!
-</aside>
 
 ## Math
 By including `katex: true` in a site's header, $$\KaTeX$$ can be loaded.
