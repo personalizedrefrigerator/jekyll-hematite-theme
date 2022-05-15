@@ -13,7 +13,7 @@ This [Jekyll](https://jekyllrb.com/docs/) theme is very much a work in progress.
 ## Syntax Highlighting
 
 Hematite uses [Rogue](https://github.com/rouge-ruby/rouge) for syntax highlighting and
-has [its own theme](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/blob/main/_sass/_rogue.scss). For example,
+has [its own rogue theme](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/blob/main/_sass/_rogue.scss). For example,
 
 <details markdown=1><summary>Python Example</summary>
 ```py

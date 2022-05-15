@@ -28,6 +28,10 @@ main code, main pre {
     border-radius: 4px;
 }
 
+main pre {
+    padding: 6px;
+}
+
 main details {
     summary {
         cursor: pointer;
@@ -59,4 +63,7 @@ main {
 // to make parts of lines invisible.
 pre code {
     background-color: transparent;
+
+    // Let the `pre` handle the padding
+    padding: 0;
 }
