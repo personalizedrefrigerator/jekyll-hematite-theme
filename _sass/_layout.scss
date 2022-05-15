@@ -51,9 +51,10 @@ body {
     animation: grow-in 0.7s ease 1;
 }
 
-.pageAlert > :first-child:before {
+.pageAlert > :first-child::before, aside.warning > :first-child::before {
     content: "❕";
     text-shadow: 0px 0px 1px var(--shadow-color-light);
+    box-shadow: inset 0px 1px 2px var(--shadow-color-light);
     aspect-ratio: 1;
 
     padding: 7px;

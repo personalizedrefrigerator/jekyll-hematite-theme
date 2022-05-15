@@ -78,6 +78,11 @@ public class Foo {
 ## Calendar Layout
 Select the `calendar` layout to display a visual calendar. [Calendar layout example](example/calendar).
 
+<aside class="warning" markdown=1>
+### Warning!
+Calendar layout still needs to be implemented, but it is planned!
+</aside>
+
 ## Math
 By including `katex: true` in a site's header, $$\KaTeX$$ can be loaded.
 
