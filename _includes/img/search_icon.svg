@@ -69,7 +69,7 @@
 }
 
 :focus-visible > #search_icon_svg,
-        #search_icon_svg:hover {
+        :not([disabled]) > #search_icon_svg:hover {
     transform: scale(1);
 }
 </style>

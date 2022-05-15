@@ -2,5 +2,8 @@
 
 open_sidebar: 'Open sidebar'
 close_sidebar: 'Close sidebar'
+search_site_placeholder: 'Find in site...'
+search_site_action: 'Search for “{0}”'
+search_disabled_no_content: 'Missing text to search for!'
 copy_link_to_header: 'Copy link to section: “{0}”'
 link_to_header_copied_alert: 'Link to “{0}” copied!'
