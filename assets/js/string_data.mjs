@@ -2,10 +2,18 @@
 permalink: /assets/js/string_data.mjs
 ---
 
-// See https://leo3418.github.io/collections/multilingual-jekyll-site/localize-strings
 const STRING_TABLE = {
-    "copy_link_to_header": "{{ site.data.strings.copy_link_to_header }}",
-    "link_to_header_copied_alert": "{{ site.data.strings.link_to_header_copied_alert }}",
+{% for language in site.data.strings %}
+    {{ language[0] }}: {
+        {% for string in language[1] %}
+            "{{ string[0] }}": {{ string[1] | jsonify }},
+        {% endfor %}
+    },
+{% endfor %}
 };
 
-export { STRING_TABLE };
+// Locales to check if a string isn't localized in any of the
+// user's preferred languages.
+const DEFAULT_LOCALES = [ 'en' ];
+
+export { STRING_TABLE, DEFAULT_LOCALES };

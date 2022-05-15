@@ -1,4 +1,5 @@
 
-toggle_sidebar_btn_alt: 'Abra/Cerra Navegación'
+open_sidebar: 'Abra Navegación'
+close_sidebar: 'Cerra Navegación'
 copy_link_to_header: 'Copia enlace de “{0}”'
 link_to_header_copied_alert: '¡El enlace por “{0}” fue copiado!'

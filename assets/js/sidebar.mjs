@@ -1,3 +1,4 @@
+import { stringLookup } from "./strings.mjs";
 
 function handleSidebar() {
     const toggleBtn = document.querySelector(`button#toggle_sidebar_btn`);
@@ -10,8 +11,10 @@ function handleSidebar() {
     const updateBtn = () => {
         if (sidebar.classList.contains(`open`)) {
             toggleBtn.classList.add(`close_btn`);
+            toggleBtn.setAttribute(`title`, stringLookup(`close_sidebar`));
         } else {
             toggleBtn.classList.remove(`close_btn`);
+            toggleBtn.setAttribute(`title`, stringLookup(`open_sidebar`));
         }
     };
 

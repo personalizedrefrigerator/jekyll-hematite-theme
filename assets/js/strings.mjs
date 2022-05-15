@@ -1,12 +1,36 @@
 
 import { assertEq } from "./assertions.mjs";
-import { STRING_TABLE } from "./string_data.mjs";
+import { STRING_TABLE, DEFAULT_LOCALES } from "./string_data.mjs";
 
 
 
 /// Returns a possibly-localized string corresponding to [key].
 function stringLookup(key, ...formatting) {
-    let sourceText = STRING_TABLE[key];
+    let sourceText = null;
+
+    // Search for a translation in a supported language
+    for (const lang of navigator.languages) {
+        if (STRING_TABLE[lang] && STRING_TABLE[lang][key] != null) {
+            sourceText = STRING_TABLE[lang][key];
+            break;
+        }
+    }
+
+    // If not in any of the supported languages...
+    if (sourceText == null) {
+        for (const lang of DEFAULT_LOCALES) {
+            if (STRING_TABLE[lang][key] != null) {
+                sourceText = STRING_TABLE[lang][key];
+
+                console.warn(
+                    `Translation for ${key} not found in any supported language.` +
+                    ` Substituting ${sourceText} from ${lang}.`
+                );
+                break;
+            }
+        }
+
+    }
 
     if (sourceText) {
         return formatText(sourceText, ...formatting);
@@ -129,5 +153,5 @@ assertEq("Test escaping 2",
 assertEq("Test escaping 3",
     formatText("\\{0}", 3), "{0}");
 
-export { stringLookup };
+export { stringLookup, formatText };
 export default stringLookup;

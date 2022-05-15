@@ -8,17 +8,6 @@
 title: Hematite Theme
 description: A Jekyll theme intended for course websites
 
-# Localization
-languages: ["en", "es"]
-exclude_from_localization: [
-  "assets/"
-]
-sass:
-  sourcemap: never
-default_lang: en
-
 permalink: pretty
 
-plugins:
-  - jekyll-polyglot
 

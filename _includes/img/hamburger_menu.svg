@@ -1,7 +1,6 @@
 <svg
    viewBox="0 0 64.0 64.0"
    version="1.1"
-   aria-label="{{ alt_text }}"
    id="hamburger_menu_root"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
