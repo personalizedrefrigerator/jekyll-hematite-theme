@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="512" height="512" version="1.1" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
    <defs>
-      <filter id="filter7674" x="-.020944" y="-.022307" width="1.0419" height="1.0446" color-interpolation-filters="sRGB">
-         <feGaussianBlur stdDeviation="4.0308382"/>
+      <filter id="filter7674" x="-.25" y="-.25" width="1.5" height="1.5" color-interpolation-filters="sRGB">
+         <feGaussianBlur stdDeviation="12.0308382"/>
       </filter>
    </defs>
    <g>
-      <path d="m122.52 34.551-94.311 117.48 4.503 246.11 127.26 70.081 258.18-41.737 71.954-66.215-38.507-266.18s-1.2406-30.237-85.384-44.738-243.69-14.797-243.69-14.797z" fill="#9300cf" filter="url(#filter7674)"/>
+      <path d="m122.52 34.551-94.311 117.48 4.503 246.11 127.26 70.081 258.18-41.737 71.954-66.215-38.507-266.18s-1.2406-30.237-85.384-44.738-243.69-14.797-243.69-14.797z" fill="#9300cf" filter="url(#filter7674)" transform="scale(1.01) translate(2, 10)" transform-origin="center"/>
       <path d="m122.52 34.551-94.311 117.48 4.503 246.11 127.26 70.081 258.18-41.737 71.954-66.215-38.507-266.18s-1.2406-30.237-85.384-44.738-243.69-14.797-243.69-14.797z" fill="#161616"/>
    </g>
 </svg>
