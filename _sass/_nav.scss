@@ -33,6 +33,12 @@ header {
         margin-right: 10px;
         background-color: var(--primary-background-color);
     }
+
+    @media print {
+        #toggle_sidebar_btn {
+            display: none;
+        }
+    }
 }
 
 nav.sidebar {
