@@ -1,5 +1,5 @@
 ---
-permalink: /assets/js/search.mjs
+permalink: assets/js/search.mjs
 ---
 
 import { stringLookup } from "./strings.mjs";
