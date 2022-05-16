@@ -3,7 +3,7 @@ import { stringLookup } from "./strings.mjs";
 function handleSidebar() {
     const toggleBtn = document.querySelector(`button#toggle_sidebar_btn`);
     const sidebar = document.querySelector(`nav#sidebar`);
-    const mainContent = document.querySelector(`main`);
+    const mainContainer = document.querySelector(`.main-container`);
 
     // True if sidebar toggled by user
     let sidebarToggled = false;
@@ -29,7 +29,7 @@ function handleSidebar() {
             sidebar.style.transition = "none";
         }
 
-        let remainingSpace = window.innerWidth - mainContent.clientWidth;
+        let remainingSpace = window.innerWidth - mainContainer.clientWidth;
         let spaceOnLeft = remainingSpace / 2;
 
         // If there's enough space for the sidebar
@@ -60,7 +60,7 @@ function handleSidebar() {
 
 
     // Auto-set whether the sidebar is open.
-    if (mainContent) {
+    if (mainContainer) {
         autoExpandSidebar(true);
 
         addEventListener('resize', () => {

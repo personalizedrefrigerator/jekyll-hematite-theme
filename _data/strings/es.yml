@@ -8,3 +8,6 @@ search_error: 'Fue un error: «{0}»'
 found_search_results: 'Encontrado {0} cosa(s):'
 copy_link_to_header: 'Copie enlace de «{0}»'
 link_to_header_copied_alert: '¡El enlace por «{0}» fue copiado!'
+
+prev_post: '← {0}'
+next_post: '{0} →'

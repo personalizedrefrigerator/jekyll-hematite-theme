@@ -16,9 +16,15 @@
     <body>
         {% include nav/page_navigation.html %}
 
-        <main>
-        {{ content }}
-        </main>
+        <div class="main-container">
+            {% if page.layout == "default" %}
+            <main>
+            {% endif %}
+                {{ content }}
+            {% if page.layout == "default" %}
+            </main>
+            {% endif %}
+        </div>
 
     </body>
 </html>

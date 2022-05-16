@@ -9,12 +9,13 @@ capture groups.
 
 {% increment i %}
 {% increment page_count %}
+{% assign pages = site.html_pages | concat: site.posts %}
 
-{% for pg in site.html_pages %}
+{% for pg in pages %}
     {% increment page_count %}
 {% endfor %}
 {% endcapture %}
-{% for current_page in site.html_pages %}
+{% for current_page in pages %}
     {
         "title": {{ current_page.title | jsonify }},
         "url": {{ current_page.url | absolute_url | jsonify }},

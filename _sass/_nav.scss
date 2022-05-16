@@ -171,6 +171,6 @@ nav.sidebar {
 // To make space for the navigation bar, add padding to
 // hash links. See
 // https://gomakethings.com/how-to-prevent-anchor-links-from-scrolling-behind-a-sticky-header-with-one-line-of-css/
-main * {
+.main-container * {
     scroll-margin-top: 2.5em;
 }

@@ -2,4 +2,32 @@
 layout: default
 ---
 
+<nav id="post_next_prev">
+</nav>
+
+<main>
 {{ content }}
+</main>
+
+<nav id="post_tags">
+</nav>
+
+<script type="module">
+    import initPost from "{{ "assets/js/layout/post.mjs" | relative_url }}";
+    let pageData = {
+    {% if page.next %}
+        next: {
+            url: unescape("{{ page.next.url | relative_url | url_encode }}".replaceAll(/[+]/g, "%20")),
+            title: "{{ page.next.title | strip_html }}",
+        },
+    {% endif %}
+    {% if page.previous %}
+        previous: {
+            url: unescape("{{ page.previous.url | relative_url | url_encode }}".replaceAll(/[+]/g, "%20")),
+            title: "{{ page.previous.title | strip_html }}",
+        },
+    {% endif %}
+    };
+
+    initPost(pageData);
+</script>
