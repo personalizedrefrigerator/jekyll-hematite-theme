@@ -1,6 +1,7 @@
 :root {
     --primary-text-color: black;
     --secondary-text-color: black;
+    --text-color-faint: #333;
     --link-color: #940;
     --visited-link-color: #904;
 
@@ -40,6 +41,7 @@
     :root {
         --primary-text-color: white;
         --secondary-text-color: white;
+        --text-color-faint: #ccc;
         --link-color: #fa0;
         --visited-link-color: #f0a;
 

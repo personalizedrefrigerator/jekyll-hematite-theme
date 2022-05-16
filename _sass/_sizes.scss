@@ -8,4 +8,11 @@ $content-main-padding: 30px;
 :root {
     --nav-font-size: 22pt;
     --header-height: 30pt;
+    --nav-width: 300px;
+}
+
+@media (max-width: $site-content-preferred-width) {
+    :root {
+        --nav-width: 95vw;
+    }
 }

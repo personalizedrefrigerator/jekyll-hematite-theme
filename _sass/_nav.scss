@@ -47,6 +47,7 @@ nav.sidebar {
     left: 0;
     bottom: 0;
 
+    width: var(--nav-width);
 
     display: flex;
     flex-direction: column;
@@ -67,13 +68,13 @@ nav.sidebar {
     }
 
     transform-origin: left;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease, width 0.5s ease;
 
 
+    // Container with search box and button
     > .search-container {
         display: flex;
         flex-direction: row;
-        overflow: auto;
 
         input {
             flex-grow: 1;
@@ -81,25 +82,63 @@ nav.sidebar {
         }
     }
 
-    > .pinned_pages {
+    & > .pinned-pages {
         flex-grow: 1;
         flex-shrink: 1;
+    }
+
+    & > .search-results, & > .pinned-pages {
         overflow: auto;
     }
 
-    > ul {
+    & > .search-results {
+        &.hidden {
+            display: none;
+        }
+
+        .results-description {
+            color: var(--text-color-faint);
+            border-bottom: 1px solid var(--line-color-light);
+            margin-right: 30px;
+        }
+
+        // Context for each result.
+        .context {
+            margin-left: 20px;
+            margin-right: 20px;
+            color: var(--text-color-faint);
+            border-left: 1px solid var(--line-color-light);
+            text-decoration: none;
+        }
+
+        // Search result link
+        a {
+            background-color: transparent;
+            transition: background-color 0.2s ease;
+            display: list-item;
+            padding: 5px;
+            color: var(--primary-text-color);
+        }
+
+        a:hover, a:focus-visible {
+            background-color: var(--selected-item-bg-color);
+        }
+    }
+
+    & > ul.search-results, & > ul.pinned-pages {
         list-style: none;
         padding-left: 0;
 
-        li {
+        a {
+            text-decoration: none;
+            display: block;
+            color: var(--primary-text-color);
+        }
+
+
+        li, & > a {
             padding: 4px;
             border-bottom: 1px solid var(--line-color-light);
-
-            a {
-                text-decoration: none;
-                display: block;
-                color: var(--primary-text-color);
-            }
 
             a:hover {
                 text-decoration: underline;
