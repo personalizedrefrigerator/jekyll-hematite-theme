@@ -170,6 +170,8 @@ function handleSearch(searcher) {
     searchInput.addEventListener("input", (evt) => {
         updateSearchBtn();
     });
+
+    updateSearchBtn();
 }
 
 export default handleSearch;

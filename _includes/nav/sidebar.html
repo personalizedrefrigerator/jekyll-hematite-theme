@@ -15,4 +15,9 @@
         {% include nav/pages_list.html %}
     </ul>
 
+    <footer>
+        {% if site.hematite.sidebar.footer_html %}
+            {{ site.hematite.sidebar.footer_html }}
+        {% endif %}
+    </footer>
 </nav>

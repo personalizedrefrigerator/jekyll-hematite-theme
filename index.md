@@ -10,7 +10,7 @@ lang: en
 This [Jekyll](https://jekyllrb.com/docs/) theme is very much a work in progress.
 
 <aside class="warning" markdown=1>
-### Warning!
+## Warning!
 This theme is currently
 [under development on GitHub](https://github.com/personalizedrefrigerator/jekyll-hematite-theme) and
 not production-ready.

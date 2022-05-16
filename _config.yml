@@ -12,5 +12,6 @@ permalink: pretty
 
 hematite:
   sidebar:
+    footer_html: 'This page was made with the Hematite Theme. <a href="https://github.com/personalizedrefrigerator/jekyll-hematite-theme">Contribute on GitHub</a>'
 
 
