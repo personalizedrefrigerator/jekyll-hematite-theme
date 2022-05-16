@@ -111,3 +111,12 @@ $$\text{This}\qquad$$ is an example of $$\KaTeX$$ usage.
 \\]
 </details>
 
+# Debugging information
+
+<details markdown=1><summary>Debug info</summary>
+
+```json
+{{ site | jsonify }}
+```
+
+</details>

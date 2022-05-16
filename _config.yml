@@ -7,9 +7,10 @@
 
 title: Hematite Theme
 description: A Jekyll theme intended for course websites
+permalink: pretty
 
-# hematite:
-#  sidebar:
-#    footer_html: 'This page was made with the Hematite Theme. <a href="https://github.com/personalizedrefrigerator/jekyll-hematite-theme">Contribute on GitHub</a>'
-#
+hematite:
+  sidebar:
+    footer_html: 'This page was made with the Hematite Theme. <a href="https://github.com/personalizedrefrigerator/jekyll-hematite-theme">Contribute on GitHub</a>'
+
 
