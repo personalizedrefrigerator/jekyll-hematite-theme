@@ -17,7 +17,17 @@ class Searcher {
 
     async getPageData_() {
         if (this.cachedData_ == null) {
-            let json = await (await fetch(PAGE_DATA_URL)).json();
+            let response = await fetch(PAGE_DATA_URL);
+
+            // If the server responded, but something went wrong,
+            if (!response.ok) {
+                throw new Error(
+                    `While fetching search data from “${PAGE_DATA_URL}”:` +
+                    ` Server responded with code ${response.status}/${response.statusText}.`
+                );
+            }
+
+            let json = await (response).json();
             this.cachedData_ = json;
         }
 
