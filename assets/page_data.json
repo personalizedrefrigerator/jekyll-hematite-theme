@@ -1,4 +1,31 @@
 ---
 permalink: /assets/page_data.json
 ---
-{{ site.html_pages | jsonify }}
+[
+{% capture nooutput %}
+The increment command outputs the current value of the counter,
+so we ignore output by surrounding all increment statements in
+capture groups.
+
+{% increment i %}
+{% increment page_count %}
+
+{% for pg in site.html_pages %}
+    {% increment page_count %}
+{% endfor %}
+{% endcapture %}
+{% for current_page in site.html_pages %}
+    {
+        "title": {{ current_page.title | jsonify }},
+        "url": {{ current_page.url | absolute_url | jsonify }},
+        "content": {{ current_page.content | jsonify }}
+    {% capture nooutput %}
+    {% increment i %}
+    {% endcapture %}
+    {% if i == page_count %}
+        }
+    {% else %}
+        },
+    {% endif %}
+{% endfor %}
+]
