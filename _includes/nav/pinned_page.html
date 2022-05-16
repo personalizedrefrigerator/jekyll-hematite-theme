@@ -3,8 +3,10 @@
 {% else %}
     {% assign clss = "" %}
 {% endif %}
+{% if pl_page_title != "" %}
 <li class="{{ clss }}">
     <a href="{{ pl_page_url }}">
         {{ pl_page_title }}
     </a>
 </li>
+{% endif %}
