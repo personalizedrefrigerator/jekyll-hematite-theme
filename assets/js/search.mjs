@@ -6,7 +6,7 @@ import { stringLookup } from "./strings.mjs";
 import AnimationUtil from "./AnimationUtil.mjs";
 import AsyncUtil from "./AsyncUtil.mjs";
 
-const PAGE_DATA_URL = `{{ "/assets/page_data.json" | absolute_url }}`;
+const PAGE_DATA_URL = `{{ "/assets/page_data.json" | relative_url }}`;
 const SEARCH_CONTEXT_LEN = 40;
 
 /// Handles fetching page data, caching it, etc.
