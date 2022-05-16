@@ -3,8 +3,10 @@ permalink: assets/js/search.mjs
 ---
 
 import { stringLookup } from "./strings.mjs";
+import { expandContainingDropdowns } from "./dropdownExpander.mjs";
 import AnimationUtil from "./AnimationUtil.mjs";
 import AsyncUtil from "./AsyncUtil.mjs";
+import UrlHelper from "./UrlHelper.mjs";
 
 const PAGE_DATA_URL = `{{ "/assets/page_data.json" | relative_url }}`;
 const SEARCH_CONTEXT_LEN = 40;
@@ -34,6 +36,73 @@ class Searcher {
         return this.cachedData_;
     }
 
+    filterContent_(content) {
+        return content
+        // Remove tags that have attributes < 20 characters long (total)
+                .replaceAll(/[<][/]?\w+\s*[^>]{0,20}[>]/g, "")
+        // Remove tags with known attributes
+                .replaceAll(/[<]\w+(?:\s+(?:href|class|id|src)\s*[=]\s*["'].*['"])+[>]/g, "")
+        // Replace escape sequences
+                .replaceAll(/[&]lt;/g, "<")
+                .replaceAll(/[&]gt;/g, ">")
+                .replaceAll(/[&]ldquo;/g, '"')
+                .replaceAll(/[&]rdquo;/g, '"')
+                .replaceAll(/[&]amp;/g, "&")
+                .replaceAll(/\s+/g, ' ');
+
+    }
+
+    /// Get the container element for the [n]th search
+    /// result for [query] in the given [elem].
+    /// Returns an Element.
+    getNthResultIn(elem, query, n) {
+        var recurse = (elem) => {
+            let isElement = elem.tagName != undefined;
+
+            if (n < 0) {
+                return null;
+            }
+
+            // The element must actually contain the query.
+            // [elem] may not be an Element (we only require that it be a Node),
+            // so use textContent.
+            let searchText = this.filterContent_(isElement ? elem.innerHTML : elem.textContent);
+            searchText = searchText.toLowerCase();
+
+            if (searchText.indexOf(query) == -1) {
+                return null;
+            }
+
+            // If the current node is a leaf,
+            if (elem.childNodes.length == 0) {
+                let numMatches = searchText.split(query).length - 1;
+                n -= numMatches;
+
+                // If we've considered enough matches,
+                if (n < 0) {
+                    return elem;
+                }
+            }
+
+            for (const child of elem.childNodes) {
+                let res = recurse(child);
+
+                if (res) {
+                    let resIsElement = res.tagName != undefined;
+
+                    if (isElement && !resIsElement) {
+                        return elem;
+                    }
+                    return res;
+                }
+            }
+
+            return null;
+        };
+
+        return recurse(elem);
+    }
+
     async runSearch(query) {
         let data = await this.getPageData_();
         let results = [];
@@ -44,23 +113,15 @@ class Searcher {
 
         for (const page of data) {
             // Remove HTML tags.
-            let content = page.content
-            // Remove tags that have attributes < 20 characters long (total)
-                .replaceAll(/[<][/]?\w+\s*[^>]{0,20}[>]/g, "")
-            // Remove tags with known attributes
-                .replaceAll(/[<]\w+(?:\s+(?:href|class|id|src)\s*[=]\s*["'].*['"])+[>]/g, "")
-            // Replace escape sequences
-                .replaceAll(/[&]lt;/g, "<")
-                .replaceAll(/[&]gt;/g, ">")
-                .replaceAll(/[&]ldquo;/g, '"')
-                .replaceAll(/[&]rdquo;/g, '"')
-                .replaceAll(/[&]amp;/g, "&")
-                .replaceAll(/\s+/g, ' ');
-            content = page.title + "\n" + content;
+            let content = this.filterContent_(page.content);
+            content += '\n' + page.title;
 
             // TODO: Improve search!
-            let matchLoc = content.toLowerCase().indexOf(query);
-            if (matchLoc !== -1) {
+            let toSearch = content.toLowerCase();
+            let matchLoc = toSearch.indexOf(query);
+            let startPos = 0;
+            let index = 0;
+            while (matchLoc !== -1 && startPos < toSearch.length) {
                 let context = content.substring(
                         matchLoc - SEARCH_CONTEXT_LEN,
                         matchLoc + SEARCH_CONTEXT_LEN
@@ -77,8 +138,13 @@ class Searcher {
                 results.push({
                     title: page.title,
                     url: page.url,
+                    index,
                     context
                 });
+
+                index ++;
+                startPos = matchLoc + query.length;
+                matchLoc = toSearch.indexOf(query, startPos);
             }
         }
 
@@ -86,6 +152,52 @@ class Searcher {
     }
 }
 
+/// Scrolls to and shows the search result for the given [query]
+/// If neither [query] nor [resultIndex] are given, attempt to get them from
+/// the page's arguments (i.e. from https://example.com/...?search=...,n=...).
+function focusSearchResult(searcher, elem, query, resultIndex) {
+    if (query === undefined && resultIndex === undefined) {
+        let urlArgs = UrlHelper.getPageArgs();
+        let pageHash = UrlHelper.getPageHash();
+
+        if (urlArgs === null) {
+            return;
+        }
+
+        // The page's hash also causes scrolling. Don't focus
+        // if the page has a hash.
+        if (pageHash != null) {
+            return;
+        }
+
+        query = urlArgs.query;
+        resultIndex = parseInt(urlArgs.index);
+
+        if (isNaN(resultIndex)) {
+            console.warn("Unable to navigate to result. Given idx is NaN");
+            return;
+        }
+    }
+
+    resultIndex ??= 0;
+
+    if (query === undefined) {
+        return;
+    }
+
+    let result = searcher.getNthResultIn(elem, query, resultIndex);
+    if (result) {
+        console.log("Scrolling", result, "into view...");
+
+        expandContainingDropdowns(result);
+
+        result.focus();
+        result.scrollIntoView();
+    }
+}
+
+/// Set up inputs/events using the given [searcher]. If [null], a new
+/// [Searcher] is created.
 function handleSearch(searcher) {
     const searchInput = document.querySelector(".search-container > #search_input");
     const searchBtn = document.querySelector(".search-container > #search_btn");
@@ -95,8 +207,9 @@ function handleSearch(searcher) {
     searchBtn.disabled = true;
 
     searcher ??= new Searcher();
+    focusSearchResult(searcher, document.querySelector("main"));
 
-    const showResults = (results) => {
+    const showResults = (query, results) => {
         let descriptionElem = document.createElement("div");
         descriptionElem.innerText =
                 stringLookup(`found_search_results`, results.length);
@@ -110,7 +223,7 @@ function handleSearch(searcher) {
             context.classList.add('context');
 
             link.innerText = result.title;
-            link.href = result.url;
+            link.href = result.url + `?query=${escape(query)},index=${result.index}`;
             context.innerText = result.context;
 
             link.appendChild(context);
@@ -171,7 +284,7 @@ function handleSearch(searcher) {
 
             try {
                 let results = await searcher.runSearch(query);
-                showResults(results);
+                showResults(query, results);
             } catch (e) {
                 console.error(e);
                 showError(e);
@@ -200,4 +313,4 @@ function handleSearch(searcher) {
 }
 
 export default handleSearch;
-export { handleSearch };
+export { handleSearch, Searcher };

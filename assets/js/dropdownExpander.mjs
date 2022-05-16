@@ -1,3 +1,4 @@
+import UrlHelper from "./UrlHelper.mjs";
 
 /// Formats a page for printing
 /// For-printing formatting should be done in CSS, if possible.
@@ -29,28 +30,35 @@ function expandOnPrint() {
     });
 }
 
+/// Expand all dropdowns containing [elem].
+/// [elem] can be either a Node or an Element.
+function expandContainingDropdowns(elem) {
+    let currentElem = elem;
+
+    // Walk up the DOM tree...
+    do {
+        // Open all containing details elements.
+        if (currentElem.tagName && currentElem.tagName.toLowerCase() == "details") {
+            currentElem.setAttribute("open", true);
+        }
+
+        currentElem = currentElem.parentElement;
+    }
+    while (currentElem);
+}
+
 function expandBasedOnURL() {
     const doExpansion = (url) => {
         // Determine the hash.
-        let hashLoc = url.lastIndexOf('#');
-        if (hashLoc == -1) {
+        let hash = UrlHelper.getPageHash();
+        if (hash == null) {
             return;
         }
 
-        let hash = url.substring(hashLoc);
         let targetElem = document.querySelector(hash);
         let currentElem = targetElem;
 
-        // Walk up the DOM tree...
-        do {
-            // Open all containing details elements.
-            if (currentElem.tagName.toLowerCase() == "details") {
-                currentElem.setAttribute("open", true);
-            }
-
-            currentElem = currentElem.parentElement;
-        }
-        while (currentElem);
+        expandContainingDropdowns(targetElem);
 
         targetElem.focus();
     };
@@ -66,5 +74,5 @@ function autoExpandDropdowns() {
     expandBasedOnURL();
 }
 
-export { autoExpandDropdowns };
+export { autoExpandDropdowns, expandContainingDropdowns };
 export default autoExpandDropdowns;
