@@ -1,4 +1,4 @@
 ---
-permalink: assets/page_data.json
+permalink: /assets/page_data.json
 ---
 {{ site.html_pages | jsonify }}

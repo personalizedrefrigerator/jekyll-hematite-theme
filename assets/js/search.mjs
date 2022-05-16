@@ -110,6 +110,15 @@ function handleSearch(searcher) {
         searchResults.classList.remove(`hidden`);
     };
 
+    const showError = (error) => {
+        let errorDescription = document.createElement("div");
+        errorDescription.innerText = stringLookup(`search_error`, `${error}`);
+        searchResults.replaceChildren(errorDescription);
+
+        AnimationUtil.expandInVert(searchResults);
+        searchResults.classList.remove(`hidden`);
+    };
+
     const hideResults = () => {
         AnimationUtil.collapseOutVert(searchResults);
         searchResults.classList.add(`hidden`);
@@ -149,8 +158,13 @@ function handleSearch(searcher) {
         if (query != lastQuery || areSearchResultsHidden()) {
             lastQuery = searchInput.value;
 
-            let results = await searcher.runSearch(query);
-            showResults(results);
+            try {
+                let results = await searcher.runSearch(query);
+                showResults(results);
+            } catch (e) {
+                console.error(e);
+                showError(e);
+            }
         } else {
             hideResults();
         }
