@@ -16,6 +16,11 @@ main {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+
+    // Resize images to prevent overflow.
+    img {
+        max-width: $site-content-preferred-width;
+    }
 }
 
 :root {
