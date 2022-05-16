@@ -4,3 +4,12 @@ styles: true
 ---
 
 @import "hematite";
+
+{% if site.hematite.auto_invert_imgs %}
+// Auto-invert images in dark mode!
+@media (prefers-color-scheme: dark) {
+    main img:not(.no-invert) {
+        filter: invert(1) hue-rotate(180deg);
+    }
+}
+{% endif %}
