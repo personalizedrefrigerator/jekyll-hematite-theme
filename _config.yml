@@ -10,4 +10,7 @@ description: A Jekyll theme intended for course websites
 
 permalink: pretty
 
+hematite:
+  sidebar:
+
 

@@ -1,16 +1,18 @@
 <nav class="sidebar" id="sidebar">
     <div class="search-container">
         <!-- input placeholder and alt text should be set with JS -->
-        <input placeholder="TO-DO" id="search_input" type="search"/>
+        <input id="search_input" type="search"/>
         <button class="search-btn" id="search_btn">
             {% include img/search_icon.svg %}
         </button>
     </div>
 
     <ul class="search-results">
-        <li>Search results</li>
-        <li>And site links</li>
-        <li>Will go</li>
-        <li>Here</li>
+
     </ul>
+
+    <ul class="pinned-pages">
+        {% include nav/pages_list.html %}
+    </ul>
+
 </nav>

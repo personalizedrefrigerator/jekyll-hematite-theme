@@ -1,0 +1,10 @@
+
+{% for pl_sidebar_page in site.html_pages | sort %}
+    {% assign pl_page_url = pl_sidebar_page.url %}
+    {% assign pl_page_title = pl_sidebar_page.title %}
+    {% include nav/pinned_page.html %}
+{% endfor %}
+
+<!--
+    vim: nocin nosi
+-->

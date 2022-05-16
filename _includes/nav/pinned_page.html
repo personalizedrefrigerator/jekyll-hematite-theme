@@ -1,0 +1,10 @@
+{% if pl_page_url == page.url %}
+    {% assign clss = "current_page" %}
+{% else %}
+    {% assign clss = "" %}
+{% endif %}
+<li class="{{ clss }}">
+    <a href="{{ pl_page_url }}">
+        {{ pl_page_title }}
+    </a>
+</li>
