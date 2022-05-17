@@ -1,5 +1,5 @@
 ---
-permalink: /assets/page_data.json
+permalink: /assets/search_data.json
 ---
 [
 {% capture nooutput %}
@@ -9,7 +9,7 @@ capture groups.
 
 {% increment i %}
 {% increment page_count %}
-{% assign pages = site.html_pages | concat: site.posts %}
+{% assign pages = site.html_pages | concat: site.posts | where: "noindex", nil %}
 
 {% for pg in pages %}
     {% increment page_count %}
@@ -30,3 +30,7 @@ capture groups.
     {% endif %}
 {% endfor %}
 ]
+
+{% comment %}
+ vim: set syntax=off :
+{% endcomment %}

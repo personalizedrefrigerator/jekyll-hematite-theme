@@ -45,6 +45,10 @@ nav#post_next_prev {
     & > a {
         flex-grow: 1;
         text-align: center;
+
+        // Show the top of the page, in addition to the
+        // link.
+        scroll-margin-top: calc(25vh + 2em);
     }
 }
 
@@ -83,7 +87,7 @@ nav#post_next_prev {
 }
 
 .end-of-post-space {
-    height: 300px;
+    height: 100px;
     break-after: always;
 }
 

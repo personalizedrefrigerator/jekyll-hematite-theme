@@ -8,7 +8,9 @@ import AnimationUtil from "./AnimationUtil.mjs";
 import AsyncUtil from "./AsyncUtil.mjs";
 import UrlHelper from "./UrlHelper.mjs";
 
-const PAGE_DATA_URL = `{{ "/assets/page_data.json" | relative_url }}`;
+const PAGE_DATA_URL = `{{ "/assets/search_data.json" | relative_url }}`;
+const MATCHING_TITLE_PRIORITY_INCREMENT = 15;
+const ALREADY_SEEN_PRIORITY_DECREMENT = 100;
 const SEARCH_CONTEXT_LEN = 40;
 
 /// Handles fetching page data, caching it, etc.
@@ -116,6 +118,14 @@ class Searcher {
             let content = this.filterContent_(page.content);
             content += '\n' + page.title;
 
+            let pageData = {
+                title: page.title,
+                url: page.url,
+                numMatches: 0,
+                titleMatches: (page.title.toLowerCase().indexOf(query) != -1)
+            };
+
+
             // TODO: Improve search!
             let toSearch = content.toLowerCase();
             let matchLoc = toSearch.indexOf(query);
@@ -136,17 +146,40 @@ class Searcher {
                 }
 
                 results.push({
-                    title: page.title,
-                    url: page.url,
                     index,
-                    context
+                    context,
+                    pageData,
                 });
 
                 index ++;
+                pageData.numMatches ++;
                 startPos = matchLoc + query.length;
                 matchLoc = toSearch.indexOf(query, startPos);
             }
         }
+
+        // Prioritize results
+        let includedPages = {};
+        for (let i = 0; i < results.length; i++) {
+            let result = results[i];
+
+            result.priority = result.pageData.numMatches;
+
+            if (result.pageData.titleMatches) {
+                result.priority += MATCHING_TITLE_PRIORITY_INCREMENT;
+            }
+
+            // If we already are including a copy of the page, this result
+            // is just for another match in the same page. Deprioritize
+            if (includedPages[result.pageData.title]) {
+                result.priority -= ALREADY_SEEN_PRIORITY_DECREMENT;
+            }
+            includedPages[result.pageData.title] = true;
+        }
+
+        results.sort((a, b) => {
+            return b.priority - a.priority;
+        });
 
         return results;
     }
@@ -222,8 +255,9 @@ function handleSearch(searcher) {
             let context = document.createElement("div");
             context.classList.add('context');
 
-            link.innerText = result.title;
-            link.href = result.url + `?query=${escape(query)},index=${result.index}`;
+            link.innerText = result.pageData.title ?? stringLookup(`untitled`);
+            link.href =
+                result.pageData.url + `?query=${escape(query)},index=${result.index}`;
             context.innerText = result.context;
 
             link.appendChild(context);
