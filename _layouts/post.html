@@ -6,6 +6,7 @@ layout: default
 
 <nav id="post_next_prev">
 </nav>
+<p id="post_date" class="post-assigned-date"></p>
 
 <main>
 {{ content }}
@@ -34,6 +35,7 @@ layout: default
         },
     {% endif %}
         tags: {{ page.tags | jsonify }},
+        date: {{ page.date | date_to_xmlschema | jsonify }}
     };
 
     initPost(pageData);

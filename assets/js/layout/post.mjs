@@ -48,9 +48,24 @@ function createTagLinks(page) {
     }
 }
 
+function fillDate(page) {
+    let postDateContainer = document.querySelector(`#post_date`);
+    let dateOptions = {{ site.hematite.date_format | default: nil | jsonify }};
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+    // for other formatting options.
+    dateOptions ??= {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    };
+    console.log(page.date);
+
+    postDateContainer.innerText = new Date(page.date).toLocaleDateString(undefined, dateOptions);
+}
+
 function initPost(pageData) {
     createNextPrevLinks(pageData);
     createTagLinks(pageData);
+
+    fillDate(pageData);
 }
 
 export { initPost };

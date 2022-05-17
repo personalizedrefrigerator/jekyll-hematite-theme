@@ -11,6 +11,22 @@ permalink: pretty
 
 hematite:
   auto_invert_imgs: true
+
+  # Date options are as specified here:
+  # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+  date_format:
+    # Short weekday (e.g. Thu for Thursday)
+    # weekday: short
+    # Long weekday (e.g. Monday)
+    weekday: long
+
+    # Use two digits for the month and day
+    month: 2-digit
+    day: 2-digit
+
+    # The full year
+    year: numeric
+
   sidebar:
     footer_html: 'This page was made with the Hematite Theme. <a href="https://github.com/personalizedrefrigerator/jekyll-hematite-theme">Contribute on GitHub</a>'
 

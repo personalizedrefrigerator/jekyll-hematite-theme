@@ -78,6 +78,12 @@ nav#post_next_prev {
     }
 }
 
+.post-assigned-date {
+    font-style: italic;
+    color: var(--text-color-faint);
+    text-align: end;
+}
+
 .next-post-link {
     float: right;
 }
