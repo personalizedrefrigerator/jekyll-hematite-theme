@@ -5,12 +5,25 @@ function handleSidebar() {
     const sidebar = document.querySelector(`nav#sidebar`);
     const mainContainer = document.querySelector(`.main-container`);
 
-    // True if sidebar toggled by user
+    // True if sidebar has been toggled by user at least once.
     let sidebarToggled = false;
 
     const setBtnLabel = (text) => {
         toggleBtn.setAttribute(`title`, text);
     };
+
+    const setSidebarOpen = (open) => {
+        if (!open) {
+            sidebar.classList.remove(`open`);
+            document.scrollingElement?.classList.remove(`hasOpenSidebar`);
+        }
+        else {
+            sidebar.classList.add(`open`);
+            document.scrollingElement?.classList.add(`hasOpenSidebar`);
+        }
+    };
+
+    const isSidebarOpen = () => sidebar.classList.contains(`open`);
 
     const updateBtn = () => {
         if (sidebar.classList.contains(`open`)) {
@@ -34,9 +47,9 @@ function handleSidebar() {
 
         // If there's enough space for the sidebar
         if (sidebar.clientWidth < spaceOnLeft) {
-            sidebar.classList.add(`open`);
+            setSidebarOpen(true);
         } else {
-            sidebar.classList.remove(`open`);
+            setSidebarOpen(false);
         }
 
 
@@ -51,7 +64,8 @@ function handleSidebar() {
     };
 
     toggleBtn.onclick = () => {
-        sidebar.classList.toggle(`open`);
+        setSidebarOpen(!isSidebarOpen());
+
         sidebarToggled = true;
         updateBtn();
     };

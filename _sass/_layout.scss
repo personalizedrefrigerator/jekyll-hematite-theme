@@ -158,6 +158,11 @@ nav#post_next_prev {
         }
     }
 
+    // Don't scroll if the sidebar is filling the screen.
+    :root.hasOpenSidebar, body.hasOpenSidebar {
+        overflow: hidden;
+    }
+
     body, :root {
         margin: 0;
         padding: 0;
