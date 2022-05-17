@@ -11,7 +11,11 @@ layout: default
 {{ content }}
 </main>
 
+<div class="end-of-post-space"></div>
+
+<hr/>
 <nav id="post_tags">
+    <h1 id="tag_header_lbl"></h1>
 </nav>
 
 <script type="module">
@@ -29,6 +33,7 @@ layout: default
             title: "{{ page.previous.title | strip_html }}",
         },
     {% endif %}
+        tags: {{ page.tags | jsonify }},
     };
 
     initPost(pageData);

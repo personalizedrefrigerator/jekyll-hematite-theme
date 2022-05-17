@@ -10,5 +10,7 @@ found_search_results: 'Found {0} result(s):'
 copy_link_to_header: 'Copy link to section: “{0}”'
 link_to_header_copied_alert: 'Link to “{0}” copied!'
 
+tags: 'Tags'
+all_tags_header: 'All Tags'
 prev_post: '← {0}'
 next_post: '{0} →'

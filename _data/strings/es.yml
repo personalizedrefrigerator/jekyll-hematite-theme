@@ -9,5 +9,7 @@ found_search_results: 'Encontrado {0} cosa(s):'
 copy_link_to_header: 'Copie enlace de «{0}»'
 link_to_header_copied_alert: '¡El enlace por «{0}» fue copiado!'
 
+tags: 'Etiquetas'
+all_tags_header: 'Todas las etiquetas'
 prev_post: '← {0}'
 next_post: '{0} →'

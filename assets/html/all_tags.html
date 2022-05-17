@@ -1,0 +1,26 @@
+---
+layout: default
+title: All Tags
+permalink: /assets/html/all_tags.html
+---
+
+<h1 id="all_tags_header"></h1>
+
+{% for tag in site.tags %}
+<details><summary><code>{{ tag[0] }}</code></summary>
+
+<ul id="tag__{{ tag[0] | escape }}">
+    {% for post in tag[1] %}
+        <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
+</details>
+{% endfor %}
+
+<script type="module">
+    import stringLookup from "{{ 'assets/js/strings.mjs' | relative_url }}";
+    document.querySelector("#all_tags_header").innerText
+            = stringLookup(`all_tags_header`);
+</script>
