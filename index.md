@@ -3,6 +3,7 @@ title: Hematite Theme
 layout: default
 katex: true
 lang: en
+sidebarindex: 1
 ---
 
 # The Hematite Theme

@@ -1,7 +1,11 @@
 
-{% for pl_sidebar_page in site.html_pages | sort %}
-    {% if pl_sidebar_page.nosidebar %}
-    {% else %}
+{% assign page_list = site.html_pages | sort: "sidebarindex" %}
+{% for pl_sidebar_page in page_list %}
+    {% comment %}
+        Only include pages that have requested to be in the sidebar
+    {% endcomment %}
+    {% if pl_sidebar_page.sidebarindex %}
+        <!-- Page: {{ pl_sidebar_page.sidebarindex }} -->
         {% assign pl_page_url = pl_sidebar_page.url %}
         {% assign pl_page_title = pl_sidebar_page.title %}
         {% include nav/pinned_page.html %}
