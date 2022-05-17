@@ -85,6 +85,8 @@ nav.sidebar {
     & > .pinned-pages {
         flex-grow: 1;
         flex-shrink: 1;
+
+        min-height: 30px;
     }
 
     & > .search-results, & > .pinned-pages {
@@ -111,6 +113,8 @@ nav.sidebar {
             color: var(--text-color-faint);
             border-left: 1px solid var(--line-color-light);
             text-decoration: none;
+
+            word-wrap: anywhere;
         }
 
         // Search result link
