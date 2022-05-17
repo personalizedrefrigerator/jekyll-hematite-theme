@@ -169,10 +169,6 @@ nav#post_next_prev {
     .linkToHeaderContainer {
         margin-right: -$content-main-padding;
     }
-
-    nav#post_next_prev {
-        display: none;
-    }
 }
 
 // Printing?
@@ -197,6 +193,10 @@ nav#post_next_prev {
     }
 
     nav.sidebar {
+        display: none;
+    }
+
+    nav#post_next_prev {
         display: none;
     }
 }
