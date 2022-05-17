@@ -117,7 +117,7 @@ input::placeholder {
 // Markdown parsers may put `code` elements inside of `pre`
 // elements. We don't want the background color of the `code` element
 // to make parts of lines invisible.
-pre code {
+.main-container pre code {
     background-color: transparent;
 
     // Let the `pre` handle the padding
