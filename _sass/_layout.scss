@@ -127,6 +127,10 @@ nav#post_next_prev {
     .main-container {
         box-shadow: none;
         margin: 0;
+
+        img {
+            max-width: calc(100vw - 2 * #{$content-main-padding});
+        }
     }
 
     body, :root {
