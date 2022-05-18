@@ -1,6 +1,6 @@
 ---
 title: Hematite Theme
-layout: default
+layout: home
 katex: true
 lang: en
 sidebarindex: 1
