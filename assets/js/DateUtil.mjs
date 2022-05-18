@@ -1,3 +1,5 @@
+---
+---
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const MS_PER_WEEK = MS_PER_DAY * 7;
@@ -42,8 +44,9 @@ var DateUtil = {
     nextMonth(date) {
         let res = new Date(date);
 
-        if (res.getMonth() == 0) {
+        if (res.getMonth() == 11) {
             res.setYear(res.getYear() + 1);
+            res.setMonth(0);
         }
         else {
             res.setMonth(res.getMonth() + 1);
@@ -97,7 +100,24 @@ var DateUtil = {
         console.log("Parsing", text);
 
         return new Date(text);
-    }
+    },
+
+    /// Returns true iff the given object is a date object.
+    isDate(obj) {
+        return typeof (obj) == "object" && obj.__proto__ == (new Date()).__proto__;
+    },
+
+    /// Converts the given date to a preferences-based localized string
+    toString(date, dateOptions) {
+        dateOptions ??= {{ site.hematite.date_format | default: nil | jsonify }};
+        // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+        // for other formatting options.
+        dateOptions ??= {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        };
+
+        return date.toLocaleString(undefined, dateOptions);
+    },
 };
 
 export default DateUtil;

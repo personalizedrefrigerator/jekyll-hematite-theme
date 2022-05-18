@@ -3,7 +3,7 @@ layout: default
 ---
 
 <h1>{{ page.title }}</h1>
-
+<h2 id="calendar_title"></h2>
 <div id="calendar_display" class='visual-calendar'></div>
 
 <main>
@@ -15,10 +15,22 @@ layout: default
     calendarSetup(
         document.querySelector("main"),
         document.querySelector("#calendar_display"),
+        {% if page.show_calendar_title %}
+        document.querySelector("#calendar_title"),
+        {% else %}
+        null,
+        {% endif %}
         {% if page.include_posts %}
         true
         {% else %}
         false
         {% endif %}
     );
+
+    // Remove the title if we're not using it — it can mess with
+    // screen readers
+    {% if page.show_calendar_title %}
+    {% else %}
+    document.querySelector("#calendar_title").remove();
+    {% endif %}
 </script>

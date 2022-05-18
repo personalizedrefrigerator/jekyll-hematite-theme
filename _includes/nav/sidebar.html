@@ -2,14 +2,16 @@
     <div class="search-container">
         <!-- input placeholder and alt text should be set with JS -->
         <input id="search_input" type="search"/>
-        <button class="search-btn" id="search_btn">
+        <button class="search-btn" id="search_btn" aria-live="polite">
             {% include img/search_icon.svg %}
         </button>
     </div>
 
-    <ul class="search-results">
+    <div class="search-results-container" aria-live="polite">
+        <ul class="search-results">
 
-    </ul>
+        </ul>
+    </div>
 
     <ul class="pinned-pages">
         {% include nav/pages_list.html %}

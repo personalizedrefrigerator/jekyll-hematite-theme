@@ -234,7 +234,7 @@ function focusSearchResult(searcher, elem, query, resultIndex) {
 function handleSearch(searcher) {
     const searchInput = document.querySelector(".search-container > #search_input");
     const searchBtn = document.querySelector(".search-container > #search_btn");
-    const searchResults = document.querySelector("#sidebar > .search-results");
+    const searchResults = document.querySelector("#sidebar .search-results");
 
     searchInput.setAttribute("placeholder", stringLookup(`search_site_placeholder`));
     searchBtn.disabled = true;
@@ -266,15 +266,20 @@ function handleSearch(searcher) {
 
         AnimationUtil.expandInVert(searchResults);
         searchResults.classList.remove(`hidden`);
+
+        return { descriptionElem };
     };
 
     const showError = (error) => {
         let errorDescription = document.createElement("div");
         errorDescription.innerText = stringLookup(`search_error`, `${error}`);
+
         searchResults.replaceChildren(errorDescription);
 
         AnimationUtil.expandInVert(searchResults);
         searchResults.classList.remove(`hidden`);
+
+        return { errorDescription };
     };
 
     const hideResults = () => {
@@ -300,6 +305,7 @@ function handleSearch(searcher) {
         // The search button's action is to search
         if (lastQuery == searchText && !areSearchResultsHidden()) {
             searchBtn.classList.add('close_search');
+            newLabel = stringLookup(`hide_search_results_action`, searchText);
         }
         else {
             searchBtn.classList.remove('close_search');
@@ -318,9 +324,11 @@ function handleSearch(searcher) {
 
             try {
                 let results = await searcher.runSearch(query);
+
                 showResults(query, results);
             } catch (e) {
                 console.error(e);
+
                 showError(e);
             }
         } else {

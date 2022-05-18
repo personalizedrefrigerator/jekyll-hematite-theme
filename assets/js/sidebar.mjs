@@ -1,4 +1,5 @@
 import { stringLookup } from "./strings.mjs";
+import { announceForAccessibility } from "./PageAlert.mjs";
 
 function handleSidebar() {
     const toggleBtn = document.querySelector(`button#toggle_sidebar_btn`);
@@ -68,6 +69,13 @@ function handleSidebar() {
 
         sidebarToggled = true;
         updateBtn();
+
+        if (isSidebarOpen()) {
+            announceForAccessibility(stringLookup(`sidebar_opened_announcement`));
+        }
+        else {
+            announceForAccessibility(stringLookup(`sidebar_closed_announcement`));
+        }
     };
 
     updateBtn();

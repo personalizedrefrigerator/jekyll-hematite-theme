@@ -2,10 +2,14 @@
 ---
 
 import { stringLookup } from "../strings.mjs";
+import { announceForAccessibility } from "../PageAlert.mjs";
 import DateUtil from "../DateUtil.mjs";
 
 const DATE_SPEC_ELEM_TAG = "h1";
 const LIST_SPEC_ELEM_TAG = "ul";
+const CALENDAR_DATE_FMT_OPTIONS =
+                    {{ site.hematite.short_date_format | default: nil | jsonify }}
+                        ?? { day: "2-digit", year: "2-digit", month: "2-digit" };
 
 // Used for generating unique IDs
 let nextViewModeSelectorId = 0;
@@ -181,9 +185,10 @@ class Calendar {
     VIEW_MODE_WEEK = 2;
     VIEW_MODE_DAY = 3;
 
-    constructor(data, containerElem) {
+    constructor(data, containerElem, headerElem) {
         this.mode_ = this.VIEW_MODE_WEEK;
         this.container_ = document.createElement("div");
+        this.header_ = headerElem ?? null;
         this.data_ = data;
         this.anchorDate_ = this.closestItemDateTo_(new Date())?.date ?? new Date();
 
@@ -274,8 +279,7 @@ class Calendar {
         let content = this.lookupItem_(date);
         card.classList.add("calendar-card");
 
-        let dateOptions = { day: "2-digit", year: "2-digit", month: "2-digit" };
-        header.innerText = date.toLocaleDateString(dateOptions);
+        header.innerText = date.toLocaleDateString(CALENDAR_DATE_FMT_OPTIONS);
 
         if (content) {
             if (content.link) {
@@ -320,11 +324,17 @@ class Calendar {
             startDate = DateUtil.beginningOfWeek(DateUtil.beginningOfMonth(this.anchorDate_));
             endDate = DateUtil.beginningOfMonth(DateUtil.nextMonth(this.anchorDate_));
             this.content_.classList.add("month-display");
+            console.log(startDate, endDate);
         }
-        console.log(startDate, endDate);
 
         for (const date of DateUtil.daysInRange(startDate, endDate)) {
             this.content_.appendChild(this.createCardForDay_(date));
+        }
+
+        if (this.header_) {
+            let startStr = startDate.toLocaleDateString(CALENDAR_DATE_FMT_OPTIONS);
+            let endStr = endDate.toLocaleDateString(CALENDAR_DATE_FMT_OPTIONS);
+            this.header_.innerText = stringLookup(`calendar_header_date_range`, startStr, endStr);
         }
         this.container_.appendChild(this.content_);
     }
@@ -398,7 +408,7 @@ class Calendar {
 /// Creates a visual calendar, pulling input from [inputElem]
 /// and writing output to [outputElem]. If [includePosts], all post-formatted
 /// articles are also included.
-function calendarSetup(sourceElem, outputElem, includePosts) {
+function calendarSetup(sourceElem, outputElem, calendarTitleElem, includePosts) {
     let data = getCalendarData(sourceElem, true);
 
     if (includePosts) {
@@ -407,8 +417,9 @@ function calendarSetup(sourceElem, outputElem, includePosts) {
 
     let controlsContainer = document.createElement("div");
     controlsContainer.classList.add('controls');
+    outputElem.appendChild(controlsContainer);
 
-    let calendar = new Calendar(data, outputElem);
+    let calendar = new Calendar(data, outputElem, calendarTitleElem);
 
     let viewModeContainer = document.createElement("div");
     let viewModeLabel = document.createElement("label");
@@ -439,21 +450,29 @@ function calendarSetup(sourceElem, outputElem, includePosts) {
 
     nextBtn.onclick = () => {
         calendar.next();
+
+        let mode = calendar.getLocalizedMode();
+        announceForAccessibility(stringLookup(`calendar_went_next`, mode));
     };
 
     prevBtn.onclick = () => {
         calendar.prev();
+
+        let mode = calendar.getLocalizedMode();
+        announceForAccessibility(stringLookup(`calendar_went_prev`, mode));
     };
 
     viewModeSelector.onchange = () => {
         calendar.setMode(parseInt(viewModeSelector.value));
         updateModeLabels();
+
+        let mode = calendar.getLocalizedMode();
+        announceForAccessibility(stringLookup(`calendar_changed_mode`, mode));
     };
 
 
     viewModeContainer.replaceChildren(viewModeLabel, viewModeSelector);
     controlsContainer.replaceChildren(prevBtn, viewModeContainer, nextBtn);
-    outputElem.appendChild(controlsContainer);
 }
 
 export default calendarSetup;

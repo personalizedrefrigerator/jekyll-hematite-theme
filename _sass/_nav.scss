@@ -89,11 +89,11 @@ nav.sidebar {
         min-height: 30px;
     }
 
-    & > .search-results, & > .pinned-pages {
+    & > .search-results-container, & > .pinned-pages {
         overflow: auto;
     }
 
-    & > .search-results {
+    & > .search-results-container > .search-results {
         &.hidden {
             display: none;
         }
@@ -131,7 +131,7 @@ nav.sidebar {
         }
     }
 
-    & > ul.search-results, & > ul.pinned-pages {
+    & > .search-results-container > ul.search-results, & > ul.pinned-pages {
         list-style: none;
         padding-left: 0;
 

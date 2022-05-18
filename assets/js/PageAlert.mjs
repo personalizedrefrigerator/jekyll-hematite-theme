@@ -1,7 +1,9 @@
 /// Builds an alert message that appears at the bottom of the page.
 
 const PAGE_ALERT_DEFAULT_TIMEOUT = 5000; // ms
+const PAGE_ALERT_FAST_TIMEOUT = 250;
 const PAGE_ALERT_DIALOG_CLSS = "pageAlert";
+const PAGE_ALERT_DIALOG_HIDDEN_CLSS = "hidden";
 
 class PageAlertBuilder {
     constructor() {
@@ -31,6 +33,14 @@ class PageAlertBuilder {
         return this;
     }
 
+    /// Don't show the announcement to the user. Useful for accessibility-
+    ///related announcements.
+    invisible() {
+        this.invisible_ = true;
+
+        return this;
+    }
+
     /// Build, but don't yet show the alert. Returns an object
     /// with [show] and [destroy] methods.
     build() {
@@ -43,6 +53,13 @@ class PageAlertBuilder {
 
         messageArea.innerText = this.text_;
         dialog.appendChild(messageArea);
+
+        if (this.invisible_) {
+            dialog.classList.add(PAGE_ALERT_DIALOG_HIDDEN_CLSS);
+            dialog.style.opacity = 0;
+            dialog.style.pointerEvents = 'none';
+            console.log("PageAlert-invisible", this.text_);
+        }
 
         /// Removes the dialog.
         let destroying = false;
@@ -113,5 +130,14 @@ var PageAlert = {
     }
 };
 
-export { PageAlert };
+/// Short method for creating an invisible alert with [text].
+function announceForAccessibility(text) {
+    return PageAlert.builder()
+                    .withText(text)
+                    .invisible()
+                    .withTimeout(PAGE_ALERT_FAST_TIMEOUT)
+                    .build().show();
+}
+
+export { PageAlert, announceForAccessibility };
 export default PageAlert;

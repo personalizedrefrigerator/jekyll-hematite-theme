@@ -1,5 +1,6 @@
 
 import { assertEq } from "./assertions.mjs";
+import DateUtil from "./DateUtil.mjs";
 import { STRING_TABLE, DEFAULT_LOCALES } from "./string_data.mjs";
 
 
@@ -47,6 +48,15 @@ function formatText(text, ...formatArgs) {
     let i = 0;
     let result = [];
     formatArgs ??= [];
+
+    // Convert each argument to a string.
+    formatArgs = formatArgs.map((elem) => {
+        if (DateUtil.isDate(elem)) {
+            return DateUtil.toString(elem);
+        }
+
+        return "" + elem;
+    });
 
     var consumeNumber = () => {
         let numberRes = "";
