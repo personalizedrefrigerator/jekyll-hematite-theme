@@ -180,7 +180,7 @@ class Calendar {
                 let container = document.createElement("li");
 
                 container.innerHTML = itemData.html;
-                for (const tag of itemData.tags) {    
+                for (const tag of itemData.tags) {
                     container.classList.add(AgendaItem.getTagClass(tag));
                 }
 
@@ -211,7 +211,7 @@ class Calendar {
             this.content_.classList.add("week-display");
         }
         else if (this.mode_ == this.VIEW_MODE_MONTH) {
-            startDate = DateUtil.beginningOfMonth(this.anchorDate_);
+            startDate = DateUtil.beginningOfWeek(DateUtil.beginningOfMonth(this.anchorDate_));
             endDate = DateUtil.beginningOfMonth(DateUtil.nextMonth(this.anchorDate_));
             this.content_.classList.add("month-display");
         }
@@ -304,7 +304,7 @@ function calendarSetup(sourceElem, outputElem) {
 
         viewModeSelector.value = calendar.getMode();
     };
-    
+
     updateModeLabels();
 
     nextBtn.onclick = () => {

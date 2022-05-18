@@ -74,7 +74,7 @@ var DateUtil = {
     },
 
     beginningOfMonth(date) {
-        let dayOfMonth = date.getDate();
+        let dayOfMonth = date.getDate() - 1;
 
         return new Date(date.getTime() - MS_PER_DAY * dayOfMonth);
     },
