@@ -116,13 +116,13 @@ class Searcher {
         for (const page of data) {
             // Remove HTML tags.
             let content = this.filterContent_(page.content);
-            content += '\n' + page.title;
+            content += '\n' + (page.title ?? "");
 
             let pageData = {
                 title: page.title,
                 url: page.url,
                 numMatches: 0,
-                titleMatches: (page.title.toLowerCase().indexOf(query) != -1)
+                titleMatches: (page.title?.toLowerCase()?.indexOf(query) != -1)
             };
 
 
