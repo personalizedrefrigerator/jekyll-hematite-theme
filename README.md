@@ -9,13 +9,13 @@ A work-in-progress theme intended to be used for course websites.
 Add this line to your Jekyll site's `Gemfile`:
 
 ```ruby
-gem "Hematite"
+gem "hematite"
 ```
 
 And add this line to your Jekyll site's `_config.yml`:
 
 ```yaml
-theme: Hematite
+theme: hematite
 ```
 
 
@@ -25,7 +25,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install Hematite
+    $ gem install hematite
 
 
 

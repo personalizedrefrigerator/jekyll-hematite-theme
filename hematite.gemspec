@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |spec|
-  spec.name          = "Hematite"
-  spec.version       = "0.1.1"
+  spec.name          = "hematite"
+  spec.version       = "0.0.1"
   spec.authors       = ["Henry Heino"]
   spec.email         = ["personalizedrefrigerator@gmail.com"]
 
