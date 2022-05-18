@@ -1,11 +1,12 @@
 # Hematite
 
+![The dark variant of the Hematite Theme, showing a calendar](./screenshot.png)
+
 A work-in-progress theme intended to be used for course websites.
 
 ## Installation
 
-This theme is not ready for release and is thus not published on rubygems.org.
-<!-- Add this line to your Jekyll site's `Gemfile`:
+Add this line to your Jekyll site's `Gemfile`:
 
 ```ruby
 gem "Hematite"
@@ -26,11 +27,11 @@ Or install it yourself as:
 
     $ gem install Hematite
 
--->
+
 
 ## Usage
 
-TODO: Write usage instructions here. Describe your available layouts, includes, sass and/or assets.
+Further documentation for this is coming! For now, [minimal documentation](https://personalizedrefrigerator.github.io/jekyll-hematite-theme/) can be found on the theme's homepage.
 
 ## Contributing
 
