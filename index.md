@@ -16,7 +16,7 @@ This theme is currently
 [under development on GitHub](https://github.com/personalizedrefrigerator/jekyll-hematite-theme) and
 not production-ready.
 
-The `calendar` layout below, for example, is not yet implemented.
+Its API is likely to change
 </aside>
 
 # Features

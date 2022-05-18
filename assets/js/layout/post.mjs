@@ -56,7 +56,6 @@ function fillDate(page) {
     dateOptions ??= {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     };
-    console.log(page.date);
 
     postDateContainer.innerText = new Date(page.date).toLocaleDateString(undefined, dateOptions);
 }

@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+.calendar-content {
+    display: grid;
+    grid-auto-rows: auto;
+
+    &.month-display {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    &.week-display {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 600px) {
+        &.week-display {
+            grid-template-columns: 1fr;
+        }
+
+        &.month-display {
+            overflow-x: scroll;
+        }
+    }
+}
+
+.visual-calendar > .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media print {
+        display: none;
+    }
+}
+
+.calendar-card {
+    border: 1px solid var(--line-color-light);
+    padding-left: 5px;
+    padding-right: 5px;
+
+    > a {
+        font-size: 12pt;
+        text-align: center;
+        display: block;
+    }
+
+    > ul {
+        list-style: none;
+        padding: 0;
+
+        > :nth-child(2n + 1) {
+            background-color: var(--primary-background-color);
+        }
+
+        > :nth-child(2n) {
+            background-color: var(--secondary-background-color);
+        }
+    }
+}

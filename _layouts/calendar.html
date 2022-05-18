@@ -2,4 +2,18 @@
 layout: default
 ---
 
+<h1>{{ page.title }}</h1>
+
+<div id="calendar_display" class='visual-calendar'></div>
+
+<main>
 {{ content }}
+</main>
+
+<script type="module">
+    import calendarSetup from "{{ 'assets/js/layout/calendar.mjs' | relative_url }}";
+    calendarSetup(
+        document.querySelector("main"),
+        document.querySelector("#calendar_display")
+    );
+</script>

@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import "_nav";
+@import "_calendar";
 
 .main-container {
     box-shadow: 1px 1px 3px var(--shadow-color-light);
@@ -52,7 +53,7 @@ nav#post_next_prev {
     }
 }
 
-.prev-post-link, .next-post-link, .post-tag {
+.prev-post-link, .next-post-link, .post-tag, .tag {
     border: none;
     padding: 6px;
     border-radius: 10px;
@@ -70,7 +71,7 @@ nav#post_next_prev {
     }
 }
 
-.post-tag {
+.post-tag, .tag {
     color: var(--primary-text-color);
 
     &:visited {
@@ -184,6 +185,7 @@ nav#post_next_prev {
     .linkToHeaderContainer {
         margin-right: -$content-main-padding;
     }
+
 }
 
 // Printing?
@@ -213,5 +215,10 @@ nav#post_next_prev {
 
     nav#post_next_prev {
         display: none;
+    }
+
+    .tag, .post-tag, .post-next-btn, .post-prev.btn {
+        box-shadow: none;
+        border: 1px solid var(--line-color-light);
     }
 }
