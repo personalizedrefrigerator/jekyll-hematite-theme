@@ -24,11 +24,8 @@ function getCalendarData(elem, formatElemLabels) {
 
         if (tagName == DATE_SPEC_ELEM_TAG) {
             // Remove '-rd' and '-th' suffixes.
-            let dateText = child.innerText.replaceAll(/(\d)(?:rd|th)/g,
-                (fullMatch, group0) => group0);
-
             try {
-                lastDate = new Date(child.innerText);
+                lastDate = DateUtil.parse(child.innerText);
                 lastHeaderId = child.getAttribute("id");
             }
             catch (e) {
@@ -75,19 +72,65 @@ function getCalendarData(elem, formatElemLabels) {
         }
     }
 
-    result.sort((a, b) => {
-        if (a.date < b.date) {
-            return -1;
-        }
-
-        if (a.date > b.date) {
-            return 1;
-        }
-
-        return 0;
-    });
+    result.sort(AgendaItem.compare);
 
     return result;
+}
+
+/// Adds post data to the given calendar data item.
+function addPostData(data) {
+    let postDates = [
+        {% for item in site.posts %}
+            {{ item.date | date_to_xmlschema | jsonify }},
+        {% endfor %}
+    ].map((dateItem) =>
+        DateUtil.parse(dateItem)
+    );
+    let postTags = {{ site.posts | map: "tags" | jsonify }};
+    let postTitles = {{ site.posts | map: "title" | jsonify }};
+    let postLinks = [
+        {% for item in site.posts %}
+        {{ item.url | relative_url | jsonify }},
+        {% endfor %}
+    ];
+
+    if (postDates.length != postTitles.length || postLinks.length != postTitles.length) {
+        console.warn("Some post data array has a different length, refusing to show posts.");
+        return;
+    }
+
+    for (let i = 0; i < postDates.length; i++) {
+        data.push({
+            date: postDates[i],
+            agenda: [ AgendaItem.forPost(postTitles[i], postTags[i], postLinks[i]) ],
+            link: undefined,
+        });
+    }
+
+    data.sort(AgendaItem.compare);
+
+    let newData = [];
+    let currentItem;
+
+    for (let i = 0; i < data.length; i++) {
+        if (!currentItem) {
+            currentItem = { date: data[i].date, agenda: [], };
+            newData.push(currentItem);
+        }
+
+        if (DateUtil.datesAreOnSameDay(currentItem.date, data[i].date)) {
+            for (const item of data[i].agenda) {
+                currentItem.agenda.push(item);
+            }
+
+            currentItem.link ??= data[i].link;
+        } else {
+            currentItem = data[i];
+            newData.push(currentItem);
+        }
+    }
+
+    return newData;
 }
 
 class AgendaItem {
@@ -105,8 +148,32 @@ class AgendaItem {
     }
 }
 
+AgendaItem.forPost = (title, tags, url) => {
+    let result = new AgendaItem('');
+    title = title
+        .replaceAll(/[>]/g, '&gt;')
+        .replaceAll(/[<]/g, '&lt;');
+    result.html = `<a href="${url}">${title}</a>`;
+
+    result.tags = [...tags];
+
+    return result;
+};
+
 AgendaItem.getTagClass = (tag) => {
     return `calendarTag__${tag}`;
+};
+
+AgendaItem.compare = (a, b) => {
+    if (a.date < b.date) {
+        return -1;
+    }
+
+    if (a.date > b.date) {
+        return 1;
+    }
+
+    return 0;
 };
 
 class Calendar {
@@ -118,21 +185,36 @@ class Calendar {
         this.mode_ = this.VIEW_MODE_WEEK;
         this.container_ = document.createElement("div");
         this.data_ = data;
-        this.anchorDate_ = new Date();
+        this.anchorDate_ = this.closestItemDateTo_(new Date())?.date ?? new Date();
 
         this.updateLayout_();
 
         containerElem.appendChild(this.container_);
     }
 
-    /// Get an item in [data_] from [date], if [searchDate]
-    /// is the same day as the requested item. If there
-    /// are multiple matches, one of them is returned.
-    lookupItem_(searchDate) {
+    /// Returns the item with closest date to [searchDate].
+    closestItemDateTo_(searchDate) {
         let i = Math.floor(this.data_.length / 2);
         let lastI;
         let searchStart = 0;
         let searchStop = this.data_.length;
+
+        let isBetterMatch = (otherIdx) => {
+            if (0 > otherIdx || otherIdx >= this.data_.length) {
+                return false;
+            }
+
+            let dtOther =
+                this.data_[otherIdx].date.getTime() - searchDate.getTime();
+            let dtCurrent =
+                this.data_[i].date.getTime() - searchDate.getTime();
+
+            if (Math.abs(dtOther) < Math.abs(dtCurrent)) {
+                return true;
+            }
+            return false;
+        };
+
 
         // Binary search
         do {
@@ -159,7 +241,29 @@ class Calendar {
         }
         while (lastI != i);
 
+        if (0 <= i && i < this.data_.length) {
+            if (isBetterMatch(i + 1)) {
+                return this.data_[i + 1];
+            }
+            else if (isBetterMatch(i - 1)) {
+                return this.data_[i - 1];
+            }
+            return this.data_[i];
+        }
+
         return null;
+    }
+
+    /// Get an item in [data_] from [date], if [searchDate]
+    /// is the same day as the requested item. If there
+    /// are multiple matches, one of them is returned.
+    lookupItem_(searchDate) {
+        let closest = this.closestItemDateTo_(searchDate);
+        if (closest == null || !DateUtil.datesAreOnSameDay(closest.date, searchDate)) {
+            return null;
+        }
+
+        return closest;
     }
 
     createCardForDay_(date) {
@@ -174,7 +278,9 @@ class Calendar {
         header.innerText = date.toLocaleDateString(dateOptions);
 
         if (content) {
-            header.href = content.link;
+            if (content.link) {
+                header.href = content.link;
+            }
 
             for (let itemData of content.agenda) {
                 let container = document.createElement("li");
@@ -215,6 +321,7 @@ class Calendar {
             endDate = DateUtil.beginningOfMonth(DateUtil.nextMonth(this.anchorDate_));
             this.content_.classList.add("month-display");
         }
+        console.log(startDate, endDate);
 
         for (const date of DateUtil.daysInRange(startDate, endDate)) {
             this.content_.appendChild(this.createCardForDay_(date));
@@ -222,31 +329,48 @@ class Calendar {
         this.container_.appendChild(this.content_);
     }
 
-    next() {
+    /// Get the next anchor (i.e. advance the anchor by a week, month,
+    /// day, etc.
+    getNextAnchor_() {
+        let result = this.anchorDate_;
+
         if (this.mode_ == this.VIEW_MODE_WEEK) {
-            this.anchorDate_ = DateUtil.nextWeek(this.anchorDate_);
+            result = DateUtil.nextWeek(this.anchorDate_);
         }
         else if (this.mode_ == this.VIEW_MODE_DAY) {
-            this.anchorDate_ = DateUtil.nextDay(this.anchorDate_);
+            result = DateUtil.nextDay(this.anchorDate_);
         }
         else {
-            this.anchorDate_ = DateUtil.nextMonth(this.anchorDate_);
+            result = DateUtil.nextMonth(this.anchorDate_);
         }
 
+        return result;
+    }
+
+    getPrevAnchor_() {
+        let result = this.anchorDate_;
+
+        if (this.mode_ == this.VIEW_MODE_WEEK) {
+            result = DateUtil.prevWeek(this.anchorDate_);
+        }
+        else if (this.mode_ == this.VIEW_MODE_DAY) {
+            result = DateUtil.prevDay(this.anchorDate_);
+        }
+        else {
+            result = DateUtil.prevMonth(this.anchorDate_);
+        }
+
+        return result;
+    }
+
+    /// Transition to the next time unit.
+    next() {
+        this.anchorDate_ = this.getNextAnchor_();
         this.updateLayout_();
     }
 
     prev() {
-        if (this.mode_ == this.VIEW_MODE_WEEK) {
-            this.anchorDate_ = DateUtil.prevWeek(this.anchorDate_);
-        }
-        else if (this.mode_ == this.VIEW_MODE_DAY) {
-            this.anchorDate_ = DateUtil.prevDay(this.anchorDate_);
-        }
-        else {
-            this.anchorDate_ = DateUtil.prevMonth(this.anchorDate_);
-        }
-
+        this.anchorDate_ = this.getPrevAnchor_();
         this.updateLayout_();
     }
 
@@ -272,9 +396,15 @@ class Calendar {
 
 
 /// Creates a visual calendar, pulling input from [inputElem]
-/// and writing output to [outputElem].
-function calendarSetup(sourceElem, outputElem) {
+/// and writing output to [outputElem]. If [includePosts], all post-formatted
+/// articles are also included.
+function calendarSetup(sourceElem, outputElem, includePosts) {
     let data = getCalendarData(sourceElem, true);
+
+    if (includePosts) {
+        data = addPostData(data);
+    }
+
     let controlsContainer = document.createElement("div");
     controlsContainer.classList.add('controls');
 

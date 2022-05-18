@@ -14,6 +14,11 @@ layout: default
     import calendarSetup from "{{ 'assets/js/layout/calendar.mjs' | relative_url }}";
     calendarSetup(
         document.querySelector("main"),
-        document.querySelector("#calendar_display")
+        document.querySelector("#calendar_display"),
+        {% if page.include_posts %}
+        true
+        {% else %}
+        false
+        {% endif %}
     );
 </script>

@@ -88,6 +88,16 @@ var DateUtil = {
             yield current;
         }
     },
+
+    /// Slightly more intelligent date parsing than new Date(string).
+    parse(text) {
+        // Remove -th, -rd, -ero suffexes
+        text = text.replaceAll(/(\d)(?:rd|th|ero)/g,
+                (fullMatch, group0) => group0);
+        console.log("Parsing", text);
+
+        return new Date(text);
+    }
 };
 
 export default DateUtil;
