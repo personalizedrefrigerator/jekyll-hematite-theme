@@ -1,0 +1,33 @@
+// See also assets/js/string_data.mjs
+export default {
+    open_sidebar: 'Open sidebar',
+    close_sidebar: 'Close sidebar',
+    search_site_placeholder: 'Find in site...',
+    search_site_action: 'Search for "{0}"',
+    search_disabled_no_content: 'Missing text to search for!',
+    search_error: 'Error searching: {0}',
+    hide_search_results_action: 'Hide search results',
+    found_search_results: 'Found {0} result(s):',
+    copy_link_to_header: 'Copy link to section: "{0}"',
+    link_to_header_copied_alert: 'Link to "{0}" copied!',
+    sidebar_opened_announcement: 'Sidebar opened!',
+    sidebar_closed_announcement: 'Sidebar closed!',
+
+    invalid_date: 'Invalid date: {0}',
+    calendar_prev_btn: 'Previous {0}',
+    calendar_next_btn: 'Next {0}',
+    calendar_mode_week: 'Week',
+    calendar_mode_day: 'Day',
+    calendar_mode_month: 'Month',
+    calendar_choose_view_mode: 'Change calendar mode: ',
+    calendar_went_next: 'Showing next {0}',
+    calendar_went_prev: 'Showing previous {0}',
+    calendar_changed_mode: 'Switched view mode to {0}',
+    calendar_header_date_range: '{0} through {1}',
+
+    tags: 'Tags',
+    untitled: 'Untitled',
+    all_tags_header: 'All Tags',
+    prev_post: '← {0}',
+    next_post: '{0} →',
+};

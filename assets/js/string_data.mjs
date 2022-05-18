@@ -1,15 +1,9 @@
----
-permalink: /assets/js/string_data.mjs
----
+import en from "../string_data/en.mjs";
+import es from "../string_data/es.mjs";
 
 const STRING_TABLE = {
-{% for language in site.data.strings %}
-    {{ language[0] }}: {
-        {% for string in language[1] %}
-            "{{ string[0] }}": {{ string[1] | jsonify }},
-        {% endfor %}
-    },
-{% endfor %}
+    en,
+    es,
 };
 
 // Locales to check if a string isn't localized in any of the
