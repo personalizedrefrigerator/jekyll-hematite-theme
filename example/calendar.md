@@ -26,3 +26,21 @@ calendar_date_elem: h1
 
 # Invalid Date, 2022
  * [test] Testing...
+
+
+<style>
+/* In the visual calendar, items with tags are
+   given class names in the form calendarTag__tagName.
+
+   For example, above, we have
+# April 12, 2022
+   - [documentation] Foobar
+
+   A tag is created from [documentation]. The version of Foobar in
+   the visual display of the calendar has class 'calendarTag__documentation'.
+ */
+.calendarTag__test::before {
+    content: "🧪";
+    float: right;
+}
+</style>

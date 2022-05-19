@@ -91,8 +91,7 @@ function getCalendarData(elem, formatElemLabels, dateHeaderTag) {
     }
 
     result.sort(AgendaItem.compare);
-
-    return result;
+    return joinDuplicateData(result);
 }
 
 /// Adds post data to the given calendar data item.
@@ -127,6 +126,14 @@ function addPostData(data) {
 
     data.sort(AgendaItem.compare);
 
+
+    return joinDuplicateData(data);
+}
+
+/// Ensures that there is only one entry per date (at most),
+/// returns an updated version with agenda items moved such that
+/// this is so.
+function joinDuplicateData(data) {
     let newData = [];
     let currentItem;
 
