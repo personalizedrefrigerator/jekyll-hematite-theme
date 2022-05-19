@@ -1,4 +1,5 @@
 # Hematite
+[![Gem Version](https://badge.fury.io/rb/hematite.svg)](https://badge.fury.io/rb/hematite)
 
 ![The dark variant of the Hematite Theme, showing a calendar](./screenshot.png)
 
