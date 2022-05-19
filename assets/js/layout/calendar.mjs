@@ -27,13 +27,22 @@ function getCalendarData(elem, formatElemLabels) {
         let tagName = child.tagName.toLowerCase();
 
         if (tagName == DATE_SPEC_ELEM_TAG) {
-            // Remove '-rd' and '-th' suffixes.
+            let errored = false;
+
             try {
                 lastDate = DateUtil.parse(child.innerText);
-                lastHeaderId = child.getAttribute("id");
+                if (isNaN(lastDate)) {
+                    errored = true;
+                } else {
+                    lastHeaderId = child.getAttribute("id");
+                }
             }
             catch (e) {
-                child.innerText = stringLookup(`invalid_date`, dateText);
+                 errored = true;
+            }
+
+            if (errored) {
+                child.innerText = stringLookup(`invalid_date`, child.innerText);
                 lastDate = null;
             }
         }
