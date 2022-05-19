@@ -7,8 +7,9 @@ sidebarindex: 1
 ---
 
 # The Hematite Theme
+[![Gem Version](https://badge.fury.io/rb/hematite.svg)](https://badge.fury.io/rb/hematite)
 
-This [Jekyll](https://jekyllrb.com/docs/) theme is very much a work in progress.
+*A responsive theme designed with course websites in mind.*
 
 <aside class="warning" markdown=1>
 ## Warning!
@@ -111,4 +112,7 @@ $$\text{This}\qquad$$ is an example of $$\KaTeX$$ usage.
     f^{(n)}\left(z\right) = \frac{n!}{2\pi i} \oint_\gamma \frac{f(w)}{\left(w - z\right)^{n + 1}} dw
 \\]
 </details>
+
+## Other features
+This theme also supports blog-like posts (they show up on the calendar) and searchable content.
 
