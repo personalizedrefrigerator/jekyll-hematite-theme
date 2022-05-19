@@ -15,8 +15,8 @@ const CALENDAR_DATE_FMT_OPTIONS =
 let nextViewModeSelectorId = 0;
 
 /// Pull calendar data from [elem]. If [formatElemLabels], apply special calendar markup
-/// to the contents of [elem], changing [elem].
-function getCalendarData(elem, formatElemLabels) {
+/// to the contents of [elem], fix missing ids on headers, etc., changing [elem].
+function getCalendarData(elem, formatElemLabels, dateHeaderTag) {
     let result = [];
 
     // Last date set by a header we've encountered
@@ -26,7 +26,7 @@ function getCalendarData(elem, formatElemLabels) {
     for (const child of elem.children) {
         let tagName = child.tagName.toLowerCase();
 
-        if (tagName == DATE_SPEC_ELEM_TAG) {
+        if (tagName == dateHeaderTag) {
             let errored = false;
 
             try {
@@ -35,6 +35,11 @@ function getCalendarData(elem, formatElemLabels) {
                     errored = true;
                 } else {
                     lastHeaderId = child.getAttribute("id");
+
+                    if (lastHeaderId == null && formatElemLabels) {
+                        lastHeaderId = escape(child.innerText);
+                        child.setAttribute("id", lastHeaderId);
+                    }
                 }
             }
             catch (e) {
@@ -417,8 +422,8 @@ class Calendar {
 /// Creates a visual calendar, pulling input from [inputElem]
 /// and writing output to [outputElem]. If [includePosts], all post-formatted
 /// articles are also included.
-function calendarSetup(sourceElem, outputElem, calendarTitleElem, includePosts) {
-    let data = getCalendarData(sourceElem, true);
+function calendarSetup(sourceElem, outputElem, calendarTitleElem, includePosts, dateHeaderTag) {
+    let data = getCalendarData(sourceElem, true, dateHeaderTag ?? DATE_SPEC_ELEM_TAG);
 
     if (includePosts) {
         data = addPostData(data);

@@ -21,10 +21,11 @@ layout: default
         null,
         {% endif %}
         {% if page.include_posts %}
-        true
+        true,
         {% else %}
-        false
+        false,
         {% endif %}
+        {{ page.calendar_date_elem | default: "h1" | jsonify }},
     );
 
     // Remove the title if we're not using it — it can mess with
