@@ -51,7 +51,8 @@ Your theme is setup just like a normal Jekyll site! To test your theme, run `bun
 When your theme is released, only the files in `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
 To add a custom directory to your theme-gem, please edit the regexp in `Hematite.gemspec` accordingly.
 
-**Note:** All user-facing strings in JavaScript should go in `assets/js/string_data.mjs` to permit future localization.
+**Note:** All user-facing strings that are distributed with the theme should go in
+[assets/string_data](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/tree/main/assets/string_data) to permit future localization.
 
 ## License
 
