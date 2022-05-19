@@ -1,6 +1,8 @@
 ---
 ---
 
+import { assertEq } from "./assertions.mjs";
+
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const MS_PER_WEEK = MS_PER_DAY * 7;
 
@@ -94,12 +96,39 @@ var DateUtil = {
 
     /// Slightly more intelligent date parsing than new Date(string).
     parse(text) {
-        // Remove -th, -rd, -ero suffexes
-        text = text.replaceAll(/(\d)(?:rd|th|ero)/g,
-                (fullMatch, group0) => group0);
-        console.log("Parsing", text);
+        text = text.trim();
 
-        return new Date(text);
+        // Remove -th, -rd, -ero suffexes
+        text = text.replaceAll(/(\d)(?:rd|st|th|ero)/g,
+                (fullMatch, group0) => group0);
+        let res = new Date(0);
+
+        let shortMatch = text.match(/^(\d+)\/(\d+)\/(\d{2,})$/);
+
+        // DD/MM/YY+ or MM/DD/YY+
+        if (shortMatch) {
+            let year = parseInt(shortMatch[3]);
+            {% if site.hematite.date_format.parsing.month_first %}
+            let month = parseInt(shortMatch[1]);
+            let day = parseInt(shortMatch[2]);
+            {% else %}
+            let month = parseInt(shortMatch[2]);
+            let day = parseInt(shortMatch[1]);
+            {% endif %}
+
+            if (shortMatch[3].length >= 4) {
+                res.setFullYear(year);
+            }
+            else if (shortMatch[3].length == 2){
+                res.setFullYear(2000 + year);
+            }
+            res.setMonth(month - 1, day);
+        }
+        else {
+            res = new Date(text);
+        }
+
+        return res;
     },
 
     /// Returns true iff the given object is a date object.
@@ -119,5 +148,14 @@ var DateUtil = {
         return date.toLocaleString(undefined, dateOptions);
     },
 };
+
+assertEq("Check if new Date() is a date",
+    DateUtil.isDate(new Date()), true);
+assertEq("Check if dates can be parsed",
+    DateUtil.parse("01/01/22").getFullYear(), 2022);
+assertEq("Same day test 1",
+    DateUtil.datesAreOnSameDay(DateUtil.parse("01/02/22"), DateUtil.parse("01/02/2022")), true);
+assertEq("Same day test 2",
+    DateUtil.datesAreOnSameDay(DateUtil.parse("01/01/22"), DateUtil.parse("January 1st, 2022")), true);
 
 export default DateUtil;

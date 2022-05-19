@@ -27,6 +27,11 @@ hematite:
     # The full year
     year: numeric
 
+    parsing:
+      # True if the date should be parsed MM/DD/YYYY instead of
+      # DD/MM/YYYY
+      month_first: true
+
   sidebar:
     footer_html: 'This page was made with the Hematite Theme. <a href="https://github.com/personalizedrefrigerator/jekyll-hematite-theme">Contribute on GitHub</a>'
 
