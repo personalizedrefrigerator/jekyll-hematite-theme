@@ -10,6 +10,34 @@ include_posts: true
 calendar_date_elem: h1
 ---
 
+This is a sample calendar. [View its source on GitHub](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/blob/236e8d0e5b338db137f7ff52dd6b91fe76045b08/example/calendar.md).
+
+Its frontmatter looks like this:
+```
+---
+title: Example Calendar
+layout: calendar
+
+# Show posts in the calendar on the days associated
+# with them.
+include_posts: true
+
+# Get date info from `h1` headers. This is the default,
+# so in this case, `calendar_date_elem` could be omitted.
+calendar_date_elem: h1
+---
+```
+
+By choosing `h1` as the `calendar_date_elem`, we choose to
+use toplevel headings to specify dates (`# Toplevel heading`).
+
+List items following the header are associated with it
+and added to the calendar.
+
+
+
+
+
 # April 12, 2022
  * [test] A few months ago.
 
