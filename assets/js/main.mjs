@@ -17,7 +17,7 @@ addEventListener("load", () => {
 // After loading elements, but before loading elements like images.
 addEventListener("DOMContentLoaded", () => {
     handleSidebar();
-
-    // Apply user-specified settings
-    Settings.applySettings();
 });
+
+// Apply user-specified settings
+Settings.applySettings();

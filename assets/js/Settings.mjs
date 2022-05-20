@@ -1,5 +1,8 @@
 ---
 ---
+import AsyncUtil from "./AsyncUtil.mjs";
+
+const THEME_TRANSITION_TIME = 500; // ms
 
 class Settings {
     THEME_AUTO = 'auto';
@@ -87,7 +90,9 @@ class Settings {
         return this.getTheme() == this.THEME_LIGHT;
     }
 
-    applySettings() {
+    async applySettings() {
+        document.documentElement.classList.add("changingTheme");
+
         // Clean up previous changes. We might be re-applying styles.
         document.documentElement.classList.remove("lightTheme");
         document.documentElement.classList.remove("darkTheme");
@@ -99,7 +104,12 @@ class Settings {
         }
 
 
-        let styleHTML = '';
+        let styleHTML =
+        `
+            :root.changingTheme * {
+                transition: ${THEME_TRANSITION_TIME}ms ease all;
+            }
+        `;
 
         // Font family
         if (this.usingNonDefaultFontFamily_()) {
@@ -121,6 +131,9 @@ class Settings {
             `;
         }
 
+        this.style_.innerHTML = styleHTML;
+        document.documentElement.appendChild(this.style_);
+
         // Theme
         if (this.forcingDarkTheme_()) {
             document.documentElement.classList.add("darkTheme");
@@ -129,8 +142,8 @@ class Settings {
             document.documentElement.classList.add("lightTheme");
         }
 
-        this.style_.innerHTML = styleHTML;
-        document.documentElement.appendChild(this.style_);
+        await AsyncUtil.waitMillis(THEME_TRANSITION_TIME);
+        document.documentElement.classList.remove("changingTheme");
     }
 }
 
