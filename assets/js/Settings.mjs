@@ -49,7 +49,8 @@ class Settings {
     }
 
     getHeaderMinimized() {
-        let minimizedStr = this.getSetting_(this.HEADER_MINIMIZED_KEY_) ?? {{ site.hematite.minimize_header | default: "false" | jsonify }};
+        let minimizedStr = this.getSetting_(this.HEADER_MINIMIZED_KEY_)
+            ?? {{ site.hematite.user_config.minimize_header | default: site.hematite.minimize_header | default: "false" | jsonify }};
         return minimizedStr == "true";
     }
 
@@ -163,9 +164,10 @@ class Settings {
 
                 document.documentElement.classList.add("minimizedNavHeader");
 
-                // Animate the header.
                 if (header) {
-                    await AnimationUtil.expandInVert(header, THEME_TRANSITION_TIME / 2);
+                    // Re-show the header
+                    // Rely on a CSS animation for animating the header's return.
+                    await AnimationUtil.expandInVert(header, 0);
                 }
             })();
         }

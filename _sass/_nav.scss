@@ -57,7 +57,7 @@ body > header {
 
     // The minimizedNavHeader class is added after page load. Make the
     // transition less jarring.
-    animation: fade-in 0.5s ease 1;
+    animation: grow-in 0.5s ease 1;
 }
 
 :root.minimizedNavHeader.hasOpenSidebar body > header {
