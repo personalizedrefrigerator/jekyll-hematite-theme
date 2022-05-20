@@ -33,6 +33,7 @@ hematite:
       month_first: true
 
   sidebar:
-    footer_html: 'This page was made with the Hematite Theme. <a href="https://github.com/personalizedrefrigerator/jekyll-hematite-theme">Contribute on GitHub</a>'
+    footer_html: 'This page was made with the Hematite Theme. <a href="https://github.com/personalizedrefrigerator/jekyll-hematite-theme">Contribute on GitHub.</a>'
+    show_settings_btn: true
 
 

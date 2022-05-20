@@ -31,4 +31,22 @@ export default {
     all_tags_header: 'Todas las etiquetas',
     prev_post: '← {0}',
     next_post: '{0} →',
+
+    open_settings_btn: 'Ajustes de este sitio',
+    page_settings_header: 'Ajustes',
+    page_settings_description: 'Aquí, puede cambiar algunos aspectos de este sitio.'
+         + ' Cuando una ajuste cambia, lo debe estar guardado.',
+    settings_font_legend: 'Ajustes de fuente',
+    settings_font_family_label: 'Familia de fuente: ',
+    settings_font_size_label: 'Tamoño de fuente: ',
+    settings_theme_label: 'Color de la pagina: ',
+    page_theme_legend: 'Ajustes de tema',
+
+    page_font_default: 'Inicial',
+    page_font_small: 'Pequeño',
+    page_font_medium: 'Media',
+    page_font_large: 'Grande',
+    page_theme_auto: 'Automático',
+    page_theme_dark: 'Oscuro',
+    page_theme_light: 'Brillante',
 };

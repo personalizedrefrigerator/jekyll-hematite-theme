@@ -3,7 +3,7 @@
     <button class="toggle_sidebar" id="toggle_sidebar_btn">
         {% include img/hamburger_menu.svg %}
     </button>
-    <a href="{{ "/" | absolute_url }}">{{ site.title | default "Untitled Site" }}</a>
+    {% include nav/header.html %}
     <div class="spacer"></div>
 </header>
 

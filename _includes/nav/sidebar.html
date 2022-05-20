@@ -18,8 +18,22 @@
     </ul>
 
     <footer>
-        {% if site.hematite.sidebar.footer_html %}
-            {{ site.hematite.sidebar.footer_html }}
+        <div>
+            {% if site.hematite.sidebar.footer_html %}
+                {{ site.hematite.sidebar.footer_html }}
+            {% endif %}
+        </div>
+        {% if site.hematite.sidebar.show_settings_btn %}
+            <center>
+                <!-- Localized by JS -->
+                <a id="sidebar_settings_btn" class="settings-btn"
+                    {% if site.permalink == 'pretty' %}
+                        href="{{ 'assets/html/settings' | relative_url }}"
+                    {% else %}
+                        href="{{ 'assets/html/settings.html' | relative_url }}"
+                    {% endif %}
+                ></a>
+            </center>
         {% endif %}
     </footer>
 </nav>

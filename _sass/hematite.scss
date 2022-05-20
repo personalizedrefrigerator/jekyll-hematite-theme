@@ -1,6 +1,10 @@
 @charset "utf-8";
 
-$serif-font: 'FoulisGreek', 'EB Garamond', 'TeX Gyre Bonum', serif;
+:root {
+    --serif-font-family: 'FoulisGreek', 'EB Garamond', 'TeX Gyre Bonum', serif;
+    --sans-font-family: 'URW Gothic, Book', 'TeX Gyre Adventor', 'Ubuntu', sans-serif;
+    --main-font-family: var(--serif-font-family);
+}
 
 @import "_colors";
 @import "_sizes";

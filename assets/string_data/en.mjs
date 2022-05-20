@@ -30,4 +30,25 @@ export default {
     all_tags_header: 'All Tags',
     prev_post: '← {0}',
     next_post: '{0} →',
+
+    open_settings_btn: 'Site Settings',
+    page_settings_header: 'Settings',
+    page_settings_description:
+          'Here, you can change settings that affect how this page looks. Changes'
+           + ' save automatically.',
+    settings_font_legend: 'Font Options',
+    settings_font_family_label: 'Font Family: ',
+    settings_font_size_label: 'Font Size: ',
+    settings_theme_label: 'Page Theme: ',
+    page_theme_legend: 'Theme Options',
+
+    page_font_sans: 'Sans',
+    page_font_serif: 'Serif',
+    page_font_default: 'Default',
+    page_font_small: 'Small',
+    page_font_medium: 'Medium',
+    page_font_large: 'Large',
+    page_theme_auto: 'Automatic',
+    page_theme_dark: 'Dark Theme',
+    page_theme_light: 'Light Theme',
 };

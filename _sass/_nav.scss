@@ -79,6 +79,9 @@ nav.sidebar {
         input {
             flex-grow: 1;
             flex-shrink: 1;
+
+            // Allow it to shrink
+            min-width: 20px;
         }
     }
 

@@ -1,4 +1,4 @@
-:root {
+:root:not(.darkTheme), :root.lightTheme {
     --primary-text-color: black;
     --secondary-text-color: black;
     --text-color-faint: #444;
@@ -16,16 +16,10 @@
 
     --shadow-color-light: rgba(0, 0, 0, 0.6);
     --line-color-light: #eee;
+    --line-color-normal: #888;
     --code-background-color: #fafafa;
-}
 
-@media screen {
-    :root {
-        --code-background-color: #f9f5f5;
-    }
-}
 
-:root {
     // Syntax highlighting
     --syntax-keyword-fg: #d00;
     --syntax-string-fg: #c07;
@@ -37,37 +31,54 @@
     --syntax-normal-fg: black;
 }
 
+@media screen {
+    :root:not(.darkTheme), :root.lightTheme {
+        --code-background-color: #f9f5f5;
+    }
+}
+
+@mixin dark-theme-colors {
+    --primary-text-color: white;
+    --secondary-text-color: white;
+    --text-color-faint: #ccc;
+    --link-color: #fa0;
+    --visited-link-color: #f0a;
+
+    --selected-item-fg-color: white;
+    --selected-item-bg-color: #530033;
+
+    --primary-background-color: black;
+    --secondary-background-color: #111;
+    --code-background-color: #222;
+    --line-color-light: #222;
+    --line-color-normal: #aaa;
+
+    --color-alert-background: #300;
+    --color-alert-foreground: white;
+
+    --shadow-color-light: rgba(200, 200, 200, 0.5);
+
+
+    // Syntax highlighting
+    --syntax-keyword-fg: pink;
+    --syntax-string-fg: #cfc;
+    --syntax-number-fg: #eef;
+    --syntax-bracket-fg: #faf;
+    --syntax-operator-fg: #aff;
+    --syntax-comment-fg: #aef;
+    --syntax-name-fg: #edf;
+    --syntax-normal-fg: white;
+}
+
 @media screen and (prefers-color-scheme: dark) {
-    :root {
-        --primary-text-color: white;
-        --secondary-text-color: white;
-        --text-color-faint: #ccc;
-        --link-color: #fa0;
-        --visited-link-color: #f0a;
+    :root:not(.lightTheme) {
+        @include dark-theme-colors;
+    }
+}
 
-        --selected-item-fg-color: white;
-        --selected-item-bg-color: #530033;
-
-        --primary-background-color: black;
-        --secondary-background-color: #111;
-        --code-background-color: #222;
-        --line-color-light: #222;
-
-        --color-alert-background: #300;
-        --color-alert-foreground: white;
-
-        --shadow-color-light: rgba(200, 200, 200, 0.5);
-
-
-        // Syntax highlighting
-        --syntax-keyword-fg: pink;
-        --syntax-string-fg: #cfc;
-        --syntax-number-fg: #eef;
-        --syntax-bracket-fg: #faf;
-        --syntax-operator-fg: #aff;
-        --syntax-comment-fg: #aef;
-        --syntax-name-fg: #edf;
-        --syntax-normal-fg: white;
+@media screen {
+    :root.darkTheme {
+        @include dark-theme-colors;
     }
 }
 

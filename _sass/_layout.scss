@@ -34,8 +34,8 @@ body {
     padding-bottom: 140px;
     margin: 0;
 
-    font-size: $font-size-main;
-    font-family: $serif-font;
+    font-size: var(--main-font-size);
+    font-family: var(--main-font-family);
     color: var(--primary-text-color);
 }
 
@@ -109,7 +109,7 @@ nav#post_next_prev {
     background-color: var(--color-alert-background);
     color: var(--color-alert-foreground);
 
-    font-family: $serif-font;
+    font-family: var(--main-font-family);
     font-size: 14pt;
 
     padding: 20px;

@@ -1,6 +1,7 @@
 import { stringLookup } from "./strings.mjs";
 import { announceForAccessibility } from "./PageAlert.mjs";
 
+
 function handleSidebar() {
     const toggleBtn = document.querySelector(`button#toggle_sidebar_btn`);
     const sidebar = document.querySelector(`nav#sidebar`);
@@ -90,6 +91,17 @@ function handleSidebar() {
                 autoExpandSidebar();
             }
         });
+    }
+
+    localizeSettingsBtn();
+}
+
+// Localize the text in the sidebar's settings button, if it exists.
+function localizeSettingsBtn() {
+    let sidebarBtn = document.querySelector("#sidebar_settings_btn");
+
+    if (sidebarBtn) {
+        sidebarBtn.innerText = stringLookup(`open_settings_btn`);
     }
 }
 
