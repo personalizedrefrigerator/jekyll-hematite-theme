@@ -117,13 +117,30 @@ input::placeholder {
         }
     }
 
+    table {
+        border-collapse: collapse;
+    }
+
     table td {
         border: 1px solid var(--line-color-light);
+        padding: 3px;
+    }
+
+    table th {
+        padding: 4px;
+        font-weight: bold;
     }
 
     fieldset {
         border-color: var(--line-color-normal);
         margin-bottom: 30px;
+    }
+
+    blockquote {
+        border-left: 1px solid var(--line-color-light);
+        margin-left: 10px;
+        padding-left: 20px;
+        color: var(--text-color-faint);
     }
 }
 

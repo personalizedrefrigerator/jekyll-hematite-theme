@@ -13,11 +13,9 @@ sidebarindex: 1
 
 <aside class="warning" markdown=1>
 ## Warning!
-This theme is currently
-[under development on GitHub](https://github.com/personalizedrefrigerator/jekyll-hematite-theme) and
-not production-ready.
+This theme is still quite new! Bugs are bound to be found!
 
-Its API is likely to change
+Please [report bugs on GitHub.](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/issues/new)
 </aside>
 
 # Features

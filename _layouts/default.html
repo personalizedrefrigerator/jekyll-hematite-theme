@@ -10,7 +10,11 @@ title: Untitled
         {% assign content_start = page.content | slice: 0, 100 %}
         <meta name="description" content={{ page.description | default: content_start | strip_html | jsonify }}/>
         <link rel="stylesheet" href="{{ "assets/style.css" | relative_url }}"/>
-        <link rel="icon" href="{{ page.favicon_path | default: site.favicon_path | default: "assets/img/favicon.svg" | absolute_url }}"/>
+        {% if page.favicon_url_absolute or site.favicon_url_absolute %}
+            <link rel="icon" href="{{ page.favicon_url_absolute | default: site.favicon_url_absolute }}"/>
+        {% else %}
+            <link rel="icon" href="{{ page.favicon_url | default: site.favicon_url | default: "assets/img/favicon.svg" | absolute_url }}"/>
+        {% endif %}
         <script type="module" src="{{ "assets/js/main.mjs" | relative_url }}"></script>
 
         {% include katex_includes.html %}
