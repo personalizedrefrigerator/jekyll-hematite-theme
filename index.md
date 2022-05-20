@@ -15,7 +15,7 @@ sidebarindex: 1
 ## Warning!
 This theme is still quite new! Bugs are bound to be found!
 
-Please [report bugs on GitHub.](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/issues/new)
+Please [report bugs on GitHub.](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/issues/new?assignees=&labels=bug&template=bug_report.md)
 </aside>
 
 # Features
