@@ -1,6 +1,7 @@
 ---
 ---
 import AsyncUtil from "./AsyncUtil.mjs";
+import AnimationUtil from "./AnimationUtil.mjs";
 
 const THEME_TRANSITION_TIME = 500; // ms
 
@@ -21,6 +22,7 @@ class Settings {
     FONT_SIZE_KEY_ = 'hematite-setting-font-size';
     FONT_FAMILY_KEY_ = 'hematite-setting-font-family';
     THEME_KEY_ = 'hematite-setting-theme';
+    HEADER_MINIMIZED_KEY_ = 'hematite-setting-minimize-header';
 
     constructor() {
     }
@@ -46,6 +48,11 @@ class Settings {
         return this.getSetting_(this.FONT_SIZE_KEY_) ?? this.FONT_SIZE_DEFAULT;
     }
 
+    getHeaderMinimized() {
+        let minimizedStr = this.getSetting_(this.HEADER_MINIMIZED_KEY_) ?? {{ site.hematite.minimize_header | default: "false" | jsonify }};
+        return minimizedStr == "true";
+    }
+
     setFontSize(sizeOption) {
         this.setSetting_(this.FONT_SIZE_KEY_, sizeOption);
     }
@@ -56,6 +63,10 @@ class Settings {
 
     setTheme(themeOption) {
         this.setSetting_(this.THEME_KEY_, themeOption);
+    }
+
+    setHeaderMinimized(minimize) {
+        this.setSetting_(this.HEADER_MINIMIZED_KEY_, `${minimize}`);
     }
 
     getFontSizePt_() {
@@ -140,6 +151,26 @@ class Settings {
         }
         else if (this.forcingLightTheme_()) {
             document.documentElement.classList.add("lightTheme");
+        }
+
+        if (this.getHeaderMinimized()) {
+            // Run roughly in parallel
+            (async () => {
+                let header = document.querySelector("body > header");
+                if (header) {
+                    await AnimationUtil.collapseOutVert(header, THEME_TRANSITION_TIME / 2);
+                }
+
+                document.documentElement.classList.add("minimizedNavHeader");
+
+                // Animate the header.
+                if (header) {
+                    await AnimationUtil.expandInVert(header, THEME_TRANSITION_TIME / 2);
+                }
+            })();
+        }
+        else {
+            document.documentElement.classList.remove("minimizedNavHeader");
         }
 
         await AsyncUtil.waitMillis(THEME_TRANSITION_TIME);

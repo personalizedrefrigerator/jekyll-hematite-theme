@@ -30,6 +30,9 @@ noindex: true
         <label id="page_theme_lbl" for="page_theme">settings_theme_label</label>
         <select id="page_theme"></select>
     </div>
+    <div>
+        <label id="page_minimize_header_lbl" for="minimize_page_hdr">settings_minimize_header</label>
+        <input type="checkbox" id="minimize_page_hdr"/>
 </fieldset>
 
 <script type="module">
@@ -39,7 +42,7 @@ import { stringLookup } from "{{ 'assets/js/strings.mjs' | relative_url }}";
 let settingsTextElemIDs = [
     `settings_header`, `settings_description`, `font_legend`,
     `font_family_lbl`, `font_size_lbl`, `theme_legend`,
-    `page_theme_lbl`,
+    `page_theme_lbl`, `page_minimize_header_lbl`,
 ];
 
 // Localize all descriptive settings elements (each should contian the
@@ -52,6 +55,7 @@ for (const id of settingsTextElemIDs) {
 let fontSizeSelect = document.querySelector("#font_size");
 let fontFamilySelect = document.querySelector("#font_family");
 let pageThemeSelect = document.querySelector("#page_theme");
+let minimizeHeaderCheckbox = document.querySelector("#minimize_page_hdr");
 
 pageThemeSelect.innerHTML =
 `
@@ -87,8 +91,13 @@ pageThemeSelect.oninput = () => {
     Settings.setTheme(pageThemeSelect.value);
 };
 
+minimizeHeaderCheckbox.oninput = () => {
+    Settings.setHeaderMinimized(minimizeHeaderCheckbox.checked);
+};
+
 pageThemeSelect.value = Settings.getTheme();
 fontFamilySelect.value = Settings.getFontFamily();
 fontSizeSelect.value = Settings.getFontSize();
+minimizeHeaderCheckbox.checked = Settings.getHeaderMinimized();
 
 </script>

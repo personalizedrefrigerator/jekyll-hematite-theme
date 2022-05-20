@@ -17,11 +17,11 @@ function handleSidebar() {
     const setSidebarOpen = (open) => {
         if (!open) {
             sidebar.classList.remove(`open`);
-            document.scrollingElement?.classList.remove(`hasOpenSidebar`);
+            document.documentElement.classList.remove(`hasOpenSidebar`);
         }
         else {
             sidebar.classList.add(`open`);
-            document.scrollingElement?.classList.add(`hasOpenSidebar`);
+            document.documentElement.classList.add(`hasOpenSidebar`);
         }
     };
 

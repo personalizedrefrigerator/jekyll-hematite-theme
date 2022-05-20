@@ -2,7 +2,7 @@
 
 $header-z-index: 100;
 
-header {
+body > header {
     position: sticky;
     top: 0;
     z-index: $header-z-index;
@@ -41,6 +41,33 @@ header {
     }
 }
 
+:root.minimizedNavHeader body > header {
+    > *:not(#toggle_sidebar_btn) {
+        opacity: 0;
+        display: inline-block;
+        transition: opacity 0.5s ease;
+    }
+
+    word-wrap: break-word;
+    width: var(--header-height);
+    padding: 0;
+    transition: width 0.5s ease;
+
+    position: fixed;
+
+    // The minimizedNavHeader class is added after page load. Make the
+    // transition less jarring.
+    animation: fade-in 0.5s ease 1;
+}
+
+:root.minimizedNavHeader.hasOpenSidebar body > header {
+    > *:not(#toggle_sidebar_btn) {
+        opacity: 1;
+    }
+
+    width: calc(var(--nav-width) + #{2 * $navbar-padding});
+}
+
 nav.sidebar {
     position: fixed;
     top: var(--header-height);
@@ -58,7 +85,7 @@ nav.sidebar {
     color: var(--primary-text-color);
     background-color: var(--primary-background-color);
     box-shadow: 0 0 2px var(--shadow-color-light);
-    padding: 10px;
+    padding: $navbar-padding;
 
     z-index: $header-z-index - 1;
 
