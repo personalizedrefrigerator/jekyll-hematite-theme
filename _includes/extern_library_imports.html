@@ -36,9 +36,12 @@ Each [spec]=["key", { property: value, property2: value2, ... }]
         {% assign url = target.url | relative_url %}
     {% endif %}
 
+    {% if target.context and target.context != include.context %}
+    {% else %}
     <{{ tag }} {{ options }}
         {{ target.inline_options | default: "" }}
         {{url_spec}}={{ url | jsonify }}
         onload={{ target.onload | default: "" | jsonify }}></{{tag}}>
+    {% endif %}
 {% endfor %}
 

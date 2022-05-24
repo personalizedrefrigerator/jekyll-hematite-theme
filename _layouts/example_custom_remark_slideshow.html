@@ -4,6 +4,10 @@ additional_imports:
     katex:
         type: js
         url: /assets/plugin/katex/katex.min.js
+        context: remark_frame
+        comment: >-
+            Setting context to remark_frame means to only run this
+            in the remark-specific iframe.
     katex_auto_init_math:
         type: js
         url: /assets/plugin/katex/contrib/auto-render.min.js
@@ -23,7 +27,7 @@ remark_presentation_config:
 
 mermaid: true
 remark_presentation_config_html: >-
-    Testing...
+    Testing... This should be included at the top of the file.
 ---
 
 {% comment %}

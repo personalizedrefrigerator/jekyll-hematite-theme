@@ -1,5 +1,6 @@
 *.gem
 .*.swp
+.*.swo
 .bundle
 .jekyll-cache
 .sass-cache
