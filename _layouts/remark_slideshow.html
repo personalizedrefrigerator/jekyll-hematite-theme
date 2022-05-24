@@ -32,7 +32,7 @@ layout: default
 <script defer type="module">
     // Matches <div>...</div> or <div markdown=0>...</div>
     // Jekyll can remove the 'markdown=0' while parsing.
-    const WRAPPING_DIV_EXP = /\s*[<]div.*[>]((?:.|[\n\r])*)[<]\/div[>]\s*/;
+    const WRAPPING_DIV_EXP = /^\s*[<]div.*[>]((?:.|[\n\r])*)[<]\/div[>]\s*$/;
 
     import slideshow from "{{ 'assets/js/layout/remark_slideshow.mjs' | relative_url }}";
 
@@ -134,4 +134,6 @@ layout: default
     else {
         presentationFrame.onload = initSlides;
     }
+
+    document.documentElement.classList.add("slideshow-mode");
 </script>

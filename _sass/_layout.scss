@@ -169,6 +169,17 @@ main.slideshow-mode {
     }
 }
 
+// Make the main content large enough that the sidebar doesn't
+// auto-expand.
+:root.slideshow-mode {
+    .main-container {
+        max-width: 100vw;
+
+        // Transition immediately!
+        transition: width 0s ease, max-width 0s ease;
+    }
+}
+
 // On mobile devices,
 @media screen and (max-width: $site-content-preferred-width) {
     .main-container {
