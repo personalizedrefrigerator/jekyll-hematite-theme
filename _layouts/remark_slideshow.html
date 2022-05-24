@@ -19,7 +19,8 @@ layout: default
     presentationFrame.src = {{ frame_resource_url | jsonify }};
     window.presentationFrameLoaded = false;
 
-    let config = {{ page.remark_presentation_config | default: site.remark_presentation_config | jsonify }};
+    let config =
+        {{ page.remark_presentation_config | default: site.remark_presentation_config | jsonify }};
     config ??= {};
 
     config.source = {{ page.content | jsonify }};
@@ -47,6 +48,12 @@ layout: default
         presentationDoc.write("<!DOCTYPE html>");
         presentationDoc.write(slideshowHtml);
         presentationDoc.write(libraryImports);
+
+        // Any additional configuration scripts/html specific to remark
+        presentationDoc.write(unescape(
+            {{ page.remark_presentation_config_html | default: "" | jsonify | url_encode | replace: "+", " " }}
+        ));
+
         presentationDoc.write(`
             <${"script"}>
             if (window.MERMAID_CONFIG) {

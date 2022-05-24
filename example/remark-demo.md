@@ -3,6 +3,10 @@ layout: remark_slideshow
 title: Example slideshow
 katex: true
 mermaid: true
+additional_import_html: >-
+    <script>
+        console.log("Additional scripts can be added via the additional_scripts header");
+    </script>
 ---
 
 class: center, middle

@@ -5,3 +5,7 @@
 
 {% include mermaid_includes.html %}
 {% include katex_includes.html %}
+
+<!-- Page/site-specific imports and configuration -->
+{{ site.additional_import_html | default: "" }}
+{{ page.additional_import_html | default: "" }}
