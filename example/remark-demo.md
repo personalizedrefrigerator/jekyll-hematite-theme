@@ -1,6 +1,6 @@
 ---
 layout: remark_slideshow
-title: Example slideshow
+title: Example slideshow (π)
 katex: true
 mermaid: true
 additional_import_html: >-
@@ -9,11 +9,56 @@ additional_import_html: >-
     </script>
 ---
 
+<div markdown=0>
+
 class: center, middle
+
+# Remark and slides
+
+ * Currently, remarkjs presentation source files must be wrapped in
+`&lt;div markdown=0&gt;...&lt;/div&gt;` to prevent Jekyll's default markdown parser
+from converting them to HTML.
+
+ * Alternatively, use a `.html` extension.
+
+---
 
 # This is an example
 
-Testing...
+```md
+---
+layout: remark_slideshow
+katex: true
+mermaid: true
+additional_import_html: >-
+    Additional imports (for both the main page and the
+    slides) go here.
+
+remark_presentation_config_html: >-
+    Additional HTML for configuring/styling the iframe that
+    contains the remark slides!
+---
+
+&lt;div markdown=0&gt;
+
+class: center, middle
+
+A slide!
+
+<i class="test" id="text123">Some text!</i>
+
+---
+
+Another slide!
+
+&lt;/div&gt;
+```
+
+---
+
+# A test of Liquid variables
+
+`{% raw %}{{ site.title }}{% endraw %}` renders as {{ site.title }}.
 
 ---
 
@@ -55,4 +100,6 @@ flowchart LR
     id2[Another item]
 
     id1 -- Label --> id2
+</div>
+
 </div>

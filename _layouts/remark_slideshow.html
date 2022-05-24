@@ -3,9 +3,13 @@ layout: default
 ---
 
 <!-- Defines a https://remarkjs.com/ slideshow -->
-<!-- Configure remark with
+<!--
+    Configure remark with
     page.remark_presentation_config, site.remark_presentation_config,
     page.remark_presentation_config_html
+
+    Note: Jekyll's default parser must not parse the input markdown file.
+    Either use a non-md extension or wrap its content in a <div markdown=false>...</div>
 -->
 
 {% assign frame_resource_url = 'assets/html/remark_presentation_frame.html.resource' | relative_url %}
@@ -16,7 +20,20 @@ layout: default
             onload="window.presentationFrameLoaded = true;"></iframe>
 </main>
 
+<!--
+    Liquid (sometimes?) does not handle unicode (e.g. π) characters properly when using
+    url_encode (or at least not consistently with JS's unescape), so include
+    content directly:
+-->
+<textarea id="source" style="display: none;">
+{{content}}
+</textarea>
+
 <script defer type="module">
+    // Matches <div>...</div> or <div markdown=0>...</div>
+    // Jekyll can remove the 'markdown=0' while parsing.
+    const WRAPPING_DIV_EXP = /\s*[<]div.*[>]((?:.|[\n\r])*)[<]\/div[>]\s*/;
+
     import slideshow from "{{ 'assets/js/layout/remark_slideshow.mjs' | relative_url }}";
 
     let presentationFrame = document.querySelector("#presentation_frame");
@@ -27,7 +44,17 @@ layout: default
         {{ page.remark_presentation_config | default: site.remark_presentation_config | jsonify }};
     config ??= {};
 
-    config.source = {{ page.content | jsonify }};
+    // Escape the content to prevent liquid from rendering it.
+    config.source = document.querySelector("#source").value;
+
+    // Unwrap if surrounded by markdown-parser-disabling HTML
+    let markdownDisableMatches = config.source.match(WRAPPING_DIV_EXP);
+    console.log(markdownDisableMatches, config.source);
+
+    // Replace with first capture (contents of the wrapping element).
+    if (markdownDisableMatches && markdownDisableMatches.length > 0) {
+        config.source = markdownDisableMatches[1];
+    }
 
     // Library imports intended for this page: Forward to the frame.
     let libraryImports = unescape(`
