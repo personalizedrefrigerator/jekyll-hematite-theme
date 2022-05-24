@@ -40,16 +40,26 @@ layout: default
     presentationFrame.src = {{ frame_resource_url | jsonify }};
     window.presentationFrameLoaded = false;
 
-    let config =
-        {{ page.remark_presentation_config | default: site.remark_presentation_config | jsonify }};
-    config ??= {};
+
+    let siteConfig = {{ site.remark_presentation_config | jsonify }} ?? {};
+    let layoutConfig = {{ layout.remark_presentation_config | jsonify }} ?? {};
+    let pageConfig = {{ page.remark_presentation_config | jsonify }} ?? {};
+    let config = {};
+
+    // Merge the remark configurations. siteConfig has highest precedence.
+    for (let currentConfig of [siteConfig, layoutConfig, pageConfig]) {
+        for (let key in currentConfig) {
+            config[key] = currentConfig[key];
+        }
+    }
+
+    console.log(config);
 
     // Escape the content to prevent liquid from rendering it.
     config.source = document.querySelector("#source").value;
 
     // Unwrap if surrounded by markdown-parser-disabling HTML
     let markdownDisableMatches = config.source.match(WRAPPING_DIV_EXP);
-    console.log(markdownDisableMatches, config.source);
 
     // Replace with first capture (contents of the wrapping element).
     if (markdownDisableMatches && markdownDisableMatches.length > 0) {
@@ -82,7 +92,14 @@ layout: default
 
         // Any additional configuration scripts/html specific to remark
         presentationDoc.write(unescape(
-            {{ page.remark_presentation_config_html | default: "" | url_encode | replace: "+", " " | jsonify }}
+            {{
+                page.remark_presentation_config_html | default: site.remark_presentation_config_html | default: "" | url_encode | replace: "+", " " | jsonify
+            }}
+        ));
+
+        // If another layout extends this layout,
+        presentationDoc.write(unescape(
+            {{ layout.remark_presentation_config_html | default: "" | url_encode | replace: "+", " " | jsonify }}
         ));
 
         presentationDoc.write(`

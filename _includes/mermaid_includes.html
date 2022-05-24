@@ -2,7 +2,7 @@
 <!--
     Include mermaid-js scripts.
 -->
-{% if page.mermaid || site.mermaid %}
+{% if page.mermaid or site.mermaid or layout.mermaid %}
 <script>
     var MERMAID_CONFIG = window.MERMAID_CONFIG ?? {{ site.mermaid_config | jsonify }} ?? { };
 

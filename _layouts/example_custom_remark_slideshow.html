@@ -1,0 +1,43 @@
+---
+layout: remark_slideshow
+additional_imports:
+    katex:
+        type: js
+        url: /assets/plugin/katex/katex.min.js
+    katex_auto_init_math:
+        type: js
+        url: /assets/plugin/katex/contrib/auto-render.min.js
+        onload: renderMathInElement(document.body)
+        inline_options: defer
+        comment: >-
+            We're passing 'defer' above because we want this script to load
+            _after_ the body.
+    katex_css:
+        type: css
+        url: /assets/plugin/katex/katex.min.css
+
+remark_presentation_config:
+    navigation:
+        scroll: false
+    slideNumberFormat: "Slide %current% of %total%."
+
+mermaid: true
+remark_presentation_config_html: >-
+    Testing...
+---
+
+{% comment %}
+This template is an example of how to customize remark slideshows
+by creating a new template.
+
+`additional_imports` can be used on any page. In this case, the imports
+are included both in the remark presentation `iframe` and in the main page.
+
+Of course, we could include `katex` or `mermaid` here by setting `katex: true`
+or `mermaid: true` in the header`, but `additional_imports` is another way to
+specify this.
+
+Note that `remark_presentation_config` is passed directly to remark.
+{% endcomment %}
+
+{{ content }}

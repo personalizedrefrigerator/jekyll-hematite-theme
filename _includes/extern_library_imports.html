@@ -8,4 +8,37 @@
 
 <!-- Page/site-specific imports and configuration -->
 {{ site.additional_import_html | default: "" }}
+{{ layout.additional_import_html | default: "" }}
 {{ page.additional_import_html | default: "" }}
+
+{% comment %}
+Each [spec]=["key", { property: value, property2: value2, ... }]
+{% endcomment %}
+{% for spec in layout.additional_imports | concat: page.additional_imports %}
+    {% assign target = spec[1] %}
+    {% if target.type == 'js' or target.type == 'mjs' %}
+        {% assign tag="script" %}
+        {% assign url_spec = "src" %}
+        {% assign options = "" %}
+    {% else %}
+        {% assign tag="link" %}
+        {% assign options = "rel='stylesheet'" %}
+        {% assign url_spec = "href" %}
+    {% endif %}
+
+    {% if target.type == 'mjs' %}
+        {% assign options = "type = 'module'" %}
+    {% endif %}
+
+    {% if target.absolute_url %}
+        {% assign url = target.absolute_url %}
+    {% else %}
+        {% assign url = target.url | relative_url %}
+    {% endif %}
+
+    <{{ tag }} {{ options }}
+        {{ target.inline_options | default: "" }}
+        {{url_spec}}={{ url | jsonify }}
+        onload={{ target.onload | default: "" | jsonify }}></{{tag}}>
+{% endfor %}
+
