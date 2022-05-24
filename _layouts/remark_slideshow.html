@@ -3,6 +3,10 @@ layout: default
 ---
 
 <!-- Defines a https://remarkjs.com/ slideshow -->
+<!-- Configure remark with
+    page.remark_presentation_config, site.remark_presentation_config,
+    page.remark_presentation_config_html
+-->
 
 {% assign frame_resource_url = 'assets/html/remark_presentation_frame.html.resource' | relative_url %}
 
@@ -51,7 +55,7 @@ layout: default
 
         // Any additional configuration scripts/html specific to remark
         presentationDoc.write(unescape(
-            {{ page.remark_presentation_config_html | default: "" | jsonify | url_encode | replace: "+", " " }}
+            {{ page.remark_presentation_config_html | default: "" | url_encode | replace: "+", " " | jsonify }}
         ));
 
         presentationDoc.write(`
