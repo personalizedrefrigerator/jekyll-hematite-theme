@@ -62,6 +62,22 @@ var UrlHelper = {
         return url.substring(hashLoc, argsStart);
     },
 
+    // Replace an existing hash with a [newHash]. The new hash
+    //
+    withReplacedHash(url, newHash) {
+        let hashLoc = url.lastIndexOf('#');
+
+        if ((newHash + "").charAt(0) != '#') {
+            newHash = `#${newHash}`;
+        }
+
+        if (hashLoc == -1) {
+            return url + newHash;
+        }
+
+        return url.substring(0, hashLoc) + newHash;
+    },
+
     /// Remove metadata encoded in the given URL and returns
     /// it.
     /// If [url] is undefined, uses the page's URL.
@@ -114,5 +130,9 @@ assertEq("Trimming metadata",
     UrlHelper.trimMetadata("https://example.com/?a=1#no"),
     "https://example.com/"
 );
+
+assertEq("Replacing a hash",
+    UrlHelper.withReplacedHash("https://example.com/#foo", "bar"),
+    "https://example.com/#bar");
 
 export default UrlHelper;

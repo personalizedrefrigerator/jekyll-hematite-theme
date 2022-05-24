@@ -1,0 +1,36 @@
+
+// Created while referencing rouge-github.scss as published
+// at https://github.com/pages-themes/cayman/blob/master/_sass/rouge-github.scss
+
+.hljs {
+    color: var(--syntax-normal-fg);
+    display: block;
+    white-space: pre-wrap;
+
+    // Keywords and literals
+    .hljs-keyword, .hljs-literal {
+        color: var(--syntax-keyword-fg);
+    }
+
+    .hljs-literal {
+        font-weight: bold;
+        color: var(--syntax-name-fg);
+    }
+
+    // Strings
+    .hljs-string {
+        color: var(--syntax-string-fg);
+    }
+
+    // Numbers
+    .hljs-number {
+        color: var(--syntax-number-fg);
+    }
+
+
+    // Comments
+    .hljs-comment {
+        color: var(--syntax-comment-fg);
+        font-style: italic;
+    }
+}

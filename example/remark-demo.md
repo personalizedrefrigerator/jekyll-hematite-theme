@@ -25,6 +25,11 @@ function foo() {
     while (true) {
         break;
     }
+
+    console.log("Testing...");
+    document.body.innerHTML += `1` - 3;
+    // A comment
+    /* Another comment */
 }
 ```
 

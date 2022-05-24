@@ -69,7 +69,14 @@ function focusSlideFromHash(slideshow) {
     }
 }
 
-function main(targetWindow, config) {
+async function main(targetWindow, config) {
+    if (!targetWindow.remark) {
+        // Wait for page load if remark isn't available yet.
+        await (new Promise(resolve => {
+            targetWindow.addEventListener('load', resolve);
+        }));
+    }
+
     // See https://remarkjs.com/#8
     let slideshow = targetWindow.remark.create(config);
 
@@ -78,8 +85,12 @@ function main(targetWindow, config) {
 
     targetWindow.focus();
 
-    applyAccessibilityFixes(targetWindow, slideshow);
+    addExtendedControls(targetWindow, slideshow);
     focusSearchResultFromUrl(targetWindow, slideshow);
+
+    targetWindow.history.replaceState(null, targetWindow.location.href);
+    let targetWinHistory = targetWindow.history.state;
+
     focusSlideFromHash(slideshow);
 
     window.addEventListener('hashchange', () => {
@@ -90,15 +101,20 @@ function main(targetWindow, config) {
         if (!newSlide) {
             return;
         }
+        let hashId = newSlide.getSlideIndex() + 1;
 
         // Update the window's URL to match that of the interior
         // (e.g. slide 3 = #3).
-        window.location.hash = newSlide.getSlideIndex() + 1;
+        // Try not to have the forward/back arrows go forward/back in the iframe's history.
+        targetWindow.history.replaceState(
+            targetWinHistory,
+            UrlHelper.withReplacedHash(targetWindow.location.href, hashId));
+        window.location.hash = hashId;
     });
 }
 
 /// Apply minor adjustments to the default remark layout
-function applyAccessibilityFixes(targetWindow, slideshow) {
+function addExtendedControls(targetWindow, slideshow) {
     let slideContainer = targetWindow.document.querySelector(".remark-slides-area");
 
     // Announce changes to the slide (e.g. going to the next slide).
@@ -107,10 +123,16 @@ function applyAccessibilityFixes(targetWindow, slideshow) {
     // Add next/previous buttons
     let nextSlideBtn = targetWindow.document.createElement("button");
     let prevSlideBtn = targetWindow.document.createElement("button");
+    let printBtn = targetWindow.document.createElement("button");
+    let spacer = targetWindow.document.createElement("div");
+
     let nav = targetWindow.document.createElement("nav");
 
     nextSlideBtn.innerText = stringLookup('btn_next_slide');
     prevSlideBtn.innerText = stringLookup('btn_prev_slide');
+    printBtn.innerText = stringLookup('btn_print');
+
+    spacer.style.flexGrow = 1;
 
     nextSlideBtn.onclick = () => {
         slideshow.gotoNextSlide();
@@ -118,6 +140,10 @@ function applyAccessibilityFixes(targetWindow, slideshow) {
 
     prevSlideBtn.onclick = () => {
         slideshow.gotoPreviousSlide();
+    };
+
+    printBtn.onclick = () => {
+        targetWindow.print();
     };
 
     slideshow.on('showSlide', function(newSlide) {
@@ -131,7 +157,7 @@ function applyAccessibilityFixes(targetWindow, slideshow) {
 
 
 
-    nav.replaceChildren(prevSlideBtn, nextSlideBtn);
+    nav.replaceChildren(prevSlideBtn, nextSlideBtn, spacer, printBtn);
     targetWindow.document.body.appendChild(nav);
 }
 

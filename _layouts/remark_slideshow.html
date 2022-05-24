@@ -4,21 +4,23 @@ layout: default
 
 <!-- Defines a https://remarkjs.com/ slideshow -->
 
+{% assign frame_resource_url = 'assets/html/remark_presentation_frame.html.resource' | relative_url %}
+
 <main class="slideshow-mode">
     <iframe
             id="presentation_frame"
-            src="{{ 'assets/html/remark_presentation_frame.html.resource' | relative_url }}"></iframe>
+            onload="window.presentationFrameLoaded = true;"></iframe>
 </main>
 
 <script defer type="module">
     import slideshow from "{{ 'assets/js/layout/remark_slideshow.mjs' | relative_url }}";
 
     let presentationFrame = document.querySelector("#presentation_frame");
-    let presentationDoc = presentationFrame.contentDocument;
+    presentationFrame.src = {{ frame_resource_url | jsonify }};
+    window.presentationFrameLoaded = false;
 
     let config = {{ page.remark_presentation_config | default: site.remark_presentation_config | jsonify }};
     config ??= {};
-    config.highlightStyle ??= 'a11y-dark';
 
     config.source = {{ page.content | jsonify }};
 
@@ -29,22 +31,47 @@ layout: default
         {% endcapture %}
         {{ library_imports | url_encode | replace: "+", " " }}
     `);
-    // Re-create the document, add the library imports to it.
-    let slideshowHtml = presentationDoc.documentElement.outerHTML;
 
-    presentationDoc.open();
-    presentationDoc.write("<!DOCTYPE html>");
-    presentationDoc.write(slideshowHtml);
-    presentationDoc.write(libraryImports);
-    presentationDoc.write(`
-        <${"script"}>
-        if (window.MERMAID_CONFIG) {
-            window.MERMAID_CONFIG.useMaxWidth = true;
-            window.MERMAID_CONFIG.cloneCssStyles = false;
-            window.MERMAID_CONFIG.flowchart = { useMaxWidth: true };
-        }
-        </${"script"}>
-    `);
-    slideshow.start(presentationFrame.contentWindow, config);
-    presentationDoc.close();
+    // To be called after the presentation iframe loads.
+    window.initSlides = () => {
+        let presentationDoc = presentationFrame.contentDocument;
+        let presentationWin = presentationFrame.contentWindow;
+
+        // Ensure that onload doesn't get called again if the frame reloads.
+        presentationFrame.onload = null;
+
+        // Re-create the document, add the library imports to it.
+        let slideshowHtml = presentationDoc.documentElement.outerHTML;
+
+        presentationDoc.open();
+        presentationDoc.write("<!DOCTYPE html>");
+        presentationDoc.write(slideshowHtml);
+        presentationDoc.write(libraryImports);
+        presentationDoc.write(`
+            <${"script"}>
+            if (window.MERMAID_CONFIG) {
+                window.MERMAID_CONFIG.useMaxWidth = true;
+                window.MERMAID_CONFIG.cloneCssStyles = false;
+                window.MERMAID_CONFIG.flowchart = { useMaxWidth: true };
+            }
+            </${"script"}>
+        `);
+        presentationDoc.close();
+        (async () => {
+            await slideshow.start(presentationFrame.contentWindow, config);
+
+            // Ensure that mermaid has already been run!
+            if (presentationWin.mermaid) {
+                presentationWin.mermaid.init();
+                console.log("Ran mermaid!");
+            }
+        })();
+    };
+
+    if (window.presentationFrameLoaded) {
+        initSlides();
+    }
+    else {
+        presentationFrame.onload = initSlides;
+    }
 </script>

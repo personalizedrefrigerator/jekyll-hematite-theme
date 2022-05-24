@@ -13,7 +13,11 @@
 <script
         defer
         src="{{ "assets/plugin/mermaid/mermaid.js" | relative_url }}"
-        onload="mermaid.initialize(MERMAID_CONFIG);" >
+        {% comment %}
+        Here, we're also calling "mermaid.init()" because of the defer attribute — it's
+        possible that the window has already loaded (and thus startOnLoad may have no effect).
+        {% endcomment %}
+        onload="mermaid.initialize(MERMAID_CONFIG); mermaid.init();" >
 </script>
 
 {% endif %}

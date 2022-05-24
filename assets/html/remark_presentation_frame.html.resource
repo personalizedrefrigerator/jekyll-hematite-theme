@@ -3,7 +3,7 @@
 <!-- Using a .html.resource file to prevent Jekyll from changing the extension -->
 
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en-US" }}">
+<html class="lightTheme" lang="{{ page.lang | default: site.lang | default: "en-US" }}">
     <head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
         <meta charset="utf-8"/>
@@ -25,18 +25,23 @@ h1, h2, h3 {
 /* Show hidden slides to allow preprocessors (e.g. mermaid) to
    properly account for container size.
    */
-.remark-slide-container:not(.remark-visible) {
-    display: block;
-    box-shadow: none;
-    z-index: -999;
-    visibility: hidden;
+@media screen {
+    .remark-slide-container:not(.remark-visible) {
+        display: block;
+        box-shadow: none;
+        z-index: -999;
+        visibility: hidden;
+    }
 }
 
 nav {
+    display: flex;
+
     position: absolute;
     z-index: 10000;
     bottom: 0;
     left: 0;
+    right: 0;
     opacity: 0.8;
 }
 
@@ -48,9 +53,15 @@ nav:hover, nav:focus-within {
     nav {
         display: none;
     }
+
+    /* Prevent parts of slides from being cut off on Firefox */
+    .remark-slide-scaler {
+        transform: none !important;
+    }
 }
 
         </style>
+        <link rel="stylesheet" href="{{ 'assets/style_only_syntax.css' | relative_url }}" />
     </head>
     <body>
     </body>

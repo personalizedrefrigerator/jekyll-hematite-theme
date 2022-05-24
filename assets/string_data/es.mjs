@@ -53,4 +53,5 @@ export default {
 
     btn_next_slide: 'Vaya a la diapositiva proxima',
     btn_prev_slide: 'Vaya a la diapositiva anterior',
+    btn_print: 'Imprima',
 };

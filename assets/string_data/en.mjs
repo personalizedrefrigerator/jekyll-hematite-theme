@@ -55,4 +55,5 @@ export default {
 
     btn_next_slide: 'Go to next slide',
     btn_prev_slide: 'Go to previous slide',
+    btn_print: 'Print',
 };
