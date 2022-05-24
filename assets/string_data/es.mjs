@@ -49,5 +49,8 @@ export default {
     page_theme_auto: 'Automático',
     page_theme_dark: 'Oscuro',
     page_theme_light: 'Brillante',
-    settings_minimize_header: 'Título escondido: '
+    settings_minimize_header: 'Título escondido: ',
+
+    btn_next_slide: 'Vaya a la diapositiva proxima',
+    btn_prev_slide: 'Vaya a la diapositiva anterior',
 };

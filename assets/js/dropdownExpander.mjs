@@ -51,7 +51,8 @@ function expandBasedOnURL() {
     const doExpansion = (url) => {
         // Determine the hash.
         let hash = UrlHelper.getPageHash();
-        if (hash == null) {
+        let isInvalid = hash && /^\#\d+/.exec(hash);
+        if (hash == null || isInvalid) {
             return;
         }
 

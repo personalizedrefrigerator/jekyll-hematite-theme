@@ -41,6 +41,14 @@ body > header {
     }
 }
 
+:root {
+    --header-effective-height: var(--header-height);
+}
+
+:root.minimizedNavHeader {
+    --header-effective-height: 0px;
+}
+
 :root.minimizedNavHeader body > header {
     > *:not(#toggle_sidebar_btn) {
         opacity: 0;

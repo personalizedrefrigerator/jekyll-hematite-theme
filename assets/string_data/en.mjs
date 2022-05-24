@@ -51,5 +51,8 @@ export default {
     page_theme_auto: 'Automatic',
     page_theme_dark: 'Dark Theme',
     page_theme_light: 'Light Theme',
-    settings_minimize_header: 'Hide Header: '
+    settings_minimize_header: 'Hide Header: ',
+
+    btn_next_slide: 'Go to next slide',
+    btn_prev_slide: 'Go to previous slide',
 };

@@ -1,0 +1,20 @@
+
+<!--
+    Include mermaid-js scripts.
+-->
+{% if page.mermaid || site.mermaid %}
+<script>
+    var MERMAID_CONFIG = window.MERMAID_CONFIG ?? {{ site.mermaid_config | jsonify }} ?? { };
+
+    // Load defaults
+    MERMAID_CONFIG.startOnLoad ??= true;
+    MERMAID_CONFIG.htmlLabels ??= true;
+</script>
+<script
+        defer
+        src="{{ "assets/plugin/mermaid/mermaid.js" | relative_url }}"
+        onload="mermaid.initialize(MERMAID_CONFIG);" >
+</script>
+
+{% endif %}
+

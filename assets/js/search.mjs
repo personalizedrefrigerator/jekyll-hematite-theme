@@ -54,6 +54,25 @@ class Searcher {
 
     }
 
+    /// Get number of full matches for [query] in [text].
+    /// @precondition [text] is already in a searchable (i.e.
+    /// filtered) form.
+    getNumberOfMatches(query, text) {
+        query = query.toLowerCase();
+
+        return text.toLowerCase().split(query).length - 1;
+    }
+
+    /// Get the index of the first full match for [query] in
+    /// [text], starting at [startPos]. Returns -1 if no match
+    /// is found.
+    /// @precondition [text] is already in a searchable form.
+    getIdxOfFirstMatch(query, text, startPos) {
+        query = query.toLowerCase();
+
+        return text.toLowerCase().indexOf(query, startPos);
+    }
+
     /// Get the container element for the [n]th search
     /// result for [query] in the given [elem].
     /// Returns an Element.
@@ -77,7 +96,7 @@ class Searcher {
 
             // If the current node is a leaf,
             if (elem.childNodes.length == 0) {
-                let numMatches = searchText.split(query).length - 1;
+                let numMatches = this.getNumberOfMatches(query, searchText);
                 n -= numMatches;
 
                 // If we've considered enough matches,
@@ -154,7 +173,7 @@ class Searcher {
                 index ++;
                 pageData.numMatches ++;
                 startPos = matchLoc + query.length;
-                matchLoc = toSearch.indexOf(query, startPos);
+                matchLoc = this.getIdxOfFirstMatch(query, toSearch, startPos);
             }
         }
 
@@ -185,26 +204,52 @@ class Searcher {
     }
 }
 
+/// Extract a search query and index from the current page's URL.
+function getUrlQuery() {
+    let query, resultIndex;
+
+    let urlArgs = UrlHelper.getPageArgs();
+    let pageHash = UrlHelper.getPageHash();
+
+    if (urlArgs === null) {
+        return;
+    }
+
+    // The page's hash also causes scrolling. Don't focus
+    // if the page has a hash.
+    if (pageHash != null) {
+        return;
+    }
+
+    query = urlArgs.query;
+    resultIndex = parseInt(urlArgs.index);
+
+    if (urlArgs.index === undefined) {
+        resultIndex = 0;
+    }
+
+    return { query, resultIndex };
+}
+
 /// Scrolls to and shows the search result for the given [query]
 /// If neither [query] nor [resultIndex] are given, attempt to get them from
 /// the page's arguments (i.e. from https://example.com/...?search=...,n=...).
 function focusSearchResult(searcher, elem, query, resultIndex) {
+    if (elem === undefined) {
+        console.warn(`focusSearchResult requires [elem] to function. Not focusing a result.`);
+        return;
+    }
+
     if (query === undefined && resultIndex === undefined) {
-        let urlArgs = UrlHelper.getPageArgs();
-        let pageHash = UrlHelper.getPageHash();
+        let pageArgs = getUrlQuery();
 
-        if (urlArgs === null) {
+        // No args, nothing to focus.
+        if (!pageArgs) {
             return;
         }
 
-        // The page's hash also causes scrolling. Don't focus
-        // if the page has a hash.
-        if (pageHash != null) {
-            return;
-        }
-
-        query = urlArgs.query;
-        resultIndex = parseInt(urlArgs.index);
+        resultIndex = pageArgs.resultIndex;
+        query = pageArgs.query;
 
         if (isNaN(resultIndex)) {
             console.warn("Unable to navigate to result. Given idx is NaN");
@@ -355,4 +400,4 @@ function handleSearch(searcher) {
 }
 
 export default handleSearch;
-export { handleSearch, Searcher };
+export { handleSearch, getUrlQuery, Searcher };

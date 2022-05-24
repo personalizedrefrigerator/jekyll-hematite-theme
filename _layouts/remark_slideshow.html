@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<!-- Defines a https://remarkjs.com/ slideshow -->
+
+<main class="slideshow-mode">
+    <iframe
+            id="presentation_frame"
+            src="{{ 'assets/html/remark_presentation_frame.html.resource' | relative_url }}"></iframe>
+</main>
+
+<script defer type="module">
+    import slideshow from "{{ 'assets/js/layout/remark_slideshow.mjs' | relative_url }}";
+
+    let presentationFrame = document.querySelector("#presentation_frame");
+    let presentationDoc = presentationFrame.contentDocument;
+
+    let config = {{ page.remark_presentation_config | default: site.remark_presentation_config | jsonify }};
+    config ??= {};
+    config.highlightStyle ??= 'a11y-dark';
+
+    config.source = {{ page.content | jsonify }};
+
+    // Library imports intended for this page: Forward to the frame.
+    let libraryImports = unescape(`
+        {% capture library_imports %}
+            {% include extern_library_imports.html %}
+        {% endcapture %}
+        {{ library_imports | url_encode | replace: "+", " " }}
+    `);
+    // Re-create the document, add the library imports to it.
+    let slideshowHtml = presentationDoc.documentElement.outerHTML;
+
+    presentationDoc.open();
+    presentationDoc.write("<!DOCTYPE html>");
+    presentationDoc.write(slideshowHtml);
+    presentationDoc.write(libraryImports);
+    presentationDoc.write(`
+        <${"script"}>
+        if (window.MERMAID_CONFIG) {
+            window.MERMAID_CONFIG.useMaxWidth = true;
+            window.MERMAID_CONFIG.cloneCssStyles = false;
+            window.MERMAID_CONFIG.flowchart = { useMaxWidth: true };
+        }
+        </${"script"}>
+    `);
+    slideshow.start(presentationFrame.contentWindow, config);
+    presentationDoc.close();
+</script>

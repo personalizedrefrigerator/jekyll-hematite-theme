@@ -154,6 +154,21 @@ nav#post_next_prev {
     flex-grow: 1;
 }
 
+main.slideshow-mode {
+    position: absolute;
+    display: flex;
+
+    left: 0;
+    right: 0;
+    top: var(--header-effective-height);
+    bottom: 0;
+
+    iframe {
+        flex-grow: 1;
+        border: none;
+    }
+}
+
 // On mobile devices,
 @media screen and (max-width: $site-content-preferred-width) {
     .main-container {
