@@ -13,7 +13,6 @@ function focusSearchResult(targetWin, query, targetMatchNo, slideshow, searcher)
         let currentSlideNo = slide.getSlideIndex() + 1;
 
         matchesFound += searcher.getNumberOfMatches(query, targetText);
-        console.log("Considering ", targetText, " with ", matchesFound, "matches found so far");
 
         if (matchesFound > targetMatchNo) {
             slideshow.gotoSlide(currentSlideNo);
@@ -22,20 +21,27 @@ function focusSearchResult(targetWin, query, targetMatchNo, slideshow, searcher)
 
         // Now search the notes!
         if (slide.notes) {
-            targetText = slide.notes.join("\n");
-            matchesFound += searcher.getNumberOfMatches(query, targetText);
-            if (matchesFound > targetMatchNo) {
-                slideshow.gotoSlide(currentSlideNo);
+            try {
+                targetText = (slide.notes.join ?? (() => slide.notes))("\n");
+                matchesFound += searcher.getNumberOfMatches(query, targetText);
+                if (matchesFound > targetMatchNo) {
+                    slideshow.gotoSlide(currentSlideNo);
 
-                if (!isInPresenterMode(targetWin.document)) {
-                    slideshow.togglePresenterMode();
+                    if (!isInPresenterMode(targetWin.document)) {
+                        slideshow.togglePresenterMode();
+                    }
+                    return;
                 }
-                return;
+            }
+            catch (e) {
+                console.error(`Unable to search through notes for slide`, slide, `Error: `, e);
+                console.log("Continuing...");
             }
         }
     }
 
-    console.log("Found ", matchesFound, " matches, which is less than the target of ", targetMatchNo);
+    console.log("Found ", matchesFound,
+        " matches, which is less than the target of ", targetMatchNo, ". Remaining on last slide.");
     slideshow.gotoLastSlide();
     return -1;
 }
