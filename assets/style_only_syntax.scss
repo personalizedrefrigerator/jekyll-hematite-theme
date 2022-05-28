@@ -5,6 +5,7 @@ styles: true
 
 // Only syntax highlighting. Useful for layouts like remark presentation.
 
+{% include scss/_fonts.scss %}
 @import "_colors";
 @import "_hljs";
 @import "_rogue";

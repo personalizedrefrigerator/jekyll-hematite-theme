@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "hematite"
-  spec.version       = "0.1.9"
+  spec.version       = "0.1.10"
   spec.authors       = ["Henry Heino"]
   spec.email         = ["personalizedrefrigerator@gmail.com"]
 

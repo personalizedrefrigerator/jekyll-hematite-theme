@@ -5,6 +5,8 @@ styles: true
 
 @import "hematite";
 
+{% include scss/_fonts.scss %}
+
 {% if site.hematite.auto_invert_imgs %}
 // In dark mode, invert the brightness of images
 @include auto-invert-images;
