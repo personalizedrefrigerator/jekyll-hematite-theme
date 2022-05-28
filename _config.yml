@@ -2,8 +2,8 @@
 # Settings for the demo site.
 # `jekyll serve` does not auto-reload this file.
 
-title: The Hematite Theme
-short_title: Hematite Theme
+title: Hematite Theme
+# short_title: Add a shortened version of the title for small screens
 description: A Jekyll theme intended for course websites
 permalink: pretty
 
