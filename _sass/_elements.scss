@@ -64,6 +64,10 @@ input::placeholder {
     padding: 6px;
 }
 
+main pre {
+    overflow-x: auto;
+}
+
 .main-container details {
     summary {
         cursor: pointer;
@@ -141,6 +145,17 @@ input::placeholder {
         margin-left: 10px;
         padding-left: 20px;
         color: var(--text-color-faint);
+    }
+
+    main {
+        // Some elements can grow larger than the available space.
+        // Allow scrolling.
+        @media screen {
+            .scrollable-container {
+                overflow-x: auto;
+                display: block;
+            }
+        }
     }
 }
 

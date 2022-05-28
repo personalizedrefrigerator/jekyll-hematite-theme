@@ -57,11 +57,14 @@ function expandBasedOnURL() {
         }
 
         let targetElem = document.querySelector(hash);
-        let currentElem = targetElem;
 
-        expandContainingDropdowns(targetElem);
-
-        targetElem.focus();
+        if (targetElem) {
+            expandContainingDropdowns(targetElem);
+            targetElem.focus();
+        }
+        else {
+            console.warn(`Hash`, hash, `does not correspond to an element.`);
+        }
     };
 
     doExpansion(location.href);

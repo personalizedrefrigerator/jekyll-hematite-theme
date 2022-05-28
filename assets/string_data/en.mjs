@@ -53,6 +53,7 @@ export default {
     page_theme_light: 'Light Theme',
     settings_minimize_header: 'Hide Header: ',
 
+    presentation_frame_title: 'Presentation slides',
     btn_next_slide: 'Go to next slide',
     btn_prev_slide: 'Go to previous slide',
     btn_print: 'Print',

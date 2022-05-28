@@ -2,6 +2,8 @@ import { getUrlQuery, Searcher } from "../search.mjs";
 import { stringLookup } from "../strings.mjs";
 import UrlHelper from "../UrlHelper.mjs";
 
+const GESTURE_MIN_TOUCH_MOVE_DIST = 40; // px
+
 function isInPresenterMode(targetDoc) {
     return targetDoc.body.classList.contains("remark-presenter-mode");
 }
@@ -76,6 +78,9 @@ function focusSlideFromHash(slideshow) {
 }
 
 async function main(targetWindow, config) {
+    // True if touch navigation is enabled.
+    let usingCustomTouchNav = false;
+
     if (!targetWindow.remark) {
         // Wait for page load if remark isn't available yet.
         await (new Promise(resolve => {
@@ -83,21 +88,31 @@ async function main(targetWindow, config) {
         }));
     }
 
+    // Customize touchscreen navigation — the default remark
+    // navigation can break buttons, zooming.
+    if (config?.navigation?.touch === true
+            || config?.navigation?.touch === undefined) {
+        config ??= {};
+        config.navigation ??= {};
+        config.navigation.touch = false;
+
+        usingCustomTouchNav = true;
+    }
+
     // See https://remarkjs.com/#8
     let slideshow = targetWindow.remark.create(config);
+    targetWindow.focus();
 
     // For debugging
     window.slideshow_debug = slideshow;
 
-    targetWindow.focus();
-
     addExtendedControls(targetWindow, slideshow);
     focusSearchResultFromUrl(targetWindow, slideshow);
+    focusSlideFromHash(slideshow);
 
+    // Create a URL state we can navigate back to/restore to
     targetWindow.history.replaceState(null, targetWindow.location.href);
     let targetWinHistory = targetWindow.history.state;
-
-    focusSlideFromHash(slideshow);
 
     window.addEventListener('hashchange', () => {
         focusSlideFromHash(slideshow);
@@ -117,6 +132,44 @@ async function main(targetWindow, config) {
             UrlHelper.withReplacedHash(targetWindow.location.href, hashId));
         window.location.hash = hashId;
     });
+
+    // Add custom touch events to listen for navigation.
+    if (usingCustomTouchNav) {
+        let elemContainer = targetWindow.document.body;
+        let initialPos = {};
+        let handlingGesture = false;
+
+        elemContainer.addEventListener('pointerdown', evt => {
+            if (evt.pointerType == 'touch') {
+                // Only handle single-touch gestures
+                handlingGesture = evt.isPrimary;
+                initialPos = {
+                    x: evt.clientX,
+                    y: evt.clientY,
+                };
+
+                if (handlingGesture) {
+                    evt.preventDefault();
+                }
+            }
+        });
+
+        elemContainer.addEventListener('pointerup', evt => {
+            if (evt.pointerType == 'touch' && handlingGesture) {
+                let dx = evt.clientX - initialPos.x;
+
+                if (Math.abs(dx) < GESTURE_MIN_TOUCH_MOVE_DIST) {
+                    return;
+                }
+
+                if (dx < 0) {
+                    slideshow.gotoNextSlide();
+                } else {
+                    slideshow.gotoPreviousSlide();
+                }
+            }
+        });
+    }
 }
 
 /// Apply minor adjustments to the default remark layout

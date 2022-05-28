@@ -29,6 +29,10 @@ body > header {
         align-items: center;
     }
 
+    #short_title {
+        display: none;
+    }
+
     #toggle_sidebar_btn {
         margin-right: 10px;
         background-color: var(--primary-background-color);
@@ -38,7 +42,31 @@ body > header {
         #toggle_sidebar_btn {
             display: none;
         }
+
+        box-shadow: none;
+        border-bottom: 1px solid var(--line-color-light);
     }
+}
+
+@mixin only-short-title {
+    body > header {
+        #long_title {
+            display: none !important;
+            color: red;
+        }
+
+        #short_title {
+            display: block;
+        }
+    }
+}
+
+:root.minimizedNavHeader {
+    @include only-short-title;
+}
+
+@media screen and (max-width: $site-content-preferred-width) {
+    @include only-short-title;
 }
 
 :root {

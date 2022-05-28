@@ -51,6 +51,7 @@ export default {
     page_theme_light: 'Brillante',
     settings_minimize_header: 'Título escondido: ',
 
+    presentation_frame_title: 'Diapositivas de la presentación',
     btn_next_slide: 'Vaya a la diapositiva proxima',
     btn_prev_slide: 'Vaya a la diapositiva anterior',
     btn_print: 'Imprima',

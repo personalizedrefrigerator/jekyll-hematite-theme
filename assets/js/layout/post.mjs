@@ -47,6 +47,11 @@ function createTagLinks(page) {
 
         container.appendChild(tagElem);
     }
+
+    // Don't show the tag container if there aren't any tags
+    if (page.tags.length == 0) {
+        container.style.display = "none";
+    }
 }
 
 function fillDate(page) {

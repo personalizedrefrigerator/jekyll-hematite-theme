@@ -11,16 +11,16 @@ noindex: true
         <style>
 /* Stylesheet mostly taken from https://github.com/gnab/remark/wiki#getting-started */
 @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700,400italic);
 @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
-body { font-family: 'Droid Serif'; }
+body { font-family: 'Droid Sans', sans-serif; }
 h1, h2, h3 {
     font-family: 'Yanone Kaffeesatz';
     font-weight: normal;
 }
 
-.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', monospace; }
 
 /* Show hidden slides to allow preprocessors (e.g. mermaid) to
    properly account for container size.
@@ -47,6 +47,11 @@ nav {
 
 nav:hover, nav:focus-within {
     opacity: 1;
+}
+
+/* Fix contrast issue */
+.remark-slide-number {
+    opacity: 0.8;
 }
 
 @media print {
