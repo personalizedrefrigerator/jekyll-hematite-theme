@@ -50,15 +50,25 @@ class Searcher {
                 .replaceAll(/[&]ldquo;/g, '"')
                 .replaceAll(/[&]rdquo;/g, '"')
                 .replaceAll(/[&]amp;/g, "&")
+        // Remove the astrisks around **bolded** text
+                .replaceAll(/(\s|^)[*]{2}[^*]+[*]{2}(\s|$)/g, "$1$2$3")
+        // Remove the backticks around `text` that is code-formatted
+                .replaceAll(/(\s|^)[`]([^`]+)[`](\s|$)/g, "$1$2$3") // `
                 .replaceAll(/\s+/g, ' ');
 
+    }
+
+    filterQuery_(query) {
+        return query
+            .toLowerCase()
+            .replaceAll(/\s+/g, ' ');
     }
 
     /// Get number of full matches for [query] in [text].
     /// @precondition [text] is already in a searchable (i.e.
     /// filtered) form.
     getNumberOfMatches(query, text) {
-        query = query.toLowerCase();
+        query = this.filterQuery_(query);
 
         return text.toLowerCase().split(query).length - 1;
     }
@@ -68,7 +78,7 @@ class Searcher {
     /// is found.
     /// @precondition [text] is already in a searchable form.
     getIdxOfFirstMatch(query, text, startPos) {
-        query = query.toLowerCase();
+        query = this.filterQuery_(query);
 
         return text.toLowerCase().indexOf(query, startPos);
     }
