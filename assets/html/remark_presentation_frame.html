@@ -20,7 +20,14 @@ h1, h2, h3 {
     font-weight: normal;
 }
 
-.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', monospace; }
+.remark-code, .remark-inline-code, body.mdSourceView {
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+body.mdSourceView {
+    background: white;
+    color: black;
+}
 
 /* Show hidden slides to allow preprocessors (e.g. mermaid) to
    properly account for container size.

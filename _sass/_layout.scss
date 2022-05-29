@@ -178,6 +178,9 @@ main.slideshow-mode {
         // Transition immediately!
         transition: width 0s ease, max-width 0s ease;
     }
+
+    // Don't scroll, let the inner frame do that.
+    overflow: hidden;
 }
 
 // On mobile devices,

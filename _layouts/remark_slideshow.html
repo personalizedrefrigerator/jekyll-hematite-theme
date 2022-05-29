@@ -14,6 +14,12 @@ layout: default
 
 {% assign frame_resource_url = 'assets/html/remark_presentation_frame.html' | relative_url %}
 
+<div class='loading-icon-container'>
+    <center>
+        {% include img/loading_icon.svg %}
+    </center>
+</div>
+
 <main class="slideshow-mode">
     <iframe
             id="presentation_frame"
@@ -113,13 +119,18 @@ layout: default
         `);
 
         presentationWin.initPresentation = (async () => {
-            presentationDoc.title = presentationFrame.title;
-            await slideshow.start(presentationFrame.contentWindow, config);
+            try {
+                presentationDoc.title = presentationFrame.title;
+                await slideshow.start(presentationFrame.contentWindow, config);
 
-            // Ensure that mermaid has already been run!
-            if (presentationWin.mermaid) {
-                presentationWin.mermaid.init();
-                console.log("Ran mermaid!");
+                // Ensure that mermaid has already been run!
+                if (presentationWin.mermaid) {
+                    presentationWin.mermaid.init();
+                }
+            }
+            finally {
+                // Hide the loading icon
+                document.querySelector(".loading-icon-container")?.remove();
             }
         });
 

@@ -1,0 +1,70 @@
+<svg
+   viewBox="0 0 64.0 64.0"
+   version="1.1"
+   class="loading-icon-root"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <style>
+.loading-icon-root {
+    cursor: pointer;
+    width: 64px;
+    height: 64px;
+}
+
+.loading-icon-root .rect {
+    fill: var(--primary-text-color);
+
+    transform: translate(0, 0);
+    transform-origin: 32px 32px;
+    animation: loading-icon-anim 1.5s ease infinite;
+}
+
+.loading-icon-root .rect2 {
+    animation-delay: 0.25s;
+}
+
+.loading-icon-root .rect3 {
+    animation-delay: 0.5s;
+}
+
+.loading-icon-root .rect4 {
+    animation-delay: 0.65s;
+}
+
+@keyframes loading-icon-anim {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(-360deg) scale(1, 1); }
+}
+  </style>
+  <g
+     id="layer1">
+    <rect
+       width="9"
+       height="9"
+       x="10"
+       y="10"
+       ry="4.5"
+       class="rect" />
+    <rect
+       width="9"
+       height="9"
+       x="10"
+       y="10"
+       ry="4.5"
+       class="rect rect2" />
+    <rect
+       width="9"
+       height="9"
+       x="10"
+       y="10"
+       ry="4.5"
+       class="rect rect3" />
+    <rect
+       width="9"
+       height="9"
+       x="10"
+       y="10"
+       ry="4.5"
+       class="rect rect4" />
+  </g>
+</svg>

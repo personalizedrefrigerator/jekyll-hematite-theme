@@ -77,6 +77,20 @@ function focusSlideFromHash(slideshow) {
     }
 }
 
+/// Returns true iff the slide viewer should only display markdown.
+function shouldOnlyDisplayMd() {
+    let pageArgs = UrlHelper.getPageArgs();
+    if (!pageArgs) {
+        return false;
+    }
+
+    if (pageArgs.md_only) {
+        return true;
+    }
+
+    return false;
+}
+
 async function main(targetWindow, config) {
     // True if touch navigation is enabled.
     let usingCustomTouchNav = false;
@@ -86,6 +100,13 @@ async function main(targetWindow, config) {
         await (new Promise(resolve => {
             targetWindow.addEventListener('load', resolve);
         }));
+    }
+
+    // If the user has requested that only the page's markdown be shown,
+    if (shouldOnlyDisplayMd()) {
+        targetWindow.document.body.innerText = config?.source;
+        targetWindow.document.body.classList.add('mdSourceView');
+        return;
     }
 
     // Customize touchscreen navigation — the default remark
@@ -150,6 +171,7 @@ async function main(targetWindow, config) {
 
                 if (handlingGesture) {
                     evt.preventDefault();
+                    elemContainer.setPointerCapture();
                 }
             }
         });
@@ -205,16 +227,20 @@ function addExtendedControls(targetWindow, slideshow) {
         targetWindow.print();
     };
 
+    let updateBtns = (slideIdx) => {
+        prevSlideBtn.disabled = (slideIdx == 0);
+        nextSlideBtn.disabled = (slideIdx + 1 >= slideshow.getSlideCount());
+    };
+
     slideshow.on('showSlide', function(newSlide) {
         if (!newSlide) {
             return;
         }
 
-        prevSlideBtn.disabled = (newSlide.getSlideIndex() == 0);
-        nextSlideBtn.disabled = (newSlide.getSlideIndex() + 1 >= slideshow.getSlideCount());
+        updateBtns(newSlide.getSlideIndex());
     });
 
-
+    updateBtns(0);
 
     nav.replaceChildren(prevSlideBtn, nextSlideBtn, spacer, printBtn);
     targetWindow.document.body.appendChild(nav);
