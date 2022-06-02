@@ -124,7 +124,6 @@ nav.sidebar {
     transform: scale(0, 1) translate(-30px, 0);
 
     color: var(--primary-text-color);
-    background-color: var(--primary-background-color);
     box-shadow: 0 0 2px var(--shadow-color-light);
     padding: $navbar-padding;
 
@@ -137,6 +136,15 @@ nav.sidebar {
 
     transform-origin: left;
     transition: opacity 0.5s ease, transform 0.5s ease, width 0.5s ease;
+
+    // Work around a rendering bug in Safari — apply the background color to both
+    // the results pane and the container.
+    //
+    // Without this, Safari may display elements of pinned-pages in the same
+    // location as the search results.
+    &, .search-results {
+        background-color: var(--primary-background-color);
+    }
 
 
     // Container with search box and button

@@ -7,6 +7,7 @@ import { expandContainingDropdowns } from "./dropdownExpander.mjs";
 import AnimationUtil from "./AnimationUtil.mjs";
 import AsyncUtil from "./AsyncUtil.mjs";
 import UrlHelper from "./UrlHelper.mjs";
+import EscapeHelper from "./EscapeHelper.mjs";
 
 const PAGE_DATA_URL = `{{ "/assets/search_data.json" | relative_url }}`;
 const MATCHING_TITLE_PRIORITY_INCREMENT = 15;
@@ -177,6 +178,7 @@ class Searcher {
                 results.push({
                     index,
                     context,
+                    matchIndex: matchLoc,
                     pageData,
                 });
 
@@ -305,17 +307,35 @@ function handleSearch(searcher) {
 
         searchResults.replaceChildren(descriptionElem);
 
+        // Adds HTML to bold/italicize all results in [context].
+        // [context] is HTML-escaped before adding to the result.
+        const boldResults = (context) => {
+            let result = "";
+            let queryRegex = new RegExp(`(${EscapeHelper.escapeRegex(query)})`, `ig`);
+            let contextHTML = "";
+            let lastIdx = 0;
+            for (const match of context.matchAll(queryRegex)) {
+                result += EscapeHelper.escapeHTML(context.substring(lastIdx, match.index));
+                result += "<b><i>" + EscapeHelper.escapeHTML(match[0]) + "</i></b>";
+                lastIdx = match.index + match[0].length;
+            }
+            result += EscapeHelper.escapeHTML(context.substring(lastIdx));
+
+            return result;
+        };
+
         for (const result of results) {
             let link = document.createElement("a");
-            let context = document.createElement("div");
-            context.classList.add('context');
+            let contextElem = document.createElement("div");
+            contextElem.classList.add('context');
 
             link.innerText = result.pageData.title ?? stringLookup(`untitled`);
             link.href =
                 result.pageData.url + `?query=${escape(query)},index=${result.index}`;
-            context.innerText = result.context;
 
-            link.appendChild(context);
+            contextElem.innerHTML = boldResults(result.context);
+
+            link.appendChild(contextElem);
             searchResults.appendChild(link);
         }
 
