@@ -37,6 +37,12 @@ function createTagLinks(page) {
     let label = document.querySelector("#post_tags > #tag_header_lbl");
     label.innerText = stringLookup(`tags`);
 
+    // Don't show the tag container if there aren't any tags
+    if (!page.tags || page.tags.length == 0) {
+        container.style.display = "none";
+        return;
+    }
+
     for (const tag of page.tags) {
         let tagElem = document.createElement("a");
         tagElem.style.display = "inline-block";
@@ -46,11 +52,6 @@ function createTagLinks(page) {
         tagElem.innerText = tag;
 
         container.appendChild(tagElem);
-    }
-
-    // Don't show the tag container if there aren't any tags
-    if (page.tags.length == 0) {
-        container.style.display = "none";
     }
 }
 
