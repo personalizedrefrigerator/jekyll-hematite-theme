@@ -197,10 +197,6 @@ a.settings-btn {
     }
 }
 
-:root.darkTheme main img.auto-invert {
-    @include img-invert;
-}
-
 // Users can `include' this to invert images automatically in dark mode.
 @mixin auto-invert-images {
     @media (prefers-color-scheme: dark) {
@@ -209,7 +205,9 @@ a.settings-btn {
         }
     }
 
-    :root.darkTheme main img:not(.no-invert) {
-        @include img-invert;
+    :root.darkTheme, :root.veryDarkTheme {
+        main img:not(.no-invert) {
+            @include img-invert;
+        }
     }
 }
