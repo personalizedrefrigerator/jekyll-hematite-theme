@@ -1,8 +1,10 @@
+---
+---
 
 import { PageAlert } from "./PageAlert.mjs";
 import { stringLookup as _L } from './strings.mjs';
 
-const INTERIOR_LINK_TEXT = "🔗";
+const INTERIOR_LINK_CONTENT_HTML = `{% include img/chain-link.svg %}`;
 const INTERIOR_LINK_CONTAINER_CLSS = "linkToHeaderContainer";
 
 /// Creates 🔗 buttons for every header with an ID.
@@ -25,9 +27,10 @@ function createLinkButton_(header) {
     let headerText = header.innerText;
 
     container.classList.add(INTERIOR_LINK_CONTAINER_CLSS);
-    link.innerText = INTERIOR_LINK_TEXT;
     link.title = _L("copy_link_to_header", headerText);
     link.href = `#${header.getAttribute('id')}`;
+    link.innerHTML = INTERIOR_LINK_CONTENT_HTML;
+
     link.onclick = () => {
         navigator.clipboard.writeText(link.href);
         PageAlert.builder()

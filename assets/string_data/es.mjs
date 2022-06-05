@@ -48,6 +48,7 @@ export default {
     page_font_large: 'Grande',
     page_theme_auto: 'Automático',
     page_theme_dark: 'Oscuro',
+    page_theme_darkest: 'Muy Oscuro',
     page_theme_light: 'Brillante',
     settings_minimize_header: 'Título escondido: ',
 

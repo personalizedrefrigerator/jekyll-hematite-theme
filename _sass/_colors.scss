@@ -29,15 +29,11 @@
     --syntax-comment-fg: #338;
     --syntax-name-fg: #331;
     --syntax-normal-fg: black;
+    --code-background-color: #f9f5f5;
 }
 
-@media screen {
-    :root:not(.darkTheme), :root.lightTheme {
-        --code-background-color: #f9f5f5;
-    }
-}
 
-@mixin dark-theme-colors {
+@mixin very-dark-theme-colors {
     --primary-text-color: white;
     --secondary-text-color: white;
     --text-color-faint: #ccc;
@@ -47,7 +43,7 @@
     --selected-item-fg-color: white;
     --selected-item-bg-color: #530033;
 
-    --primary-background-color: black;
+    --primary-background-color: #000;
     --secondary-background-color: #111;
     --code-background-color: #222;
     --line-color-light: #222;
@@ -70,6 +66,39 @@
     --syntax-normal-fg: white;
 }
 
+@mixin dark-theme-colors {
+    --primary-text-color: white;
+    --secondary-text-color: white;
+    --text-color-faint: #ccc;
+    --link-color: #fa0;
+    --visited-link-color: #f0a;
+
+    --selected-item-fg-color: white;
+    --selected-item-bg-color: #530033;
+
+    --primary-background-color: #333;
+    --secondary-background-color: #222;
+    --code-background-color: #222;
+    --line-color-light: #555;
+    --line-color-normal: #aaa;
+
+    --color-alert-background: #300;
+    --color-alert-foreground: white;
+
+    --shadow-color-light: rgba(220, 220, 200, 0.5);
+
+
+    // Syntax highlighting
+    --syntax-keyword-fg: pink;
+    --syntax-string-fg: #cfc;
+    --syntax-number-fg: #eef;
+    --syntax-bracket-fg: #faf;
+    --syntax-operator-fg: #aff;
+    --syntax-comment-fg: #aef;
+    --syntax-name-fg: #edf;
+    --syntax-normal-fg: white;
+}
+
 @media screen and (prefers-color-scheme: dark) {
     :root:not(.lightTheme) {
         @include dark-theme-colors;
@@ -79,6 +108,10 @@
 @media screen {
     :root.darkTheme {
         @include dark-theme-colors;
+    }
+
+    :root.veryDarkTheme {
+        @include very-dark-theme-colors;
     }
 }
 

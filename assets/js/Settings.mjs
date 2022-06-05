@@ -8,6 +8,7 @@ const THEME_TRANSITION_TIME = 500; // ms
 class Settings {
     THEME_AUTO = 'auto';
     THEME_DARK = 'dark';
+    THEME_DARKEST = 'darkest';
     THEME_LIGHT = 'light';
 
     FONT_DEFAULT = 'default';
@@ -94,20 +95,13 @@ class Settings {
         return this.getFontSize() != this.FONT_SIZE_DEFAULT;
     }
 
-    forcingDarkTheme_() {
-        return this.getTheme() == this.THEME_DARK;
-    }
-
-    forcingLightTheme_() {
-        return this.getTheme() == this.THEME_LIGHT;
-    }
-
     async applySettings() {
         document.documentElement.classList.add("changingTheme");
 
         // Clean up previous changes. We might be re-applying styles.
         document.documentElement.classList.remove("lightTheme");
         document.documentElement.classList.remove("darkTheme");
+        document.documentElement.classList.remove("veryDarkTheme");
 
         if (!this.style_) {
             this.style_ = document.createElement("style");
@@ -147,11 +141,16 @@ class Settings {
         document.documentElement.appendChild(this.style_);
 
         // Theme
-        if (this.forcingDarkTheme_()) {
-            document.documentElement.classList.add("darkTheme");
-        }
-        else if (this.forcingLightTheme_()) {
-            document.documentElement.classList.add("lightTheme");
+        switch (this.getTheme()) {
+            case this.THEME_DARK:
+                document.documentElement.classList.add("darkTheme");
+                break;
+            case this.THEME_DARKEST:
+                document.documentElement.classList.add("veryDarkTheme");
+                break;
+            case this.THEME_LIGHT:
+                document.documentElement.classList.add("lightTheme");
+                break;
         }
 
         if (this.getHeaderMinimized()) {

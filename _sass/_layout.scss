@@ -4,7 +4,7 @@
 @import "_calendar";
 
 .main-container {
-    box-shadow: 1px 1px 3px var(--shadow-color-light);
+    box-shadow: 0px -1px 2px var(--shadow-color-light);
     background-color: var(--primary-background-color);
 
     max-width: $site-content-preferred-width;
@@ -139,15 +139,28 @@ nav#post_next_prev {
 }
 
 .linkToHeaderContainer {
-    float: right;
-    opacity: 0.1;
     cursor: pointer;
+    position: absolute;
+    opacity: 0;
+
+    a {
+        margin-left: -1em;
+
+        svg {
+            width: 1em;
+            height: 0.7em;
+        }
+    }
 
     transition: opacity 0.2s ease;
 }
 
-.linkToHeaderContainer:hover, .linkToHeaderContainer:focus-within {
-    opacity: 1;
+h1, h2, h3, h4, h5, h6 {
+    &:hover, &:focus-visible {
+        .linkToHeaderContainer {
+            opacity: 1;
+        }
+    }
 }
 
 .spacer {

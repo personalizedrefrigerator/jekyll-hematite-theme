@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="chain-link-root" width="120" height="120" version="1.1" viewBox="5 0 115 115" xmlns="http://www.w3.org/2000/svg">
+<style>
+.chain-link-group {
+    stroke: var(--primary-text-color);
+    fill: var(--primary-text-color);
+    transform: scale(1, 1);
+    cursor: pointer;
+
+    transition: transform 0.5s ease;
+}
+
+*:hover > .chain-link-root > .chain-link-group, *:focus-visible > .chain-link-root > .chain-link-group {
+    transform: scale(0.9, 0.9) rotate(3deg);
+}
+
+.first-link {
+    transition: transform 0.5s ease;
+}
+
+*:hover > .chain-link-root .first-link, *:focus-visible > .chain-link-root .first-link {
+    transform: rotate(-1deg) translate(3px, 5px);
+}
+</style>
+   <g class="chain-link-group" stroke-width="1.3073px">
+      <path class="first-link" d="m33.397 50.158c-2.6598 5.036-2.2862 10.261-1.9847 14.517 0 0-15.64 22.738-7.7042 28.627 11.282 8.3732 27.844-11.316 35.784-22.274 4.6398-6.404 11.497-17.806 4.8574-22.551-4.4648-3.1911-15.534 6.396-15.534 6.396 2.4001-4.8081 3.8451-9.2997 8.8749-14.979 0 0 12.876-7.89 17.582-4.4037 10.785 7.9897 4.045 26.844-2.9517 37.755-11.67 18.198-40.276 49.141-57.96 35.093-15.977-12.692 19.037-58.18 19.037-58.18z"/>
+      <path class="second-link chain-link" d="m76.584 70.435c3.391-6.7587 5.3144-12.629 6.102-17.811 0 0 15.266-26.145 6.953-34.912-9.4283-9.9438-27.656 11.689-35.415 22.752-4.5343 6.4656-10.798 17.514-4.4871 22.614 3.5372 2.8589 13.627-3.6947 13.627-3.6947-3.7755 9.069-3.9072 9.1256-8.0298 14.333 0 0-12.197 5.8204-16.306 2.4937-10.388-8.4101-4.8557-26.982 2.3324-37.79 11.277-16.957 39.806-44.356 56.165-30.668 7.7991 6.5255 4.0194 21.892 0.36418 31.865-2.4291 6.628-21.307 30.818-21.307 30.818z"/>
+   </g>
+</svg>

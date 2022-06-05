@@ -50,6 +50,7 @@ export default {
     page_font_large: 'Large',
     page_theme_auto: 'Automatic',
     page_theme_dark: 'Dark Theme',
+    page_theme_darkest: 'Very Dark Theme',
     page_theme_light: 'Light Theme',
     settings_minimize_header: 'Hide Header: ',
 
