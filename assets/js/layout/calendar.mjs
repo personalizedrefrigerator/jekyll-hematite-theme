@@ -43,7 +43,7 @@ function getCalendarData(elem, formatElemLabels, dateHeaderTag) {
                 }
             }
             catch (e) {
-                 errored = true;
+                errored = true;
             }
 
             if (errored) {
@@ -277,7 +277,7 @@ class Calendar {
             return this.data_[i];
         }
 
-        return null;
+        return this.data_[this.data_.length - 1] ?? null;
     }
 
     /// Get an item in [data_] from [date], if [searchDate]
