@@ -115,3 +115,6 @@ $$\text{This}\qquad$$ is an example of $$\KaTeX$$ usage.
 This theme also supports blog-like posts (they show up on the calendar) and searchable content.
 
 See the [documentation]({{ "assets/html/all_tags.html#tag__documentation" | relative_url }}) posts for more!
+
+# Recent posts
+{% include recent_posts.html %}
