@@ -47,4 +47,21 @@
     .n, .nv, .nf, .nt, .na, .nx, .nd {
         color: var(--syntax-name-fg);
     }
+
+    // Markdown
+
+    // Headings
+    .gh, .gs {
+        font-weight: bold;
+    }
+
+    // Italics
+    .ge {
+        font-style: italic;
+    }
+
+    // Code
+    .sb {
+        border: 1px solid var(--line-color-light);
+    }
 }
