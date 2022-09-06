@@ -6,14 +6,11 @@ tags:
 ---
 
 With version 0.1.16 of the Hematite theme comes a “recent posts” widget. Writing
-{% raw %}
 ```markdown
 # Recent posts
 
-{% include recent_posts.html %}
-
+{% raw %}{% include recent_posts.html %}{% endraw %}
 ```
-{% endraw %}
 renders as
 <div class='boxed force-show-on-print'>
     {% include recent_posts.html %}
@@ -31,11 +28,9 @@ renders as
 # Showing a different number of recent posts
 
 To limit the number of recent posts to two,
-{% raw %}
 ```liquid
-
+{% raw %}
 {% assign recent_post_limit = 2 %}
 {% include recent_posts.html %}
-
-```
 {% endraw %}
+```
