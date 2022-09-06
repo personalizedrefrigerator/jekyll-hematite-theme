@@ -186,6 +186,12 @@ a.settings-btn {
     }
 }
 
+div.boxed {
+    border: 1px solid var(--line-color-light);
+    border-radius: 2px;
+    padding: 14px;
+}
+
 // Invert while trying to preserve color hue.
 @mixin img-invert {
     filter: invert(1) hue-rotate(180deg);
