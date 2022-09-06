@@ -4,6 +4,7 @@
  * Bug fixes:
    * Fix markdown headers/bolded/italicized regions not being highlighted.
    * Fix `recent_posts` not working on pages with a non-empty `baseurl`.
+   * Fix checklists showing an additional leading bullet point.
 
 # 0.1.16
  * Added a `recent_posts` layout. Try including `recent_posts.html`!

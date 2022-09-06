@@ -192,6 +192,19 @@ div.boxed {
     padding: 14px;
 }
 
+ul.task-list {
+    li.task-list-item {
+        &::marker {
+            content: "";
+        }
+
+        .task-list-item-checkbox {
+            margin-left: -15px;
+            margin-right: 15px;
+        }
+    }
+}
+
 // Invert while trying to preserve color hue.
 @mixin img-invert {
     filter: invert(1) hue-rotate(180deg);
