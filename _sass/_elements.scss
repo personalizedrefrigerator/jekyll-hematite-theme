@@ -202,12 +202,6 @@ ul.task-list {
             margin-left: -15px;
             margin-right: 15px;
         }
-
-        // Checkbox inputs in task lists are often disabled. Make them
-        // more visible.
-        input[type="checkbox"] {
-            filter: saturate(10) hue-rotate(90deg);
-        }
     }
 }
 

@@ -12,9 +12,6 @@ sidebarindex: 1
 *A responsive theme designed with course websites in mind.*
 
 <aside class="warning" markdown=1>
-## Warning!
-This theme is still quite new! Bugs are bound to be found!
-
 Please [report bugs on GitHub.](https://github.com/personalizedrefrigerator/jekyll-hematite-theme/issues/new?assignees=&labels=bug&template=bug_report.md)
 </aside>
 

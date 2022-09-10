@@ -4,6 +4,7 @@ import handleSidebar from "./sidebar.mjs";
 import handleSearch from "./search.mjs";
 import autoExpandDropdowns from "./dropdownExpander.mjs";
 import makeElemsScrollable from "./scrollables.mjs";
+import fixTaskLists from './fixTasklists.mjs';
 import Settings from "./Settings.mjs";
 
 // After loading elements, images, css, etc.
@@ -19,6 +20,7 @@ addEventListener("load", () => {
 addEventListener("DOMContentLoaded", () => {
     handleSidebar();
     makeElemsScrollable();
+    fixTaskLists();
 });
 
 // Apply user-specified settings
