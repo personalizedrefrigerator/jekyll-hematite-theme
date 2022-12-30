@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "hematite"
-  spec.version       = "0.1.17"
+  spec.version       = "0.1.18"
   spec.authors       = ["Henry Heino"]
   spec.email         = ["personalizedrefrigerator@gmail.com"]
 
@@ -12,5 +12,5 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0").select { |f| f.match(%r!^(assets|_layouts|_includes|_sass|LICENSE|README|_config\.yml)!i) }
 
-  spec.add_runtime_dependency "jekyll", "~> 4.2"
+  spec.add_runtime_dependency "jekyll", "~> 4.3"
 end
