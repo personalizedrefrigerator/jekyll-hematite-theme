@@ -1,6 +1,6 @@
 import { stringLookup } from "./strings.mjs";
 import { announceForAccessibility } from "./PageAlert.mjs";
-
+import AsyncUtil from "./AsyncUtil.mjs";
 
 function handleSidebar() {
     const toggleBtn = document.querySelector(`button#toggle_sidebar_btn`);
@@ -38,10 +38,12 @@ function handleSidebar() {
     };
 
     // Expand the sidebar with/without animation.
-    const autoExpandSidebar = (noAnimations) => {
+    const autoExpandSidebar = async (noAnimations) => {
         if (noAnimations) {
             // Don't animate the sidebar if auto-expanding.
             sidebar.style.transition = "none";
+
+            await AsyncUtil.nextAnimationFrame();
         }
 
         let remainingSpace = window.innerWidth - mainContainer.clientWidth;
@@ -54,14 +56,13 @@ function handleSidebar() {
             setSidebarOpen(false);
         }
 
-
         updateBtn();
 
         if (noAnimations) {
+            await AsyncUtil.nextAnimationFrame();
+
             // Reset the sidebar's transition.
-            requestAnimationFrame(() => {
-                sidebar.style.transition = "";
-            });
+            sidebar.style.transition = "";
         }
     };
 
